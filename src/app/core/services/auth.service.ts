@@ -31,11 +31,10 @@ export class AuthService {
     userData.client_id = "2_4";
     userData.client_secret = "4";
 
-    this.http.post("https://bookshare-rest-api.herokuapp.com/oauth/v2/token", userData)._trySubscribe((credentials) => {
+    this.http.post<LoginUserData>("https://bookshare-rest-api.herokuapp.com/oauth/v2/token", userData).subscribe((credentials) => {
       localStorage.setItem("token", credentials['access_token']);
       this.router.navigate(['/']);
-    }).console.error();
-    
+    })
   };
 
   logoutUser() {
