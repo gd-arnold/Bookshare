@@ -1,15 +1,21 @@
-.btnreg {
+.btnlog {
     color: rgb(250, 250, 250);
     font-weight: bold;
     background-color: #F68D16;
     border-color: #F68D16;
     border-radius: 0.3rem;
-    width: 15rem;
+    width: 9rem;
     border-style: solid;
 }
 
-.btnreg:hover {
+.btnlog:hover {
     border-color: #EF5E1B;
     background-color: rgb(250, 250, 250);
     color: #EF5E1B;
+}
+
+.warning {
+    color: #EF5E1B;
+    font-weight: 750;
+    font-size: 14px;
 }

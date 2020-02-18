@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-3 col-sm-0"></div>
+            <div class="col-md-6 col-sm-12">
+                <h3 class="text-center mt-2">Регистрация</h3>
+                <form #registerForm="ngForm" (ngSubmit)="registerHandler(registerForm.value)">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <input #firstNameInput="ngModel" ngModel name="firstName" type="text" placeholder="Име" class="form-control mt-3" required>
+                            <div *ngIf="firstNameInput.invalid && firstNameInput.touched" class="warning">Моля въведете име.</div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <input #lastNameInput="ngModel" ngModel name="lastName" type="text" placeholder="Фамилия" class="form-control mt-3" required>
+                            <div *ngIf="lastNameInput.invalid && lastNameInput.touched" class="warning">Моля въведете фамилия.</div>
+                        </div>
+                    </div>
+                    <input #emailInput="ngModel" ngModel name="email" type="email" placeholder="Имейл" class="form-control mt-3" required email>
+                    <div *ngIf="emailInput.invalid && emailInput.touched" class="warning">Моля въведете валиден имейл адрес.</div>
+                    <input #passwordInput="ngModel" ngModel name="password" type="password" placeholder="Парола" class="form-control mt-3" required minlength="6">
+                    <div *ngIf="passwordInput.hasError('required') && passwordInput.touched" class="warning">Моля въведете парола.</div>
+                    <div *ngIf="passwordInput.hasError('minlength') && !passwordInput.hasError('required') && passwordInput.touched" class="warning">Паролата трябва да бъде поне 6 символа.</div>
+                    <input #passwordRepeatInput="ngModel" ngModel name="passwordRepeat" type="password" placeholder="Повтори Парола" class="form-control my-3" required minlength="6">
+                    <div *ngIf="passwordRepeatInput.value !== passwordInput.value && passwordRepeatInput.touched" class="warning">Двете пароли трябва да съвпадат.</div>
+                    <div class="form-row text-center">
+                        <div class="col-12">
+                            <button [disabled]="registerForm.invalid || passwordRepeatInput.value !== passwordInput.value" class="btn btn-dark text-center mt-3 btnreg" href="#">Регистрирай се</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3 col-sm-0"></div>
+        </div>
+    </div>
+</div>

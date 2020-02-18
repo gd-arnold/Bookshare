@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-4 col-sm-0"></div>
+            <div class="col-md-4 col-sm-12">
+                <h3 class="text-center mt-2">Вход</h3>
+                <form #loginForm="ngForm" (ngSubmit)="loginHandler(loginForm.value)">
+                    <input #emailInput="ngModel" ngModel name="username" type="email" placeholder="Имейл" class="form-control mt-4" required email>
+                    <div *ngIf="emailInput.invalid && emailInput.touched" class="warning">Моля въведете валиден имейл адрес.</div>
+                    <input #passwordInput="ngModel" ngModel name="password" type="password" placeholder="Парола" class="form-control mt-3" required minlength="6">
+                    <div *ngIf="passwordInput.hasError('required') && passwordInput.touched" class="warning">Моля въведете парола.</div>
+                    <div *ngIf="passwordInput.hasError('minlength') && !passwordInput.hasError('required') && passwordInput.touched" class="warning">Паролата трябва да бъде поне 6 символа.</div>
+                    <div class="form-row text-center">
+                        <div class="col-12">
+                            <button [disabled]="loginForm.invalid" class="btn btn-dark text-center mt-3 btnlog">Влез</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 col-sm-0"></div>
+        </div>
+    </div>
+</div>
