@@ -9,11 +9,13 @@ import { LayoutModule } from './components/layout/layout.module';
 import { AuthModule } from './components/auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BookModule } from './components/book/book.module';
+import { HomepageComponent } from './home/homepage/homepage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
