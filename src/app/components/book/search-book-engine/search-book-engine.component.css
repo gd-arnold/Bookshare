@@ -1,0 +1,44 @@
+.search-engine {
+    width: 350px;
+}
+
+.books {
+    position: absolute;
+    background-color: white;
+    border-color: white;
+    width: 350px;
+}
+
+.book img {
+    width: 60px;
+    height: 80px;
+    float: left;
+    margin-right: 7px;
+    padding: 2px;
+}
+
+.book-title {
+    white-space: normal;
+    margin-left: 15px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.book-author {
+    margin-left: 5px;
+    margin-top: -15px;
+    font-size: 13px;
+}
+
+.book {
+    overflow: hidden;
+}
+
+.book:hover{
+    background-color: whitesmoke;
+    border-color: whitesmoke;
+}
+
+.books {
+    z-index: 1;
+}

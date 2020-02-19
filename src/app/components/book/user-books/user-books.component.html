@@ -1,0 +1,10 @@
+<div class="container-fluid padding books" *ngIf="userBooks">
+    <h5 class="library-title">Моята Библиотека</h5>
+    <div class="row text-center d-flex justify-content-center">
+        <div *ngFor="let book of userBooks" class="col-xs-12 col-sm-4 col-md-2 book">
+            <img class="book-img" [src]="book.imageURL">
+            <p class="book-title">{{book.title}}</p>
+            <p class="book-author">Автор: {{book.author}}</p>
+        </div>
+    </div>
+</div>

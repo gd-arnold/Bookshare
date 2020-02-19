@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { BookService } from 'src/app/core/services/book.service';
 
 @Component({
-  selector: 'app-search-engine',
-  templateUrl: './search-engine.component.html',
-  styleUrls: ['./search-engine.component.css']
+  selector: 'app-search-book-engine',
+  templateUrl: './search-book-engine.component.html',
+  styleUrls: ['./search-book-engine.component.css']
 })
-export class SearchEngineComponent {
+export class SearchBookEngineComponent {
 
-  get books() { return this.bookService.books; }
+  get searchedBooks() { return this.bookService.searchedBooks; }
 
   constructor(private bookService: BookService) { }
 
