@@ -8,11 +8,13 @@ import { HomeComponent } from './components/home/home.component';
 import { LayoutModule } from './components/layout/layout.module';
 import { AuthModule } from './components/auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
+import { BookComponent } from './add-book/book/book.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    BookComponent
   ],
   imports: [
     BrowserModule,
