@@ -1,5 +1,5 @@
 <form class="form-inline">
-    <input type="text" class="search-engine form-control" placeholder="Потърси книга..." (keyup)="search($event)">
+    <input type="text" class="search-engine form-control" (keyup)="search($event)">
 </form>
 <div class="books" *ngIf="books">
     <div *ngFor="let book of books" class="book">
