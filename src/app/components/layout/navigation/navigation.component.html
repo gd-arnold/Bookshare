@@ -5,9 +5,8 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
-        <app-search-engine></app-search-engine>
         <div class="navbar-nav center ml-auto">
-            <a *ngIf="isAuth" href="#" class="nav-item nav-link"><button class="navbtn">Добави книга</button></a>
+            <a *ngIf="isAuth" routerLink="/book/add" class="nav-item nav-link"><button class="navbtn">Добави книга</button></a>
             <a *ngIf="isAuth" href="#" class="nav-item nav-link"><img class = "notification" src="assets/static/notification.png"></a>
             <a *ngIf="!isAuth" routerLink="/auth/login" class="nav-item nav-link login active">Влез</a>
             <a *ngIf="!isAuth" routerLink="/auth/register" class="nav-item nav-link"><button class="navbtn">Регистрирай се</button></a>
