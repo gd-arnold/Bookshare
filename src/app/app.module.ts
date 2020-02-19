@@ -4,18 +4,15 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
 import { LayoutModule } from './components/layout/layout.module';
 import { AuthModule } from './components/auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BookModule } from './components/book/book.module';
-import { HomepageComponent } from './home/homepage/homepage.component';
+import { HomeModule } from './components/home/home.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    HomepageComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +21,8 @@ import { HomepageComponent } from './home/homepage/homepage.component';
     LayoutModule,
     AuthModule,
     FormsModule,
-    BookModule
+    BookModule,
+    HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
