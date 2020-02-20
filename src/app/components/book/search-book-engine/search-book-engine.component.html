@@ -4,7 +4,7 @@
     </form>
 
     <div class="books" *ngIf="searchedBooks">
-        <div *ngFor="let book of searchedBooks" class="book">
+        <div *ngFor="let book of searchedBooks" class="book" (click)="viewBook(book.id)">
             <img [src]="book.imageURL">
             <p class="book-title">{{book.title}}</p>
             <p class="book-author">Автор: {{book.author}}</p>

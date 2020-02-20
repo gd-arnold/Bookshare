@@ -7,19 +7,22 @@ import { SharedModule } from '../shared/shared.module';
 import { UserBooksComponent } from './user-books/user-books.component';
 import { AddBookEngineComponent } from './add-book-engine/add-book-engine.component';
 import { SearchBookEngineComponent } from './search-book-engine/search-book-engine.component';
+import { BookDetailComponent } from './book-detail/book-detail.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AddBookComponent,
     UserBooksComponent, 
     AddBookEngineComponent, 
-    SearchBookEngineComponent
+    SearchBookEngineComponent, BookDetailComponent
   ],
   imports: [
     CommonModule,
     BookRoutingModule,
     LayoutModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   exports: [
     AddBookComponent,

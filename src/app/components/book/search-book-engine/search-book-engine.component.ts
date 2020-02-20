@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BookService } from 'src/app/core/services/book.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-book-engine',
@@ -10,11 +11,19 @@ export class SearchBookEngineComponent {
 
   get searchedBooks() { return this.bookService.searchedBooks; }
 
-  constructor(private bookService: BookService) { }
+  constructor(
+    private bookService: BookService,
+    private router: Router
+  ) { }
 
   search(event) {
     let searchTitle = event.target.value;
     this.bookService.searchBook(searchTitle);
+  }
+
+  viewBook(id: string) {
+    this.bookService.searchedBooks = [];
+    this.router.navigate([`book/${id}`]);
   }
 
 }
