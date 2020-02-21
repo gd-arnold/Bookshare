@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { RegisterUserData } from 'src/app/components/shared/interfaces/register-user-data';
 import { Router } from '@angular/router';
 import { LoginUserData } from 'src/app/components/shared/interfaces/login-user-data';
+import { BookService } from './book.service';
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 
@@ -20,6 +21,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private bookService: BookService
   ) { }
 
   registerUser(userData: RegisterUserData) {

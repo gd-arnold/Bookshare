@@ -1,23 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BookService } from 'src/app/core/services/book.service';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { IBook } from '../../shared/interfaces/book';
 
 @Component({
   selector: 'app-user-books',
   templateUrl: './user-books.component.html',
   styleUrls: ['./user-books.component.css']
 })
-export class UserBooksComponent implements OnInit {
+export class UserBooksComponent implements OnInit, OnDestroy {
 
-  get userBooks() { return this.bookService.userBooks; }
+  userBooks: IBook[];
+  userBooksSub: Subscription;
 
   constructor(
     private bookService: BookService
   ) { }
 
   ngOnInit() {
-    setInterval(() => {
-      this.bookService.fetchAllUserBooks();
-    }, 100);
+    this.bookService.fetchAllUserBooks();
+    this.userBooksSub = this.bookService.booksChanged.subscribe((books) => {
+      this.userBooks = books;
+    })
+  }
+
+  ngOnDestroy() {
+    this.userBooksSub.unsubscribe();
+    this.bookService.cancelSubscriptions();
   }
 
 }

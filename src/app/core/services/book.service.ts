@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IBook } from 'src/app/components/shared/interfaces/book';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
@@ -21,10 +21,13 @@ export class BookService {
   searchedBooks: IBook[];
   userBooks: IBook[];
   book: IBook;
+  booksChanged = new Subject<IBook[]>();
+  
+  private _booksForUser: IBook[] = [];
+  private _bookSubscriptions: Subscription[] = [];
 
   constructor(
-    private http: HttpClient,
-    private router: Router
+    private http: HttpClient
   ) { }
 
   searchBook(searchTitle: string) {
@@ -35,19 +38,24 @@ export class BookService {
 
   addBook(book: IBook) {
     this.http.post<IBook>(`${urlPrivate}/add-book`, book, httpOptions).subscribe(() => {
-      this.router.navigate(['/book/add']);
+      this.fetchAllUserBooks();
     })
   }
 
   fetchAllUserBooks() {
-    this.http.get<IBook[]>(`${urlPrivate}/user-books`, httpOptions).subscribe(books => {
-      this.userBooks = books;
-    });
+    this._bookSubscriptions.push(this.http.get<IBook[]>(`${urlPrivate}/user-books`, httpOptions).subscribe(books => {
+      this._booksForUser = books;
+      this.booksChanged.next([...this._booksForUser]);
+    }));
   }
 
   fetchBookById(id: string) {
     this.http.get<IBook>(`${url}/book/${id}`).subscribe(book => {
       this.book = book;
     });
+  }
+
+  cancelSubscriptions() {
+    this._bookSubscriptions.forEach((s) => s.unsubscribe());
   }
 }
