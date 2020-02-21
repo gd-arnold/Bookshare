@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RegisterUserData } from 'src/app/components/shared/interfaces/register-user-data';
 import { Router } from '@angular/router';
 import { LoginUserData } from 'src/app/components/shared/interfaces/login-user-data';
 import { BookService } from './book.service';
 import { environment } from 'src/environments/environment';
+import { IUser } from 'src/app/components/shared/interfaces/user';
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 
@@ -13,16 +14,26 @@ const url = "https://bookshare-rest-api.herokuapp.com";
 })
 export class AuthService {
 
+  currentUser: IUser;
+
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) { }
+
   get isAuth() {
     if (localStorage.getItem("token")) {
       return true;
     } return false;
   }
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) { }
+  getHttpOptions(token) {
+    return {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+    };
+  }
 
   registerUser(userData: RegisterUserData) {
     this.http.post<RegisterUserData>(`${url}/register`, userData).subscribe(() => {
@@ -44,5 +55,11 @@ export class AuthService {
   logoutUser() {
     localStorage.clear();
     this.router.navigate(['/'])
+  }
+
+  getCurrentUserBasicData() {
+    this.http.get<IUser>('http://127.0.0.1:8000/private/current-user-basic-data', this.getHttpOptions(localStorage.getItem('token'))).subscribe((user) => {
+      this.currentUser = user;
+    });
   }
 }
