@@ -1,1 +1,6 @@
-<p *ngIf="book">{{book.title}}</p>
+<div *ngIf="book">
+    <p>{{book.title}}</p>
+    <div *ngIf="currentUserData">
+        <p *ngIf="!isOwner()">Поискай</p>
+    </div>
+</div>
