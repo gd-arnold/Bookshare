@@ -7,4 +7,5 @@ export interface IBook {
     datePublished: string;
     pages: string;
     imageURL: string;
+    users: [];
 }
