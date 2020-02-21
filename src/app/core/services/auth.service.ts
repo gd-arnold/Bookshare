@@ -4,6 +4,7 @@ import { RegisterUserData } from 'src/app/components/shared/interfaces/register-
 import { Router } from '@angular/router';
 import { LoginUserData } from 'src/app/components/shared/interfaces/login-user-data';
 import { BookService } from './book.service';
+import { environment } from 'src/environments/environment';
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 
@@ -37,7 +38,11 @@ export class AuthService {
 
     this.http.post<LoginUserData>(`${url}/oauth/v2/token`, userData).subscribe((credentials) => {
       localStorage.setItem("token", credentials['access_token']);
-      location.assign("/");
+      if (environment.production) {
+        location.assign("/Bookshare");
+      } else {
+        location.assign("/");
+      }
     })
   };
 
