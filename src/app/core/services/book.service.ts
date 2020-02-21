@@ -7,12 +7,6 @@ import { Subject, Subscription } from 'rxjs';
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Authorization': `Bearer ${localStorage.getItem('token')}`
-  })
-};
-
 @Injectable({
   providedIn: 'root'
 })
@@ -22,13 +16,21 @@ export class BookService {
   userBooks: IBook[];
   book: IBook;
   booksChanged = new Subject<IBook[]>();
-  
+
   private _booksForUser: IBook[] = [];
   private _bookSubscriptions: Subscription[] = [];
 
   constructor(
     private http: HttpClient
   ) { }
+
+  getHttpOptions(token) {
+    return {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+    };
+  }
 
   searchBook(searchTitle: string) {
     this.http.get<IBook[]>(`${url}/search-book?search=${searchTitle}`).subscribe(books => {
@@ -37,13 +39,14 @@ export class BookService {
   }
 
   addBook(book: IBook) {
-    this.http.post<IBook>(`${urlPrivate}/add-book`, book, httpOptions).subscribe(() => {
-      this.fetchAllUserBooks();
-    })
+    this.http.post<IBook>(`${urlPrivate}/add-book`, book, this.getHttpOptions(localStorage.getItem('token')))
+      .subscribe(() => {
+        this.fetchAllUserBooks();
+      })
   }
 
   fetchAllUserBooks() {
-    this._bookSubscriptions.push(this.http.get<IBook[]>(`${urlPrivate}/user-books`, httpOptions).subscribe(books => {
+    this._bookSubscriptions.push(this.http.get<IBook[]>(`${urlPrivate}/user-books`, this.getHttpOptions(localStorage.getItem('token'))).subscribe(books => {
       this._booksForUser = books;
       this.booksChanged.next([...this._booksForUser]);
     }));

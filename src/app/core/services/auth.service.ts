@@ -21,8 +21,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private bookService: BookService
+    private router: Router
   ) { }
 
   registerUser(userData: RegisterUserData) {
@@ -38,11 +37,7 @@ export class AuthService {
 
     this.http.post<LoginUserData>(`${url}/oauth/v2/token`, userData).subscribe((credentials) => {
       localStorage.setItem("token", credentials['access_token']);
-      if (environment.production) {
-        location.assign("/Bookshare");
-      } else {
-        location.assign("/");
-      }
+      this.router.navigate(['/']);
     })
   };
 
