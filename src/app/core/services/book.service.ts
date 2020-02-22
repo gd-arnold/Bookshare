@@ -51,7 +51,7 @@ export class BookService {
     this.http.post<IBook>(`${urlPrivate}/request-book`, book, this.getHttpOptions(localStorage.getItem('token')))
     .subscribe(() => {
       this.authService.getCurrentUserBasicData();
-    })
+    }, err => (alert("Не съществува потребител с такава книга.")));
   }
 
   fetchAllUserBooks() {

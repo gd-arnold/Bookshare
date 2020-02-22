@@ -44,7 +44,7 @@ export class AuthService {
   registerUser(userData: RegisterUserData) {
     this.http.post<RegisterUserData>(`${url}/register`, userData).subscribe(() => {
       this.router.navigate(['/auth/login']);
-    })
+    }, err => alert("Вече има потребител с такъв имейл!"))
   }
 
   loginUser(userData: LoginUserData) {
@@ -55,7 +55,7 @@ export class AuthService {
     this.http.post<LoginUserData>(`${url}/oauth/v2/token`, userData).subscribe((credentials) => {
       localStorage.setItem("token", credentials['access_token']);
       this.router.navigate(['/']);
-    }, err => alert("Невалидни данни."));
+    }, err => alert("Невалидни данни!"));
   };
 
   logoutUser() {
