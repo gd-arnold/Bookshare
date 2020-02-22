@@ -48,8 +48,10 @@ export class BookDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.currentUserDataSub.unsubscribe();
-    this.authService.cancelSubscriptions();
+    if (this.authService.isAuth) {
+      this.currentUserDataSub.unsubscribe();
+      this.authService.cancelSubscriptions();
+    }
   }
 
 }
