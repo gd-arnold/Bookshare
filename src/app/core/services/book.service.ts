@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IBook } from 'src/app/components/shared/interfaces/book';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
+import { AuthService } from './auth.service';
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
@@ -21,7 +22,8 @@ export class BookService {
   private _bookSubscriptions: Subscription[] = [];
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
   ) { }
 
   getHttpOptions(token) {
@@ -43,6 +45,13 @@ export class BookService {
       .subscribe(() => {
         this.fetchAllUserBooks();
       })
+  }
+
+  requestBook(book: IBook) {
+    this.http.post<IBook>(`${urlPrivate}/request-book`, book, this.getHttpOptions(localStorage.getItem('token')))
+    .subscribe(() => {
+      this.authService.getCurrentUserBasicData();
+    })
   }
 
   fetchAllUserBooks() {

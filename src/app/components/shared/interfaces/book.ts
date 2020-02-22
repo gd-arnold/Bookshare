@@ -8,4 +8,5 @@ export interface IBook {
     pages: string;
     imageURL: string;
     users: [];
+    requests: [];
 }
