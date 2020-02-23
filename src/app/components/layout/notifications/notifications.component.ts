@@ -12,7 +12,7 @@ import { IUser } from '../../shared/interfaces/user';
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
 
-  unreadNotificationsCount: string;
+  unreadNotificationsCount: number;
   unreadNotificationsCountSub: Subscription;
   currentUserData: IUser;
   currentUserDataSub: Subscription;

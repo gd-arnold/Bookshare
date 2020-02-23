@@ -12,10 +12,10 @@ const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
 export class UserService {
 
     requests: IRequest[];
-    unreadNotificationsCountChanged = new Subject<string>();
+    unreadNotificationsCountChanged = new Subject<number>();
     requestChanged = new Subject<IRequest>();
 
-    private _unreadNotificationsCount: string = "0";
+    private _unreadNotificationsCount: number = 0;
     private _unreadNotificationsCountSubscriptions: Subscription[] = [];
     private _request: IRequest;
     private _requestSubscriptions: Subscription[] = [];
@@ -33,7 +33,7 @@ export class UserService {
     fetchUnreadNotificationsCount() {
         this.http.get(`${urlPrivate}/unread-requests-count`, this.getHttpOptions(localStorage.getItem("token")))
             .subscribe((count) => {
-                this._unreadNotificationsCount = count.toString();
+                this._unreadNotificationsCount = parseInt(count.toString());
                 this.unreadNotificationsCountChanged.next(this._unreadNotificationsCount);
             })
     }
