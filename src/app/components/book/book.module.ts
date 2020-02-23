@@ -9,13 +9,14 @@ import { AddBookEngineComponent } from './add-book-engine/add-book-engine.compon
 import { SearchBookEngineComponent } from './search-book-engine/search-book-engine.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { RouterModule } from '@angular/router';
+import { ChooseBookComponent } from './choose-book/choose-book.component';
 
 @NgModule({
   declarations: [
     AddBookComponent,
     UserBooksComponent, 
     AddBookEngineComponent, 
-    SearchBookEngineComponent, BookDetailComponent
+    SearchBookEngineComponent, BookDetailComponent, ChooseBookComponent
   ],
   imports: [
     CommonModule,
