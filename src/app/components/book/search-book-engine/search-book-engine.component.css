@@ -32,13 +32,10 @@
 
 .book {
     overflow: hidden;
+    z-index: 1;
 }
 
 .book:hover{
     background-color: whitesmoke;
     border-color: whitesmoke;
-}
-
-.books {
-    z-index: 1;
 }
