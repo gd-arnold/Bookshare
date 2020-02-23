@@ -2,3 +2,36 @@
     width: 32px;
     height: 32px;
 }
+
+.count {
+    position: absolute;
+    top: 25px;
+    font-weight: 700;
+    padding-left: 18px;
+    color: white;
+    font-size: 20px;
+}
+
+.requests {
+    position: absolute;
+    background-color: white;
+    margin-left: -200px;
+    color: black;
+    font-size: 13px;
+    margin-right: 10px;
+    top: 58px;
+    border-radius: 2%;
+    z-index: 1;
+    border-bottom: rgb(194, 105, 4) 2px solid;
+}
+
+.request {
+    padding: 5px;
+    border-left: rgb(194, 105, 4) 2px solid;
+    border-right: rgb(194, 105, 4) 2px solid;
+    border-top: rgb(194, 105, 4) 2px solid;
+}
+
+.request:hover {
+    background-color: whitesmoke;
+}

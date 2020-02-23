@@ -49,9 +49,9 @@ export class BookService {
 
   requestBook(book: IBook) {
     this.http.post<IBook>(`${urlPrivate}/request-book`, book, this.getHttpOptions(localStorage.getItem('token')))
-    .subscribe(() => {
-      this.authService.getCurrentUserBasicData();
-    }, err => (alert("Не съществува потребител с такава книга.")));
+      .subscribe(() => {
+        this.authService.getCurrentUserBasicData();
+      }, err => (alert("Не съществува потребител с такава книга.")));
   }
 
   fetchAllUserBooks() {
@@ -65,6 +65,16 @@ export class BookService {
     this.http.get<IBook>(`${url}/book/${id}`).subscribe(book => {
       this.book = book;
     });
+  }
+
+  chooseBook(requestId: number, bookId: string) {
+    let data = {
+      request_id: requestId,
+      book_id: bookId
+    };
+
+    this.http.post(`${urlPrivate}/accept-book`, data, this.getHttpOptions(localStorage.getItem("token")))
+      .subscribe(() => { console.log("accepted"); });
   }
 
   cancelSubscriptions() {

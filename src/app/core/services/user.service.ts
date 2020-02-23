@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, Subscription } from 'rxjs';
+import { IRequest } from 'src/app/components/shared/interfaces/request';
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
@@ -10,11 +11,14 @@ const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
 })
 export class UserService {
 
-
+    requests: IRequest[];
     unreadNotificationsCountChanged = new Subject<string>();
+    requestChanged = new Subject<IRequest>();
 
     private _unreadNotificationsCount: string = "0";
     private _unreadNotificationsCountSubscriptions: Subscription[] = [];
+    private _request: IRequest;
+    private _requestSubscriptions: Subscription[] = [];
 
     constructor(private http: HttpClient) { }
 
@@ -32,6 +36,25 @@ export class UserService {
                 this._unreadNotificationsCount = count.toString();
                 this.unreadNotificationsCountChanged.next(this._unreadNotificationsCount);
             })
+    }
+
+    fetchNotificationsForCurrentUser() {
+        this.http.get<IRequest[]>(`${urlPrivate}/all-requests`, this.getHttpOptions(localStorage.getItem("token")))
+            .subscribe((requests) => {
+                this.requests = requests;
+            })
+    }
+
+    readUnreadNotificationsforCurrentUser() {
+        this.http.get(`${urlPrivate}/read-unread-requests`, this.getHttpOptions(localStorage.getItem("token")))
+            .subscribe()
+    }
+
+    fetchRequestById(id: string) {
+        this.http.get<IRequest>(`${urlPrivate}/request/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(request => {
+            this._request = request;
+            this.requestChanged.next(this._request);
+        });
     }
 
     cancelSubscriptions() {
