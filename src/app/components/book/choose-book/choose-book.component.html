@@ -1,6 +1,6 @@
 <div *ngIf="request">
     <div class="container-fluid padding books" *ngIf="request.requester.books">
-        <h5 class="library-title">Избери си една от книгите на {{request.requester.id}}</h5>
+        <h5 class="library-title">Избери си една от книгите на {{request.requester.firstName}}</h5>
         <div *ngIf="request.requester.books" class="row text-center d-flex justify-content-center">
             <div *ngFor="let book of request.requester.books" (click)="chooseBook(book.id)"
                 class="col-xs-12 col-sm-4 col-md-2 book">

@@ -49,6 +49,7 @@ export class ChooseBookComponent implements OnInit {
 
   chooseBook(id: string) {
     this.bookService.chooseBook(this.request.id, id);
+    alert(`Ти успешно си избра книга от ${this.request.requester.firstName}!`);
   }
 
 }
