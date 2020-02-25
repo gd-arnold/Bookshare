@@ -32,18 +32,18 @@ export class ChooseBookComponent implements OnInit {
     this.authService.getCurrentUserBasicData();
     this.currentUserDataSub = this.authService.currentUserChanged.subscribe((user) => {
       this.currentUserData = user;
-    })
-    let requestId = this.route.snapshot.paramMap.get('id');
-    this.userService.fetchRequestById(requestId);
-    this.userService.requestChanged.subscribe((request) => {
 
-      if (request.isAccepted) {
-        this.router.navigate(['/']);
-      } else if (request.receiver.id === this.currentUserData.id) {
-        this.request = request;
-      } else {
-        this.router.navigate(['/']);
-      }
+      let requestId = this.route.snapshot.paramMap.get('id');
+      this.userService.fetchRequestById(requestId);
+      this.userService.requestChanged.subscribe((request) => {
+        if (request.isAccepted) {
+          this.router.navigate(['/']);
+        } else if (request.receiver.id === this.currentUserData.id) {
+          this.request = request;
+        } else {
+          this.router.navigate(['/']);
+        }
+      })
     })
   }
 
