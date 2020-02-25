@@ -10,13 +10,17 @@ import { SearchBookEngineComponent } from './search-book-engine/search-book-engi
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { RouterModule } from '@angular/router';
 import { ChooseBookComponent } from './choose-book/choose-book.component';
+import { MostExchangedBooksComponent } from './most-exchanged-books/most-exchanged-books.component';
 
 @NgModule({
   declarations: [
     AddBookComponent,
     UserBooksComponent, 
     AddBookEngineComponent, 
-    SearchBookEngineComponent, BookDetailComponent, ChooseBookComponent
+    SearchBookEngineComponent, 
+    BookDetailComponent, 
+    ChooseBookComponent, 
+    MostExchangedBooksComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +31,8 @@ import { ChooseBookComponent } from './choose-book/choose-book.component';
   ],
   exports: [
     AddBookComponent,
-    SearchBookEngineComponent
+    SearchBookEngineComponent,
+    MostExchangedBooksComponent
   ]
 })
 export class BookModule { }
