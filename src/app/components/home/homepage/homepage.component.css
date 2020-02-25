@@ -11,10 +11,14 @@
 }
 
 .search-text {
-    margin-top: 70px;
-    margin-bottom: 8px;
     color: rgb(206, 112, 5);
     font-weight: 800;
     font-size: 18px;
 }
 
+.search-engine-box {
+    margin-top: 70px;
+    padding: 20px;
+    background-color: whitesmoke;
+    border-radius: 2%;
+}

@@ -1,11 +1,11 @@
 <img src="assets/static/template.jpg" id="template" class="img-fluid" alt="Responsive image">
 <div class="row">
-    <div class="col-md-12 d-flex justify-content-center search-engine search-text">
-        <p>Потърси книга</p>
-    </div>
-    <div class="col-md-12 d-flex justify-content-center search-engine">
+    <div class="col-md-4 col-xs-2 col-sm-2"></div>
+    <div class="search-engine-box col-md-4 col-xs-8 col-sm-8 justify-content-center">
+        <div class="search-text text-center">ПОТЪРСИ КНИГА</div><br>
         <app-search-book-engine></app-search-book-engine>
     </div>
+    <div class="col-md-4 col-xs-2 col-sm-2"></div>
 </div>
 <div *ngIf="!isAuth">
     <app-most-exchanged-books></app-most-exchanged-books>
