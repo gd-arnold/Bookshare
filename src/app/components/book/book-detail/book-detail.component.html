@@ -2,6 +2,9 @@
     <div class="row text-center d-flex justify-content-center book" *ngIf="book">
         <div class="col-md-4">
             <img [src]="book.imageURL">
+            <p class="book-author">Автор: <span class="book-author-span">{{book.author}}</span></p>
+            <p class="book-date">Дата на издаване: <span class="book-date-span">{{book.datePublished}}</span></p>
+            <p class="book-publisher">Издателство: <span class="book-publisher-span">{{book.publisher}}</span></p>
             <div *ngIf="currentUserData">
                 <div *ngIf="!isOwner()">
                     <button *ngIf="!isRequested()" (click)="requestBook()" class="navbtn">Поискай</button>
@@ -11,7 +14,6 @@
         </div>
         <div class="col-md-7 book-info">
             <h5 class="book-title">{{book.title}}</h5>
-            <p class="book-author">Автор: {{book.author}}</p>
             <p class="book-description">{{book.description}}</p>
         </div>
     </div>
