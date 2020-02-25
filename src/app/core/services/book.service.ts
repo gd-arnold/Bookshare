@@ -16,6 +16,7 @@ export class BookService {
   searchedBooks: IBook[];
   userBooks: IBook[];
   mostExchangedBooks: IBook[];
+  newestBooks: IBook[];
   book: IBook;
   booksChanged = new Subject<IBook[]>();
 
@@ -81,6 +82,11 @@ export class BookService {
   fetchMostExchangedBooks() {
     this.http.get<IBook[]>(`${url}/most-exchanged-books`)
       .subscribe((books) => { this.mostExchangedBooks = books; });
+  }
+
+  fetchNewestBooks() {
+    this.http.get<IBook[]>(`${url}/newest-books`)
+    .subscribe((books) => { this.newestBooks = books; });
   }
 
   cancelSubscriptions() {

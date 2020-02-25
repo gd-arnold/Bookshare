@@ -11,6 +11,7 @@ import { BookDetailComponent } from './book-detail/book-detail.component';
 import { RouterModule } from '@angular/router';
 import { ChooseBookComponent } from './choose-book/choose-book.component';
 import { MostExchangedBooksComponent } from './most-exchanged-books/most-exchanged-books.component';
+import { NewestBooksComponent } from './newest-books/newest-books.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { MostExchangedBooksComponent } from './most-exchanged-books/most-exchang
     SearchBookEngineComponent, 
     BookDetailComponent, 
     ChooseBookComponent, 
-    MostExchangedBooksComponent
+    MostExchangedBooksComponent, NewestBooksComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +33,8 @@ import { MostExchangedBooksComponent } from './most-exchanged-books/most-exchang
   exports: [
     AddBookComponent,
     SearchBookEngineComponent,
-    MostExchangedBooksComponent
+    MostExchangedBooksComponent,
+    NewestBooksComponent
   ]
 })
 export class BookModule { }
