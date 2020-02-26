@@ -12,7 +12,8 @@ import { RouterModule } from '@angular/router';
 import { ChooseBookComponent } from './choose-book/choose-book.component';
 import { MostExchangedBooksComponent } from './most-exchanged-books/most-exchanged-books.component';
 import { NewestBooksComponent } from './newest-books/newest-books.component';
-
+import { Pipe, PipeTransform } from '@angular/core';
+import { FormatTitle } from 'src/app/core/pipes/format-title.pipe';
 @NgModule({
   declarations: [
     AddBookComponent,
@@ -21,7 +22,9 @@ import { NewestBooksComponent } from './newest-books/newest-books.component';
     SearchBookEngineComponent, 
     BookDetailComponent, 
     ChooseBookComponent, 
-    MostExchangedBooksComponent, NewestBooksComponent
+    MostExchangedBooksComponent, 
+    NewestBooksComponent,
+    FormatTitle
   ],
   imports: [
     CommonModule,
