@@ -1,0 +1,21 @@
+.books {
+    position: relative;
+    top: 65vh;
+}
+
+.book {
+    height: 480px;
+}
+
+.item {
+    position: absolute;
+    bottom: 0;
+}
+
+.title {
+    color: rgb(206, 112, 5);
+}
+
+.book-title {
+    color: rgb(206, 112, 5);
+}
