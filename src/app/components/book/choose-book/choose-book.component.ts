@@ -40,8 +40,6 @@ export class ChooseBookComponent implements OnInit {
           this.router.navigate(['/']);
         } else if (request.receiver.id === this.currentUserData.id) {
           this.request = request;
-        } else {
-          this.router.navigate(['/']);
         }
       })
     })

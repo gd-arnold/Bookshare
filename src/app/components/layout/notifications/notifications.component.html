@@ -2,7 +2,7 @@
     <img class="notification" src="assets/static/notification.png">
     <p *ngIf="unreadNotificationsCount > 0" class="count">{{unreadNotificationsCount}}</p>
     <div *ngIf="requests" class="requests">
-        <div *ngFor="let request of requests" class="request" routerLink="book/choose/{{request.id}}">
+        <div *ngFor="let request of requests" class="request" routerLink="book/choose/request/{{request.id}}">
             <p *ngIf="isReceiver(request)" >
                 {{request.requester.firstName}} ти поиска "{{request.requestedBook.title}}".
                 Избери си една от неговите книги.
