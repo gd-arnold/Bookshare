@@ -1,0 +1,13 @@
+<div class="container-fluid books">
+    <h2 class="p-3 title">Най-разменяни книги</h2>
+    <div class="row">
+        <div *ngFor="let book of books" class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-6 mb-4">
+            <div class="border rounded book" routerLink="book/{{book.id}}">
+                <img class="p-2 img-responsive fit-image"
+                    [src]="book.imageURL">
+                <h4 class="pl-2 book-title">{{book.title | formatTitle}}</h4>
+                <p class="pl-2 text-muted font-italic">Автор: {{book.author}}</p>
+            </div>
+        </div>
+    </div>
+</div>
