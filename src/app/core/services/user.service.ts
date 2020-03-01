@@ -57,7 +57,15 @@ export class UserService {
         });
     }
 
+    fetchRequestInfoById(id: string) {
+        this.http.get<IRequest>(`${urlPrivate}/request-info/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(request => {
+            this._request = request;
+            this.requestChanged.next(this._request);
+        });
+    }
+
     cancelSubscriptions() {
         this._unreadNotificationsCountSubscriptions.forEach((s) => s.unsubscribe());
+        this._requestSubscriptions.forEach((s) => s.unsubscribe());
     }
 }

@@ -59,6 +59,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.unreadNotificationsCountSub.unsubscribe();
+    this.currentUserDataSub.unsubscribe();
     this.userService.cancelSubscriptions();
   }
 }

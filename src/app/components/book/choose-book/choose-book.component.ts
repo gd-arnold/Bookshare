@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { IUser } from '../../shared/interfaces/user';
@@ -12,7 +12,7 @@ import { BookService } from 'src/app/core/services/book.service';
   templateUrl: './choose-book.component.html',
   styleUrls: ['./choose-book.component.css']
 })
-export class ChooseBookComponent implements OnInit {
+export class ChooseBookComponent implements OnInit, OnDestroy {
 
   currentUserData: IUser;
   currentUserDataSub: Subscription;
@@ -44,6 +44,10 @@ export class ChooseBookComponent implements OnInit {
   chooseBook(id: string) {
     this.bookService.chooseBook(this.request.id, id);
     this.router.navigate([`book/info/request/${this.request.id}`]);
+  }
+
+  ngOnDestroy() {
+    this.userService.cancelSubscriptions();
   }
 
 }

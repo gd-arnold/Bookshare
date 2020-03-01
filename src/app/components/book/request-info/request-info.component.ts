@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IUser } from '../../shared/interfaces/user';
 import { Subscription } from 'rxjs';
 import { IRequest } from '../../shared/interfaces/request';
@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './request-info.component.html',
   styleUrls: ['./request-info.component.css']
 })
-export class RequestInfoComponent implements OnInit {
+export class RequestInfoComponent implements OnInit, OnDestroy {
 
   currentUserData: IUser;
   currentUserDataSub: Subscription;
@@ -32,7 +32,7 @@ export class RequestInfoComponent implements OnInit {
       this.currentUserData = user;
 
       let requestId = this.route.snapshot.paramMap.get('id');
-      this.userService.fetchRequestById(requestId);
+      this.userService.fetchRequestInfoById(requestId);
       this.userService.requestChanged.subscribe((request) => {
         if (request.requester.id === this.currentUserData.id && !request.isAccepted) {
           this.router.navigate(["/"]);
@@ -49,6 +49,10 @@ export class RequestInfoComponent implements OnInit {
 
   isReceiver() {
     return this.request.receiver.id === this.currentUserData.id;
+  }
+
+  ngOnDestroy() {
+    this.userService.cancelSubscriptions();
   }
 
 }
