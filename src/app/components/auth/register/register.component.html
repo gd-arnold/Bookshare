@@ -17,6 +17,8 @@
                     </div>
                     <input #emailInput="ngModel" ngModel name="email" type="email" placeholder="Имейл" class="form-control mt-3" required email>
                     <div *ngIf="emailInput.invalid && emailInput.touched" class="warning">Моля въведете валиден имейл адрес.</div>
+                    <input #phoneNumberInput="ngModel" ngModel name="phoneNumber" placeholder="Тел. номер" class="form-control mt-3" required minlength="6">
+                    <div *ngIf="phoneNumberInput.hasError('minlength') || phoneNumberInput.hasError('required') && phoneNumberInput.touched" class="warning">Телефонният номер трябва да бъде поне 6 символа.</div>
                     <input #addressInput="ngModel" ngModel name="address" placeholder="Адрес, на който желаеш да получаваш книгите" class="form-control mt-3" required minlength="6">
                     <div *ngIf="addressInput.hasError('minlength') || addressInput.hasError('required') && addressInput.touched" class="warning">Адресът трябва да бъде поне 6 символа.</div>
                     <input #passwordInput="ngModel" ngModel name="password" type="password" placeholder="Парола" class="form-control mt-3" required minlength="6">
