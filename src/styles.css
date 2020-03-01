@@ -483,8 +483,8 @@ mark,
  
 .img-thumbnail {
   padding: 0.25rem;
-  border-radius: 0.25rem;
   height: auto;
+  max-width: 100%;
 }
  
 .figure {
