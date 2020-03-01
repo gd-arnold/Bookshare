@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from 'src/app/core/services/user.service';
 import { IUser } from '../../shared/interfaces/user';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { IRequest } from '../../shared/interfaces/request';
-import { BookService } from 'src/app/core/services/book.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/core/services/user.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
-  selector: 'app-choose-book',
-  templateUrl: './choose-book.component.html',
-  styleUrls: ['./choose-book.component.css']
+  selector: 'app-request-info',
+  templateUrl: './request-info.component.html',
+  styleUrls: ['./request-info.component.css']
 })
-export class ChooseBookComponent implements OnInit {
+export class RequestInfoComponent implements OnInit {
 
   currentUserData: IUser;
   currentUserDataSub: Subscription;
@@ -25,7 +24,6 @@ export class ChooseBookComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private authService: AuthService,
-    private bookService: BookService
   ) { }
 
   ngOnInit() {
@@ -36,14 +34,21 @@ export class ChooseBookComponent implements OnInit {
       let requestId = this.route.snapshot.paramMap.get('id');
       this.userService.fetchRequestById(requestId);
       this.userService.requestChanged.subscribe((request) => {
-        this.request = request;
+        if (request.requester.id === this.currentUserData.id && !request.isAccepted) {
+          this.router.navigate(["/"]);
+        } else {
+          this.request = request;
+        }
       })
     })
   }
 
-  chooseBook(id: string) {
-    this.bookService.chooseBook(this.request.id, id);
-    this.router.navigate([`book/info/request/${this.request.id}`]);
+  isRequester() {
+    return this.request.requester.id === this.currentUserData.id;
+  }
+
+  isReceiver() {
+    return this.request.receiver.id === this.currentUserData.id;
   }
 
 }

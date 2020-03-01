@@ -3,6 +3,7 @@ import { AddBookComponent } from './add-book/add-book.component';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { ChooseBookComponent } from './choose-book/choose-book.component';
+import { RequestInfoComponent } from './request-info/request-info.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'choose/request/:id',
         component: ChooseBookComponent
+      },
+      {
+        path: 'info/request/:id',
+        component: RequestInfoComponent
       }
     ]
   }

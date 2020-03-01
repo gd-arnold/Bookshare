@@ -1,0 +1,13 @@
+<div *ngIf="request">
+    <div *ngIf="isReceiver()">
+        <p>ti si receiver eto ti informaciq za picha</p>
+        <p>Име: {{request.requester.firstName}} {{request.requester.lastName}}</p>
+        <p>Адрес: {{request.requester.address}}</p>
+    </div>
+    <div *ngIf="isRequester()">
+        <p>ti si requester eto ti informaciq za picha</p>
+        <p>Име: {{request.receiver.firstName}} {{request.receiver.lastName}}</p>
+        <p>Адрес: {{request.receiver.address}}</p>
+    </div>
+</div>
+<app-loader *ngIf="!request"></app-loader>

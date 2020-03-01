@@ -14,6 +14,7 @@ import { MostExchangedBooksComponent } from './most-exchanged-books/most-exchang
 import { NewestBooksComponent } from './newest-books/newest-books.component';
 import { Pipe, PipeTransform } from '@angular/core';
 import { FormatTitle } from 'src/app/core/pipes/format-title.pipe';
+import { RequestInfoComponent } from './request-info/request-info.component';
 @NgModule({
   declarations: [
     AddBookComponent,
@@ -24,7 +25,8 @@ import { FormatTitle } from 'src/app/core/pipes/format-title.pipe';
     ChooseBookComponent, 
     MostExchangedBooksComponent, 
     NewestBooksComponent,
-    FormatTitle
+    FormatTitle,
+    RequestInfoComponent
   ],
   imports: [
     CommonModule,
