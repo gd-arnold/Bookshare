@@ -9,5 +9,6 @@
                 <p class="pl-2 text-muted font-italic">Автор: {{book.author}}</p>
             </div>
         </div>
+        <app-loader *ngIf="!books"></app-loader>
     </div>
 </div>
