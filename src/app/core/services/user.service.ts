@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, Subscription } from 'rxjs';
 import { IRequest } from 'src/app/components/shared/interfaces/request';
+import { AuthService } from './auth.service';
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
@@ -20,7 +21,10 @@ export class UserService {
     private _request: IRequest;
     private _requestSubscriptions: Subscription[] = [];
 
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private authService: AuthService
+    ) { }
 
     getHttpOptions(token) {
         return {
@@ -35,7 +39,11 @@ export class UserService {
             .subscribe((count) => {
                 this._unreadNotificationsCount = parseInt(count.toString());
                 this.unreadNotificationsCountChanged.next(this._unreadNotificationsCount);
-            })
+            }, (err => {
+                if(err.statusText === "Unauthorized") {
+                    this.authService.logoutUser();
+                }
+            }))
     }
 
     fetchNotificationsForCurrentUser() {
