@@ -25,6 +25,10 @@ export class UserBooksComponent implements OnInit, OnDestroy {
     })
   }
 
+  removeBookHandler(book) {
+    this.bookService.removeBook(book);
+  }
+
   ngOnDestroy() {
     this.userBooksSub.unsubscribe();
     this.bookService.cancelSubscriptions();

@@ -49,6 +49,13 @@ export class BookService {
       })
   }
 
+  removeBook(book: IBook) {
+    this.http.post<IBook>(`${urlPrivate}/remove-book`, book, this.getHttpOptions(localStorage.getItem('token')))
+      .subscribe(() => {
+        this.fetchAllUserBooks();
+      })
+  }
+
   requestBook(book: IBook) {
     this.http.post<IBook>(`${urlPrivate}/request-book`, book, this.getHttpOptions(localStorage.getItem('token')))
       .subscribe(() => {
