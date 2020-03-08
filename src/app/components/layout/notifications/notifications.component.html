@@ -1,20 +1,24 @@
 <div class="nav-item nav-link" (click)="getUserNotifications()">
     <img class="notification" src="assets/static/notification.png">
     <p *ngIf="unreadNotificationsCount > 0" class="count">{{unreadNotificationsCount}}</p>
-    <div *ngIf="requests" class="requests">
-        <div *ngFor="let request of requests" class="request">
-            <div *ngIf="isReceiver(request)">
-                <p *ngIf="request.isAccepted" routerLink="book/info/request/{{request.id}}">
-                    {{request.requester.firstName}} ти поиска "{{request.requestedBook.title}}".
-                    Избери си една от неговите книги.
-                </p>
-                <p *ngIf="!request.isAccepted" routerLink="book/choose/request/{{request.id}}">
+    <div *ngIf="requests" class="requests pb-10">
+        <div *ngFor="let request of requests">
+            <div *ngIf="isReceiver(request) && request.isAccepted" routerLink="book/info/request/{{request.id}}"
+                class="request">
+                <p>
                     {{request.requester.firstName}} ти поиска "{{request.requestedBook.title}}".
                     Избери си една от неговите книги.
                 </p>
             </div>
-            <div routerLink="book/info/request/{{request.id}}">
-                <p *ngIf="!isReceiver(request)" >Вашата заявка за "{{request.requestedBook.title}}" беше приета
+            <div *ngIf="isReceiver(request) && !request.isAccepted" routerLink="book/choose/request/{{request.id}}"
+                class="request">
+                <p>
+                    {{request.requester.firstName}} ти поиска "{{request.requestedBook.title}}".
+                    Избери си една от неговите книги.
+                </p>
+            </div>
+            <div *ngIf="!isReceiver(request)" routerLink="book/info/request/{{request.id}}" class="request">
+                <p>Вашата заявка за "{{request.requestedBook.title}}" беше приета
                     от {{request.receiver.firstName}}, който поиска "{{request.chosenBook.title}}".</p>
             </div>
         </div>
