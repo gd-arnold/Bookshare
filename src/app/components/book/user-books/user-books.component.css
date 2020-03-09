@@ -60,3 +60,13 @@
 .book:hover {
     background-color: whitesmoke;
 }
+
+.msg {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    font-size: 18px;
+    color: rgb(206, 112, 5);
+    font-weight: 700;
+}
