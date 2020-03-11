@@ -15,6 +15,8 @@ import { NewestBooksComponent } from './newest-books/newest-books.component';
 import { Pipe, PipeTransform } from '@angular/core';
 import { FormatTitle } from 'src/app/core/pipes/format-title.pipe';
 import { RequestInfoComponent } from './request-info/request-info.component';
+import { AddBookRegComponent } from './add-book-reg/add-book-reg.component';
+import { UserBooksRegComponent } from './user-books-reg/user-books-reg.component';
 @NgModule({
   declarations: [
     AddBookComponent,
@@ -26,7 +28,9 @@ import { RequestInfoComponent } from './request-info/request-info.component';
     MostExchangedBooksComponent, 
     NewestBooksComponent,
     FormatTitle,
-    RequestInfoComponent
+    RequestInfoComponent,
+    AddBookRegComponent,
+    UserBooksRegComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +41,7 @@ import { RequestInfoComponent } from './request-info/request-info.component';
   ],
   exports: [
     AddBookComponent,
+    AddBookRegComponent,
     SearchBookEngineComponent,
     MostExchangedBooksComponent,
     NewestBooksComponent

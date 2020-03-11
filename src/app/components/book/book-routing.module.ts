@@ -4,6 +4,7 @@ import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { ChooseBookComponent } from './choose-book/choose-book.component';
 import { RequestInfoComponent } from './request-info/request-info.component';
+import { AddBookRegComponent } from './add-book-reg/add-book-reg.component';
 
 
 const routes: Routes = [
@@ -11,7 +12,7 @@ const routes: Routes = [
     path: 'book',
     children: [
       {
-        path: 'add',
+        path: 'library',
         component: AddBookComponent,
         canActivate: [AuthGuard]
       },
@@ -21,11 +22,18 @@ const routes: Routes = [
       },
       {
         path: 'choose/request/:id',
-        component: ChooseBookComponent
+        component: ChooseBookComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'info/request/:id',
-        component: RequestInfoComponent
+        component: RequestInfoComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'register/add',
+        component: AddBookRegComponent,
+        canActivate: [AuthGuard]
       }
     ]
   }
