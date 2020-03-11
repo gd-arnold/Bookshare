@@ -4,4 +4,5 @@ export interface LoginUserData {
     client_secret: string;
     email: string;
     password: string;
+    username: string;
 }

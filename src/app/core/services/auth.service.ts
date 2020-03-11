@@ -41,9 +41,20 @@ export class AuthService {
     };
   }
 
-  registerUser(userData: RegisterUserData) {
+  registerUser(userData: RegisterUserData, loginUser: LoginUserData) {
     this.http.post<RegisterUserData>(`${url}/register`, userData).subscribe(() => {
-      this.router.navigate(['/auth/login']);
+  
+      loginUser.username = userData.email;
+      loginUser.password = userData.password;
+      loginUser.grant_type = "password";
+      loginUser.client_id = "2_4";
+      loginUser.client_secret = "4";
+  
+      this.http.post<LoginUserData>(`${url}/oauth/v2/token`, userData).subscribe((credentials) => {
+        localStorage.setItem("token", credentials['access_token']);
+        this.router.navigate(['/']);
+      }, err => console.log(err));
+
     }, err => alert("Вече има потребител с такъв имейл!"))
   }
 

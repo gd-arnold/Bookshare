@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
   }
 
   registerHandler(data) {
-    this.authService.registerUser(data);
+    this.authService.registerUser(data, data);
   }
 
 }
