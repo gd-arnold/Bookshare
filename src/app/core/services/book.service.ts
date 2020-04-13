@@ -57,10 +57,10 @@ export class BookService {
   }
 
   requestBook(book: IBook) {
-    this.http.post<IBook>(`${urlPrivate}/request-book`, book, this.getHttpOptions(localStorage.getItem('token')))
+    this.http.post<IBook>(`${urlPrivate}/book-request`, book, this.getHttpOptions(localStorage.getItem('token')))
       .subscribe(() => {
         this.authService.getCurrentUserBasicData();
-      }, err => (alert("Не съществува потребител с такава книга.")));
+      }, err => alert("Не съществува потребител, който предлага тази книга."));
   }
 
   fetchAllUserBooks() {
@@ -71,7 +71,7 @@ export class BookService {
   }
 
   fetchBookById(id: string) {
-    this.http.get<IBook>(`${url}/book/${id}`).subscribe(book => {
+    this.http.get<IBook>(`${this.authService.isAuth ? urlPrivate : url}/book/${id}`, this.getHttpOptions(localStorage.getItem('token'))).subscribe(book => {
       this.book = book;
     });
   }
