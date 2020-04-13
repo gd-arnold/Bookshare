@@ -24,17 +24,21 @@ export class HomepageComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.bookService.fetchAllUserBooks();
-    this.userBooksSub = this.bookService.booksChanged.subscribe((books) => {
-      if (books.length < 3) {
-        this.router.navigate(['book/register/add']);
-      }
-    })
+    if (this.authService.isAuth) {
+      this.bookService.fetchAllUserBooks();
+      this.userBooksSub = this.bookService.booksChanged.subscribe((books) => {
+        if (books.length < 3) {
+          this.router.navigate(['book/register/add']);
+        }
+      })
+    }
   }
 
   ngOnDestroy() {
-    this.userBooksSub.unsubscribe();
-    this.bookService.cancelSubscriptions();
+    if (this.authService.isAuth) {
+      this.userBooksSub.unsubscribe();
+      this.bookService.cancelSubscriptions();
+    }
   }
 
 }
