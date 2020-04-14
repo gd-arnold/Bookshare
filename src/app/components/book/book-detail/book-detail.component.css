@@ -32,6 +32,10 @@ img {
     color: rgb(206, 112, 5);
 }
 
+.book-owners {
+    font-size: 19px;
+}
+
 .navbtn {
     margin-top: 10px;
     margin-bottom: 30px;
@@ -64,6 +68,11 @@ img {
 }
 
 .book-publisher-span {
+    color: rgb(206, 112, 5);
+    font-weight: 700;
+}
+
+.book-owners-span {
     color: rgb(206, 112, 5);
     font-weight: 700;
 }

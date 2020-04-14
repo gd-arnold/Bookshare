@@ -5,6 +5,7 @@
             <p class="book-author">Автор: <span class="book-author-span">{{book.author}}</span></p>
             <p class="book-date">Дата на издаване: <span class="book-date-span">{{book.datePublished}}</span></p>
             <p class="book-publisher">Издателство: <span class="book-publisher-span">{{book.publisher}}</span></p>
+            <p *ngIf="currentUserData" class="book-owners">Потребители, които предлагат тази книга: <span class="book-owners-span">{{book.users.length}}</span></p>
             <div *ngIf="currentUserData">
                 <div *ngIf="!isOwner()">
                     <button *ngIf="!isRequested()" (click)="requestBook()" class="navbtn">Поискай</button>
