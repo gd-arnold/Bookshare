@@ -9,6 +9,7 @@ import { AuthModule } from './components/auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BookModule } from './components/book/book.module';
 import { HomeModule } from './components/home/home.module';
+import { UserModule } from './components/user/user.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HomeModule } from './components/home/home.module';
     AuthModule,
     FormsModule,
     BookModule,
-    HomeModule
+    HomeModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]
