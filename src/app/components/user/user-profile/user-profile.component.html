@@ -1,1 +1,49 @@
-<p>user-profile doesn't work!</p>
+<section>
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-12 text-center border-right profmenu">
+            <img src="https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" class="m-5 img-profile">
+            <h4 class="text-center">Edit Profile</h4>
+            <div class="form-group pt-3">
+                <label for="mail">Имейл</label>
+                <input id="mail"class="form-control mx-2" value="yourmail@shit.com">
+            </div>
+            <div class="form-group">
+                <label for="name1">Име</label>
+                <input id="name1"class="form-control mx-2" value="Peter">
+            </div>
+            <div class="form-group">
+                <label for="name2">Фамилия</label>
+                <input id="name2"class="form-control mx-2" value="Borisov">
+            </div>
+            <button class="btn-dark mt-3" data-toggle="modal" data-target="#exampleModal">Смени парола</button>
+        </div>
+        <div class="col-lg-9 col-md-8">
+
+            <div class="row">
+                <div class="col-lg-4 bar">Pending</div>
+                <div class="col-lg-4 bar">Requested</div>
+                <div class="col-lg-4 bar">Past</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
