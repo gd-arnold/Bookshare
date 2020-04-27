@@ -484,7 +484,7 @@ mark,
 .img-thumbnail {
   padding: 0.25rem;
   height: auto;
-  max-width: 100%;
+  width: 60px;
 }
 
 .img-profile{
