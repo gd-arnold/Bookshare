@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, Subscription } from 'rxjs';
 import { IRequest } from 'src/app/components/shared/interfaces/request';
 import { AuthService } from './auth.service';
+import { ICourierService } from 'src/app/components/shared/interfaces/courier-service';
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
@@ -15,6 +16,7 @@ export class UserService {
     requests: IRequest[];
     unreadNotificationsCountChanged = new Subject<number>();
     requestChanged = new Subject<IRequest>();
+    courierServices: ICourierService[];
 
     private _unreadNotificationsCount: number = 0;
     private _unreadNotificationsCountSubscriptions: Subscription[] = [];
@@ -70,6 +72,12 @@ export class UserService {
             this._request = request;
             this.requestChanged.next(this._request);
         });
+    }
+
+    fetchCourierServices() {
+        this.http.get<ICourierService[]>(`${urlPrivate}/couriers`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(couriers => {
+            this.courierServices = couriers;
+        })
     }
 
     cancelSubscriptions() {

@@ -5,6 +5,7 @@ import { IBook } from '../../shared/interfaces/book';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { IUser } from '../../shared/interfaces/user';
 import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-book-detail',
@@ -17,16 +18,19 @@ export class BookDetailComponent implements OnInit, OnDestroy {
   currentUserDataSub: Subscription;
 
   get book() { return this.bookService.book; }
+  get courierServices() { return this.userService.courierServices; }
 
   constructor(
     private router: ActivatedRoute,
     private bookService: BookService,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
     let bookId = this.router.snapshot.paramMap.get('id');
     this.bookService.fetchBookById(bookId);
+    this.userService.fetchCourierServices();
     if (this.authService.isAuth) {
       this.authService.getCurrentUserBasicData();
       this.currentUserDataSub = this.authService.currentUserChanged.subscribe((user) => {
@@ -45,6 +49,10 @@ export class BookDetailComponent implements OnInit, OnDestroy {
 
   requestBook() {
     this.bookService.requestBook(this.book);
+  }
+
+  fetchCities(id) {
+    console.log(id);
   }
 
   ngOnDestroy() {
