@@ -16,9 +16,13 @@ export class BookDetailComponent implements OnInit, OnDestroy {
 
   currentUserData: IUser;
   currentUserDataSub: Subscription;
+  courierId: string;
+  cityId: string;
+  searchedCities: any[];
 
   get book() { return this.bookService.book; }
   get courierServices() { return this.userService.courierServices; }
+  get cities() { return this.userService.cities; }
 
   constructor(
     private router: ActivatedRoute,
@@ -31,6 +35,8 @@ export class BookDetailComponent implements OnInit, OnDestroy {
     let bookId = this.router.snapshot.paramMap.get('id');
     this.bookService.fetchBookById(bookId);
     this.userService.fetchCourierServices();
+    this.courierId = null;
+    this.cityId = null;
     if (this.authService.isAuth) {
       this.authService.getCurrentUserBasicData();
       this.currentUserDataSub = this.authService.currentUserChanged.subscribe((user) => {
@@ -51,8 +57,25 @@ export class BookDetailComponent implements OnInit, OnDestroy {
     this.bookService.requestBook(this.book);
   }
 
-  fetchCities(id) {
-    console.log(id);
+  fetchCitiesByCourier(id: string) {
+    this.courierId = id;
+    this.searchedCities = [];
+    this.userService.fetchCitiesByCourierId(id);
+  }
+
+  searchCity(event) {
+    let cityName = event.target.value.toLowerCase();
+    if (cityName.length > 1) {
+      this.searchedCities = this.cities.filter(deliveryInfo => deliveryInfo["city"]["cityName"].toLowerCase().startsWith(cityName));
+    } else if (cityName.length === 0) {
+      this.searchedCities = [];
+    }
+  }
+
+  selectCity(name: string, id: string) {
+    (document.getElementById("town") as HTMLInputElement).value = name;
+    this.searchedCities = [];
+    this.cityId = id;
   }
 
   ngOnDestroy() {

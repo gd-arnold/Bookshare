@@ -82,3 +82,17 @@ img {
 #town {
     width: 300px;
 }
+
+.searchedCities {
+    position: absolute;
+    position: absolute;
+    background-color: whitesmoke;
+    border-color: whitesmoke;
+    width: 300px;
+    text-align: left;
+}
+
+.city {
+    overflow: hidden;
+    z-index: 1;
+}

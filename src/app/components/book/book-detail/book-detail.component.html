@@ -27,7 +27,7 @@
                                                     <div *ngFor="let courier of courierServices" class="col-4">
                                                         <div class="custom-control custom-radio">
                                                             <input type="radio" id="{{courier.id}}" name="customRadio"
-                                                                class="custom-control-input" (change)="fetchCities(courier.id)">
+                                                                class="custom-control-input" (change)="fetchCitiesByCourier(courier.id)">
                                                             <label class="custom-control-label"
                                                                 for="{{courier.id}}">{{courier.courierServiceName}}</label>
                                                         </div>
@@ -36,12 +36,16 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label for="town">Град:</label>
-                                                <input id="town" name="town" type="text" class="form-control">
+                                            <div *ngIf="courierId" class="form-group">
+                                                <input id="town" name="town" type="text" class="form-control" (keyup)="searchCity($event)" placeholder="Избери град">
+                                                <div class="searchedCities" *ngIf="searchedCities">
+                                                    <div *ngFor="let city of searchedCities" class="city" (click)="selectCity(city.city.cityName, city.city.id)">
+                                                        <p class="cityName">{{city.city.cityName}}</p>
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div *ngIf="cityId" class="form-group">
                                                 <label for="office2">Офис:</label>
                                                 <select id="office2" name="office" class="form-control">
                                                     <option selected>София Център</option>

@@ -17,6 +17,7 @@ export class UserService {
     unreadNotificationsCountChanged = new Subject<number>();
     requestChanged = new Subject<IRequest>();
     courierServices: ICourierService[];
+    cities: any[];
 
     private _unreadNotificationsCount: number = 0;
     private _unreadNotificationsCountSubscriptions: Subscription[] = [];
@@ -77,6 +78,12 @@ export class UserService {
     fetchCourierServices() {
         this.http.get<ICourierService[]>(`${urlPrivate}/couriers`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(couriers => {
             this.courierServices = couriers;
+        })
+    }
+
+    fetchCitiesByCourierId(id: string) {
+        this.http.get<any[]>(`${urlPrivate}/cities-by-courier/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(cities => {
+            this.cities = cities;
         })
     }
 
