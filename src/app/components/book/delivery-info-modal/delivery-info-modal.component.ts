@@ -3,6 +3,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { BookService } from 'src/app/core/services/book.service';
 import { IUser } from '../../shared/interfaces/user';
+declare var $: any; 
 
 @Component({
   selector: 'app-delivery-info-modal',
@@ -63,6 +64,7 @@ export class DeliveryInfoModalComponent implements OnInit {
   }
 
   requestBook(data) {
+    $('#modalCoupon').modal('hide');
     this.bookService.requestBook(this.bookId);
     this.userService.addDeliveryInfo(data.address, data.phoneNumber);
   }
