@@ -35,7 +35,13 @@ export class DeliveryInfoModalComponent implements OnInit {
   }
 
   fetchCitiesByCourier(id: string) {
-    this.courierId = id;
+    if (this.courierId !== null) {
+      this.cityId = null;
+      (document.getElementById("town") as HTMLInputElement).value = "";
+    } else {
+      this.courierId = id;
+    }
+
     this.searchedCities = [];
     this.userService.fetchCitiesByCourierId(id);
   }
