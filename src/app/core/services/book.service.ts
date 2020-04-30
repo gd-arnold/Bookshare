@@ -56,8 +56,8 @@ export class BookService {
       })
   }
 
-  requestBook(book: IBook) {
-    this.http.post<IBook>(`${urlPrivate}/book-request`, book, this.getHttpOptions(localStorage.getItem('token')))
+  requestBook(id: string) {
+    this.http.post<IBook>(`${urlPrivate}/book-request`, {id: id}, this.getHttpOptions(localStorage.getItem('token')))
       .subscribe(() => {
         this.authService.getCurrentUserBasicData();
       }, err => alert("Не съществува потребител, който предлага тази книга."));

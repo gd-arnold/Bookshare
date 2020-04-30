@@ -18,6 +18,7 @@ import { RequestInfoComponent } from './request-info/request-info.component';
 import { AddBookRegComponent } from './add-book-reg/add-book-reg.component';
 import { UserBooksRegComponent } from './user-books-reg/user-books-reg.component';
 import { FormsModule } from '@angular/forms';
+import { DeliveryInfoModalComponent } from './delivery-info-modal/delivery-info-modal.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FormsModule } from '@angular/forms';
     FormatTitle,
     RequestInfoComponent,
     AddBookRegComponent,
-    UserBooksRegComponent
+    UserBooksRegComponent,
+    DeliveryInfoModalComponent
   ],
   imports: [
     CommonModule,
