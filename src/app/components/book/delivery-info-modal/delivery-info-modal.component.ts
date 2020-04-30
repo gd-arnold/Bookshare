@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { BookService } from 'src/app/core/services/book.service';
+import { IUser } from '../../shared/interfaces/user';
 
 @Component({
   selector: 'app-delivery-info-modal',
@@ -9,6 +10,8 @@ import { BookService } from 'src/app/core/services/book.service';
   styleUrls: ['./delivery-info-modal.component.css']
 })
 export class DeliveryInfoModalComponent implements OnInit {
+
+  @Input() currentUserData: IUser;
 
   courierId: string;
   cityId: string;

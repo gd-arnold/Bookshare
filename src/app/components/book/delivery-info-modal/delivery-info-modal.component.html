@@ -39,8 +39,7 @@ aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
                     </div>
 
                     <div class="form-group">
-                        <input #phoneNumberInput="ngModel" ngModel name="phoneNumber" id="tel" type="tel" class="form-control"
-                            pattern="[0-9]+" placeholder="Телефонен номер">
+                        <input #phoneNumberInput="ngModel" [(ngModel)]="currentUserData.phoneNumber" name="phoneNumber" id="tel" type="tel" class="form-control">
                     </div>
 
                     <div class="row">
