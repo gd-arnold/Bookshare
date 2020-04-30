@@ -17,6 +17,8 @@ import { FormatTitle } from 'src/app/core/pipes/format-title.pipe';
 import { RequestInfoComponent } from './request-info/request-info.component';
 import { AddBookRegComponent } from './add-book-reg/add-book-reg.component';
 import { UserBooksRegComponent } from './user-books-reg/user-books-reg.component';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AddBookComponent,
@@ -37,7 +39,8 @@ import { UserBooksRegComponent } from './user-books-reg/user-books-reg.component
     BookRoutingModule,
     LayoutModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   exports: [
     AddBookComponent,

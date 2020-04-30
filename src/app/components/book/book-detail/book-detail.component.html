@@ -20,7 +20,7 @@
                                         <span class="badge mb-2">Адрес и телефон за доставка:</span>
                                     </h4>
                                     <div class="row justify-content-center align-items-center">
-                                        <form>
+                                        <form #requestForm="ngForm" (ngSubmit)="requestBook(requestForm.value)">
                                             <div *ngIf="courierServices" class="form-group">
                                                 <div class="row">
                                                     <div class="col-2"></div>
@@ -46,22 +46,19 @@
                                             </div>
 
                                             <div *ngIf="cityId" class="form-group">
-                                                <label for="office2">Офис:</label>
-                                                <select id="office2" name="office" class="form-control">
-                                                    <option selected>София Център</option>
-                                                    <option>София Център 2</option>
+                                                <select class="form-control" #addressInput="ngModel" ngModel name="address">
+                                                    <option *ngFor="let address of addresses" [value]="address.id">{{address.address}}</option>
                                                 </select>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="tel">Телефон:</label>
-                                                <input id="tel" name="tel" type="tel" class="form-control"
-                                                    pattern="[0-9]+">
+                                                <input #phoneNumberInput="ngModel" ngModel name="phoneNumber" id="tel" type="tel" class="form-control"
+                                                    pattern="[0-9]+" placeholder="Телефонен номер">
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <button (click)="requestBook()" class="btn btn-dark">Поискай
+                                                    <button class="btn btn-dark">Поискай
                                                     </button>
                                                 </div>
                                                 <div class="col-6">

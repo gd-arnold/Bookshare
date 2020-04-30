@@ -23,6 +23,7 @@ export class BookDetailComponent implements OnInit, OnDestroy {
   get book() { return this.bookService.book; }
   get courierServices() { return this.userService.courierServices; }
   get cities() { return this.userService.cities; }
+  get addresses() { return this.userService.addresses }
 
   constructor(
     private router: ActivatedRoute,
@@ -53,8 +54,9 @@ export class BookDetailComponent implements OnInit, OnDestroy {
     return this.currentUserData.requests.some(request => request["requestedBook"]["id"] === this.book.id);
   }
 
-  requestBook() {
-    this.bookService.requestBook(this.book);
+  requestBook(data) {
+    // this.bookService.requestBook(this.book);
+    // this.userService.addDeliveryInfo(data.address, data.phoneNumber);
   }
 
   fetchCitiesByCourier(id: string) {
@@ -76,6 +78,11 @@ export class BookDetailComponent implements OnInit, OnDestroy {
     (document.getElementById("town") as HTMLInputElement).value = name;
     this.searchedCities = [];
     this.cityId = id;
+    this.fetchAddressesByCourierIdAndCityId(this.courierId, this.cityId); 
+  }
+
+  fetchAddressesByCourierIdAndCityId(courierId: string, cityId: string) {
+    this.userService.fetchAddressesByCourierIdAndCityId(courierId, cityId);
   }
 
   ngOnDestroy() {

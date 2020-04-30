@@ -18,6 +18,7 @@ export class UserService {
     requestChanged = new Subject<IRequest>();
     courierServices: ICourierService[];
     cities: any[];
+    addresses: any[];
 
     private _unreadNotificationsCount: number = 0;
     private _unreadNotificationsCountSubscriptions: Subscription[] = [];
@@ -84,6 +85,28 @@ export class UserService {
     fetchCitiesByCourierId(id: string) {
         this.http.get<any[]>(`${urlPrivate}/cities-by-courier/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(cities => {
             this.cities = cities;
+        })
+    }
+
+    fetchAddressesByCourierIdAndCityId(courierId: string, cityId: string) {
+        let data = {
+            cityId: cityId,
+            courierId: courierId
+        };
+
+        this.http.post<any[]>(`${urlPrivate}/addresses-by-city`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(addresses => {
+            this.addresses = addresses;
+        })
+    }
+
+    addDeliveryInfo(addressId: string, phoneNumber: string) {
+        let data = {
+            addressId: addressId,
+            phoneNumber: phoneNumber
+        };
+
+        this.http.post(`${urlPrivate}/add-address`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {  
+            this.authService.getCurrentUserBasicData();    
         })
     }
 
