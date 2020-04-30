@@ -48,6 +48,9 @@ export class DeliveryInfoModalComponent implements OnInit {
   }
 
   searchCity(event) {
+    if (this.cityId !== null) {
+      this.cityId = null;
+    }
     let cityName = event.target.value.toLowerCase();
     if (cityName.length > 1) {
       this.searchedCities = this.cities.filter(deliveryInfo => deliveryInfo["city"]["cityName"].toLowerCase().startsWith(cityName));

@@ -33,18 +33,20 @@ aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
                     </div>
 
                     <div *ngIf="cityId" class="form-group">
-                        <select class="form-control" #addressInput="ngModel" ngModel name="address">
+                        <select class="form-control" #addressInput="ngModel" ngModel name="address" >
                             <option *ngFor="let address of addresses" [value]="address.id">{{address.address}}</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <input #phoneNumberInput="ngModel" [(ngModel)]="currentUserData.phoneNumber" name="phoneNumber" id="tel" type="tel" class="form-control">
+                        <input #phoneNumberInput="ngModel" [(ngModel)]="currentUserData.phoneNumber" name="phoneNumber" pattern="[0-9]{10,}" class="form-control">
                     </div>
-
+                    <div *ngIf="phoneNumberInput.hasError('pattern')">  
+                        Моля въведете валиден телефонен номер.
+                      </div>
                     <div class="row">
                         <div class="col-6">
-                            <button class="btn btn-dark">Поискай
+                            <button [disabled]="requestForm.invalid || cityId == null" class="btn btn-dark">Поискай
                             </button>
                         </div>
                         <div class="col-6">
