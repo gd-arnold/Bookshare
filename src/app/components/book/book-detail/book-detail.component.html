@@ -11,8 +11,8 @@
                 <div *ngIf="currentUserData">
                     <div *ngIf="!isOwner()">
                         <button *ngIf="!isRequested()" class="navbtn" data-toggle="modal"
-                            data-target="#modalCoupon">Поискай</button>
-                        <app-delivery-info-modal [currentUserData]="currentUserData"></app-delivery-info-modal>
+                        [attr.data-target]="'#m' + book.id">Поискай</button>
+                        <app-delivery-info-modal [currentUserData]="currentUserData" [bookId]="book.id"></app-delivery-info-modal>
                         <button [disabled] *ngIf="isRequested()" class="navbtn">Поискано</button>
                     </div>
                 </div>

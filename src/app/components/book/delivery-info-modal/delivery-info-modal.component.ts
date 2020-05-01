@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BookService } from 'src/app/core/services/book.service';
 import { IUser } from '../../shared/interfaces/user';
 declare var $: any;
@@ -13,6 +13,8 @@ declare var $: any;
 export class DeliveryInfoModalComponent implements OnInit {
 
   @Input() currentUserData: IUser;
+  @Input() requestId: string;
+  @Input() bookId: string;
 
   courierId: string;
   cityId: string;
@@ -21,10 +23,9 @@ export class DeliveryInfoModalComponent implements OnInit {
   get courierServices() { return this.userService.courierServices; }
   get cities() { return this.userService.cities; }
   get addresses() { return this.userService.addresses }
-  get bookId() { return this.router.snapshot.paramMap.get('id'); };
 
   constructor(
-    private router: ActivatedRoute,
+    private router: Router,
     private userService: UserService,
     private bookService: BookService
   ) { }
@@ -76,7 +77,12 @@ export class DeliveryInfoModalComponent implements OnInit {
     const addressId = this.addresses.filter(address => address.address === data.address)[0].id;
     this.bookService.requestBook(this.bookId);
     this.userService.addDeliveryInfo(addressId, data.phoneNumber);
-    $('#modalCoupon').modal('hide');
+    $(`#m${this.bookId}`).modal('hide');
+  }
+
+  chooseBook() {
+    this.bookService.chooseBook(this.requestId, this.bookId);
+    this.router.navigate([`book/info/request/${this.requestId}`]);
   }
 
 }

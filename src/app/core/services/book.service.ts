@@ -76,7 +76,7 @@ export class BookService {
     });
   }
 
-  chooseBook(requestId: number, bookId: string) {
+  chooseBook(requestId: string, bookId: string) {
     let data = {
       request_id: requestId,
       book_id: bookId

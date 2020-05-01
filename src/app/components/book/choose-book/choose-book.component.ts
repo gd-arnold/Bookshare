@@ -22,10 +22,8 @@ export class ChooseBookComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private userService: UserService,
-    private authService: AuthService,
-    private bookService: BookService
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -39,11 +37,6 @@ export class ChooseBookComponent implements OnInit, OnDestroy {
         this.request = request;
       })
     })
-  }
-
-  chooseBook(id: string) {
-    this.bookService.chooseBook(this.request.id, id);
-    this.router.navigate([`book/info/request/${this.request.id}`]);
   }
 
   ngOnDestroy() {

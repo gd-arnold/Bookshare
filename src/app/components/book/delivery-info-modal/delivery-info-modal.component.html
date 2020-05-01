@@ -1,4 +1,4 @@
-<div class="modal fade top" id="modalCoupon" tabindex="-1" role="dialog"
+<div class="modal fade top" id="m{{bookId}}" tabindex="-1" role="dialog"
 aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
 <div class="modal-dialog modal-frame modal-top modal-notify modal-success" role="document">
     <div class="modal-content">
@@ -7,7 +7,7 @@ aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
                 <span class="badge mb-2">Адрес и телефон за доставка:</span>
             </h4>
             <div class="row justify-content-center align-items-center">
-                <form #requestForm="ngForm" (ngSubmit)="requestBook(requestForm.value)">
+                <form #requestForm="ngForm" (ngSubmit)="requestId ? chooseBook() : requestBook(requestForm.value)">
                     <div *ngIf="courierServices" class="form-group">
                         <div class="row">
                             <div class="col-2"></div>
@@ -47,7 +47,9 @@ aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
                       </div>
                     <div class="row">
                         <div class="col-6">
-                            <button [disabled]="requestForm.invalid || cityId == null || isAddressInvalid()" class="btn btn-dark">Поискай
+                            <button *ngIf="bookId && requestId == null" [disabled]="requestForm.invalid || cityId == null || isAddressInvalid()"  class="btn btn-dark">Поискай
+                            </button>
+                            <button *ngIf="requestId && bookId" [disabled]="requestForm.invalid || cityId == null || isAddressInvalid()"  class="btn btn-dark">Напред
                             </button>
                         </div>
                         <div class="col-6">
