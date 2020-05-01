@@ -1,0 +1,12 @@
+.searchedCities {
+    position: absolute;
+    background-color: whitesmoke;
+    border-color: whitesmoke;
+    width: 320px;
+    text-align: left;
+    z-index: 1;
+}
+
+input {
+    width: 320px;
+}

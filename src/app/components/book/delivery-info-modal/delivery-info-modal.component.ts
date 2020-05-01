@@ -37,8 +37,9 @@ export class DeliveryInfoModalComponent implements OnInit {
 
   fetchCitiesByCourier(id: string) {
     if (this.courierId !== null) {
+      this.courierId = id;
       this.cityId = null;
-      (document.getElementById("town") as HTMLInputElement).value = "";
+      (document.getElementsByClassName("search-town-engine")[0] as HTMLInputElement).value = "";
     } else {
       this.courierId = id;
     }
@@ -60,16 +61,17 @@ export class DeliveryInfoModalComponent implements OnInit {
   }
 
   selectCity(name: string, id: string) {
-    (document.getElementById("town") as HTMLInputElement).value = name;
+    (document.getElementsByClassName("search-town-engine")[0] as HTMLInputElement).value = name;
     this.searchedCities = [];
     this.cityId = id;
     this.userService.fetchAddressesByCourierIdAndCityId(this.courierId, this.cityId);
   }
 
   requestBook(data) {
-    $('#modalCoupon').modal('hide');
-    this.bookService.requestBook(this.bookId);
-    this.userService.addDeliveryInfo(data.address, data.phoneNumber);
+    console.log(data);
+    // $('#modalCoupon').modal('hide');
+    // this.bookService.requestBook(this.bookId);
+    // this.userService.addDeliveryInfo(data.address, data.phoneNumber);
   }
 
 }
