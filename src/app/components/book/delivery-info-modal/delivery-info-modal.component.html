@@ -47,7 +47,7 @@ aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
                       </div>
                     <div class="row">
                         <div class="col-6">
-                            <button [disabled]="requestForm.invalid || cityId == null" class="btn btn-dark">Поискай
+                            <button [disabled]="requestForm.invalid || cityId == null || isAddressInvalid()" class="btn btn-dark">Поискай
                             </button>
                         </div>
                         <div class="col-6">

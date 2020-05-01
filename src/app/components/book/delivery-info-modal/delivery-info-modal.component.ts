@@ -3,7 +3,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { BookService } from 'src/app/core/services/book.service';
 import { IUser } from '../../shared/interfaces/user';
-declare var $: any; 
+declare var $: any;
 
 @Component({
   selector: 'app-delivery-info-modal',
@@ -67,11 +67,16 @@ export class DeliveryInfoModalComponent implements OnInit {
     this.userService.fetchAddressesByCourierIdAndCityId(this.courierId, this.cityId);
   }
 
+  isAddressInvalid() {
+    return !(this.addresses && this.addresses.length > 0
+      && this.addresses.some(address => address["address"] === (document.getElementsByName("address")[0] as HTMLInputElement).value));
+  }
+
   requestBook(data) {
-    console.log(data);
-    // $('#modalCoupon').modal('hide');
-    // this.bookService.requestBook(this.bookId);
-    // this.userService.addDeliveryInfo(data.address, data.phoneNumber);
+    const addressId = this.addresses.filter(address => address.address === data.address)[0].id;
+    this.bookService.requestBook(this.bookId);
+    this.userService.addDeliveryInfo(addressId, data.phoneNumber);
+    $('#modalCoupon').modal('hide');
   }
 
 }
