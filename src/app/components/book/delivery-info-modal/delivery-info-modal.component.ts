@@ -83,6 +83,7 @@ export class DeliveryInfoModalComponent implements OnInit {
   chooseBook() {
     this.bookService.chooseBook(this.requestId, this.bookId);
     this.router.navigate([`book/info/request/${this.requestId}`]);
+    $(`#m${this.bookId}`).modal('hide');
   }
 
 }

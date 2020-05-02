@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { IRequest } from '../../shared/interfaces/request';
 import { BookService } from 'src/app/core/services/book.service';
+import { IBook } from '../../shared/interfaces/book';
 
 @Component({
   selector: 'app-choose-book',
@@ -19,6 +20,8 @@ export class ChooseBookComponent implements OnInit, OnDestroy {
 
   request: IRequest;
   requestSub: Subscription;
+
+  selectedBook: IBook;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,4 +46,7 @@ export class ChooseBookComponent implements OnInit, OnDestroy {
     this.userService.cancelSubscriptions();
   }
 
+  selectBook(book: IBook) {
+    this.selectedBook = book;
+  }
 }
