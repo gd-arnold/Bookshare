@@ -81,10 +81,11 @@ export class BookService {
     });
   }
 
-  chooseBook(requestId: string, bookId: string) {
+  chooseBook(requestId: string, bookId: string, addressId: string) {
     let data = {
-      request_id: requestId,
-      book_id: bookId
+      requestId: requestId,
+      bookId: bookId,
+      addressId: addressId
     };
 
     this.http.post(`${urlPrivate}/accept-book`, data, this.getHttpOptions(localStorage.getItem("token")))

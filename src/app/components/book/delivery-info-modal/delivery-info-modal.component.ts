@@ -80,8 +80,10 @@ export class DeliveryInfoModalComponent implements OnInit {
     $(`#m${this.bookId}`).modal('hide');
   }
 
-  chooseBook() {
-    this.bookService.chooseBook(this.requestId, this.bookId);
+  chooseBook(data) {
+    const addressId = this.addresses.filter(address => address.address === data.address)[0].id;
+    this.bookService.chooseBook(this.requestId, this.bookId, addressId);
+    this.userService.addDeliveryInfo(addressId, data.phoneNumber);
     this.router.navigate([`book/info/request/${this.requestId}`]);
     $(`#m${this.bookId}`).modal('hide');
   }

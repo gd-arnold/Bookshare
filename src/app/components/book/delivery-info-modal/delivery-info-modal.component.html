@@ -7,7 +7,7 @@ aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
                 <span class="badge mb-2">Адрес и телефон за доставка:</span>
             </h4>
             <div class="row justify-content-center align-items-center">
-                <form #requestForm="ngForm" (ngSubmit)="requestId ? chooseBook() : requestBook(requestForm.value)">
+                <form #requestForm="ngForm" (ngSubmit)="requestId ? chooseBook(requestForm.value) : requestBook(requestForm.value)">
                     <div *ngIf="courierServices" class="form-group">
                         <div class="row">
                             <div class="col-2"></div>
