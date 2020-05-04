@@ -32,6 +32,7 @@
 
 .book {
     overflow: hidden;
+    cursor: pointer;
 }
 
 .book:hover{
