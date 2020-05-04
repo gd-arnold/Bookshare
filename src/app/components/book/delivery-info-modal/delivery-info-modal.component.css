@@ -1,7 +1,6 @@
 .searchedCities {
     position: absolute;
-    background-color: whitesmoke;
-    border-color: whitesmoke;
+    background-color: whitesmoke;   
     width: 320px;
     text-align: left;
     z-index: 1;
@@ -13,4 +12,7 @@ input {
 
 .cityName {
     cursor: pointer;
+    font-weight: 700;
+    padding-top: 4px;
+    padding-left: 4px;
 }
