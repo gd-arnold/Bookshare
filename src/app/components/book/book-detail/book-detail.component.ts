@@ -19,6 +19,7 @@ export class BookDetailComponent implements OnInit, OnDestroy {
 
   get book() { return this.bookService.book; }
   get bookId() { return this.router.snapshot.paramMap.get('id'); };
+  get isSuccessfullyRequestedId() { return this.bookService.isSuccesfullyRequestedId }
 
   constructor(
     private router: ActivatedRoute,

@@ -76,3 +76,7 @@ img {
     color: rgb(206, 112, 5);
     font-weight: 700;
 }
+
+.alert-success {
+    font-size: 16.5px;
+}

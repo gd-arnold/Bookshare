@@ -1,5 +1,9 @@
-<div class="container-fluid padding">
-    <div class="row text-center d-flex justify-content-center book" *ngIf="book">
+<div class="container-fluid padding" *ngIf="book">
+    <div *ngIf="isSuccessfullyRequestedId === book.id" class="alert alert-success mt-2" role="alert">
+        Ти успешно поиска "{{book.title}}"! Ще те известим, когато някой приеме заяквата ти.
+    </div>
+    <div class="row text-center d-flex justify-content-center book">
+
         <div class="col-md-4">
             <img [src]="book.imageURL">
             <p class="book-author">Автор: <span class="book-author-span">{{book.author}}</span></p>
@@ -7,12 +11,13 @@
             <p class="book-publisher">Издателство: <span class="book-publisher-span">{{book.publisher}}</span></p>
             <p *ngIf="currentUserData" class="book-owners">Потребители, които предлагат тази книга: <span
                     class="book-owners-span">{{book.users.length}}</span></p>
-            <div *ngIf="book.users.length > 0">
-                <div *ngIf="currentUserData">
+            <div *ngIf="currentUserData">
+                <div *ngIf="book.users.length > 0">
                     <div *ngIf="!isOwner()">
                         <button *ngIf="!isRequested()" class="navbtn" data-toggle="modal"
-                        [attr.data-target]="'#m' + book.id">Поискай</button>
-                        <app-delivery-info-modal [currentUserData]="currentUserData" [bookId]="book.id"></app-delivery-info-modal>
+                            [attr.data-target]="'#m' + book.id">Поискай</button>
+                        <app-delivery-info-modal [currentUserData]="currentUserData" [bookId]="book.id">
+                        </app-delivery-info-modal>
                         <button [disabled] *ngIf="isRequested()" class="navbtn">Поискано</button>
                     </div>
                 </div>

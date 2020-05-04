@@ -19,6 +19,7 @@ export class BookService {
   newestBooks: IBook[];
   book: IBook;
   booksChanged = new Subject<IBook[]>();
+  isSuccesfullyRequestedId: string;
 
   private _booksForUser: IBook[] = [];
   private _bookSubscriptions: Subscription[] = [];
@@ -65,6 +66,7 @@ export class BookService {
     this.http.post<IBook>(`${urlPrivate}/book-request`, data, this.getHttpOptions(localStorage.getItem('token')))
       .subscribe(() => {
         this.authService.getCurrentUserBasicData();
+        this.isSuccesfullyRequestedId = bookId;
       }, err => alert("Не съществува потребител, който предлага тази книга."));
   }
 
