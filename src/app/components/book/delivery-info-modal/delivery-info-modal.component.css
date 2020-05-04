@@ -10,3 +10,7 @@
 input {
     width: 320px;
 }
+
+.cityName {
+    cursor: pointer;
+}

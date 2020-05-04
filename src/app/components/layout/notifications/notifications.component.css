@@ -37,3 +37,7 @@
 .request:hover {
     background-color: whitesmoke;
 }
+
+.nav-item {
+    cursor: pointer;
+}
