@@ -1,5 +1,6 @@
 import { IUser } from './user';
 import { IBook } from './book';
+import { IDeliveryInfo } from './delivery-info';
 
 export interface IRequest {
     id: number;
@@ -10,4 +11,6 @@ export interface IRequest {
     receiver: IUser;
     requestedBook: IBook;
     chosenBook: IBook;
+    requesterAddress: IDeliveryInfo;
+    receiverAddress: IDeliveryInfo;
 }
