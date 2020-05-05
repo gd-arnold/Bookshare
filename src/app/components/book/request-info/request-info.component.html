@@ -4,7 +4,7 @@
             Поздравления! Вие разменихте "{{request.requestedBook.title}}" за "{{request.chosenBook.title}}"!
         </h2>
         <div class="row m-0 pt-5">
-        
+            <div class="col-1"></div>
             <div class="col-2">
                 <img _ngcontent-heq-c5="" class="img-responsive fit-image shadow" [src]="request.requestedBook.imageURL">
             </div>
@@ -13,20 +13,22 @@
             </div>
             <div class="col-1"></div>
  
-            <div class="col-5 text-center text-dark pt-5 request">
+            <div class="col-5 text-center text-dark pt-4 request">
                 <h4>Информация за изпращане</h4>
-                <p class="pt-1">Име: {{request.requester.firstName}} {{request.requester.lastName}}</p>
-                <p>Tел. номер: {{request.requester.phoneNumber}}0</p>
-                <p>Адрес: {{request.requester.address}}</p>
+                <p><b>Куриерска фирма:</b> {{request.requesterAddress.courierService.courierServiceName}}</p>
+                <p><b>Име:</b> {{request.requester.firstName}} {{request.requester.lastName}}</p>
+                <p><b>Tел. номер:</b> {{request.requester.phoneNumber}}</p>
+                <p><b>Град:</b> {{request.requesterAddress.city.cityName}}</p>
+                <p><b>Адрес на офис:</b> {{request.requesterAddress.address}}</p>
             </div>
         </div>
     </div>
     <div *ngIf="isRequester()">
         <h2 class="text-center text-dark py-4">
-            Поздравления! Вие разменихте "{{request.chosenBook.title}}" за "{{request.requestedBook.title}}"!
+            Поздравления! Вие разменихте <span class="book-title">"{{request.chosenBook.title}}"</span> за <span class="book-title">"{{request.requestedBook.title}}"</span>!
         </h2>
         <div class="row m-0 pt-5">
-        
+            <div class="col-1"></div>
             <div class="col-2">
                 <img _ngcontent-heq-c5="" class="img-responsive fit-image shadow" [src]="request.chosenBook.imageURL">
             </div>
@@ -35,11 +37,13 @@
             </div>
             <div class="col-1"></div>
  
-            <div class="col-5 text-center text-dark pt-5 request">
+            <div class="col-5 text-center text-dark pt-4 request">
                 <h4>Информация за изпращане</h4>
-                <p class="pt-1">Име: {{request.receiver.firstName}} {{request.receiver.lastName}}</p>
-                <p>Tел. номер: {{request.receiver.phoneNumber}}</p>
-                <p>Адрес: {{request.receiver.address}}</p>
+                <p><b>Куриерска фирма:</b> {{request.receiverAddress.courierService.courierServiceName}}</p>
+                <p><b>Име:</b> {{request.receiver.firstName}} {{request.receiver.lastName}}</p>
+                <p><b>Tел. номер:</b> {{request.receiver.phoneNumber}}</p>
+                <p><b>Град:</b> {{request.receiverAddress.city.cityName}}</p>
+                <p><b>Адрес на офис:</b> {{request.receiverAddress.address}}</p>
             </div>
         </div>
     </div>
