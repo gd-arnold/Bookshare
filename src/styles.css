@@ -506,6 +506,10 @@ mark,
   text-align: center;
 }
 
+.div-menu{
+  display:none;
+}
+
 .bar:hover{
   background-color: rgb(233, 233, 233);
 }
