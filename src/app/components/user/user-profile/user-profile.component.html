@@ -1,6 +1,6 @@
 <section class="row">
   <div class="col-lg-3 col-md-4 col-sm-12 text-center   profmenu">
-    <img src="/src/assets/static/profile.png" data-toggle="modal" data-target="#PhModal" class="m-5 img-profile">
+    <img src="/assets/static/profile.png" data-toggle="modal" data-target="#PhModal" class="m-5 img-profile">
     <h4 class="text-center">Редактиране на профил</h4>
     <div class="form-group pt-3">
       <label for="mail">Имейл</label>
@@ -25,14 +25,14 @@
 
     <div id="Past" class="div-menu">
       <div class="container border rounded my-4 row">
-        <div class="col-3">
+        <div class="col-3 ">
           <img class="p-2 img-responsive fit-image" src="https://i4.helikon.bg/products/0642/22/220642/220642_b.jpg">
         </div>
         <div class="col-4 text-center justify-content-center align-self-center">
-          <h4 class="pl-2 book-title">На Мишел Обама книгата</h4>
+          <h4 class="pl-2 past-book-title">На Мишел Обама книгата</h4>
           <p class="pl-2 text-muted font-italic">Автор: book.author</p>
           <span class="font-weight-bold">за:</span>
-          <h4 class="pl-2 book-title">Най тъпия език евър нз защо са го направили</h4>
+          <h4 class="pl-2 past-book-title">Най тъпия език евър нз защо са го направили</h4>
           <p class="pl-2 text-muted font-italic">Автор: book.author</p>
         </div>
         <div class="col-3">
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div id="Pending" class="div-menu">
+    <div id="Pending" class="div-menu" style="display: none;">
       <div class="row text-center d-flex justify-content-center">
         <div class="col-xs-12 col-sm-4 col-md-2 book">
           <div routerLink="../">
@@ -52,15 +52,15 @@
             <p class="book-title">book.title</p>
             <p class="book-author">Автор: book.author</p>
           </div>
-          <button class="removebtn">Продължи</button>
+          <button class="pendingbtn">Продължи</button>
         </div>
       </div>
       <div class="row text-center d-flex justify-content-center">
-        <p class="msg">Все още нямаш книги в библиoтеката ти.</p>
+        <p class="msg">Нямаш поискани книги.</p>
       </div>
     </div>
 
-    <div id="Requested" class="div-menu">
+    <div id="Requested" class="div-menu" style="display: none;">
       <div class="row text-center d-flex justify-content-center">
         <div class="col-xs-12 col-sm-4 col-md-2 book">
           <div routerLink="../">
@@ -72,7 +72,7 @@
         </div>
       </div>
       <div class="row text-center d-flex justify-content-center">
-        <p class="msg">Все още нямаш книги в библиoтеката ти.</p>
+        <p class="msg">Нямаш поискани книги.</p>
       </div>
     </div>
 

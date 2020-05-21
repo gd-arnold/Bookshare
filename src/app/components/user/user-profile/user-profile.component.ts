@@ -18,8 +18,6 @@ export class UserProfileComponent implements OnInit {
         bar.className = "col-4 bar border-right h5"
         let divsId = bar.textContent;
 
-        //document.querySelector(`#${divsId}`).style.display = 'none';
-
         let div = document.querySelector(`#${divsId}`)
         div.style.display = 'block';
 
