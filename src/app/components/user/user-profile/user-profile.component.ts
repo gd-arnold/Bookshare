@@ -38,20 +38,19 @@ export class UserProfileComponent implements OnInit {
       this.currFirstName = this.currentUserData.firstName;
       this.currLastName = this.currentUserData.lastName;
       this.currEmail = this.currentUserData.email;
-      console.log(this.currentUserData);
     });
 
-    this.firstNameChanged.pipe(debounceTime(1000))
+    this.firstNameChanged.pipe(debounceTime(1050))
       .subscribe(firstName => {
         this.userService.updateUser(firstName, null, null);
       });
 
-    this.lastNameChanged.pipe(debounceTime(1000))
+    this.lastNameChanged.pipe(debounceTime(1050))
       .subscribe(lastName => {
         this.userService.updateUser(null, lastName, null);
       });  
 
-    this.emailChanged.pipe(debounceTime(1000))
+    this.emailChanged.pipe(debounceTime(1050))
       .subscribe(email => {
         this.userService.updateUser(null, null, email);
       });   
