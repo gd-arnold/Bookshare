@@ -34,9 +34,9 @@
   </div>
   <div class="col-lg-9 col-md-8 border-left">
     <div class="row">
-      <div class="col-4 bar border-right border-bottom h5">Pending</div>
+      <div class="col-4 bar border-right h5">Pending</div>
       <div class="col-4 bar border-right border-bottom h5">Requested</div>
-      <div class="col-4 bar h5">Past</div>
+      <div class="col-4 bar border-right border-bottom h5">Past</div>
     </div>
 
     <!-- <div id="Past" class="div-menu">
@@ -62,13 +62,15 @@
 
     <div id="Pending" class="div-menu" >
       <div class="row text-center d-flex justify-content-center">
-        <div class="col-xs-12 col-sm-4 col-md-2 book">
-          <div routerLink="../">
-            <img class="book-img" src="https://i2.helikon.bg/products/0109/21/210109/210109_b.jpg">
-            <p class="book-title">book.title</p>
-            <p class="book-author">Автор: book.author</p>
+        <div *ngFor="let receive of currentUserData.receipts" class="col-xs-12 col-sm-4 col-md-2 book">
+          <div *ngIf="!receive.isAccepted">
+            <div routerLink="../../book/choose/request/{{receive.id}}">
+              <img class="book-img" [src]="receive.requestedBook.imageURL">
+              <p class="book-title">{{receive.requestedBook.title}}</p>
+              <p class="book-author">Автор: {{receive.requestedBook.author}}</p>
+            </div>
+            <button class="pendingbtn" routerLink="../../book/choose/request/{{receive.id}}">Продължи</button>
           </div>
-          <button class="pendingbtn">Продължи</button>
         </div>
       </div>
       <!-- <div class="row text-center d-flex justify-content-center">

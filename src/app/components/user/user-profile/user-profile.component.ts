@@ -41,6 +41,7 @@ export class UserProfileComponent implements OnInit {
       this.currFirstName = this.currentUserData.firstName;
       this.currLastName = this.currentUserData.lastName;
       this.currEmail = this.currentUserData.email;
+      console.log(this.currentUserData);
     });
 
     this.firstNameChanged.pipe(debounceTime(1050))
