@@ -5,15 +5,16 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { LoaderComponent } from './loader/loader.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
-  declarations: [NavigationComponent, NotificationsComponent, LoaderComponent],
+  declarations: [NavigationComponent, NotificationsComponent, LoaderComponent, FooterComponent],
   imports: [
     CommonModule,
     RouterModule,
     SharedModule
   ],
-  exports: [NavigationComponent, LoaderComponent]
+  exports: [NavigationComponent, LoaderComponent, FooterComponent]
 })
 export class LayoutModule { }
