@@ -1,19 +1,23 @@
-<section class="row">
-  <div class="col-lg-3 col-md-4 col-sm-12 text-center   profmenu">
+<section class="row" *ngIf="currentUserData">
+  <div class="col-lg-3 col-md-4 col-sm-12 text-center profmenu">
     <img src="/assets/static/profile.png" data-toggle="modal" data-target="#PhModal" class="m-5 img-profile">
     <h4 class="text-center">Редактиране на профил</h4>
     <div class="form-group pt-3">
-      <label for="mail">Имейл</label>
-      <input id="mail" class="form-control mx-2" value="yourmail@shit.com">
+      <div class="form-group">
+        <label for="first-name">Име</label>
+        <input id="first-name" class="form-control mx-2" [(ngModel)]='currentUserData.firstName' (ngModelChange)='updateUserFirstName($event)'>
+      </div>
+      <div class="form-group">
+        <label for="last-name">Фамилия</label>
+        <input id="last-name" class="form-control mx-2" [(ngModel)]='currentUserData.lastName' (ngModelChange)='updateUserLastName($event)'>
+      </div>
+      <div class="form-group">
+        <label for="email">Имейл</label>
+        <input id="email" class="form-control mx-2" [(ngModel)]='currentUserData.email' (ngModelChange)='updateUserEmail($event)'>  
+      </div>
+
     </div>
-    <div class="form-group">
-      <label for="name1">Име</label>
-      <input id="name1" class="form-control mx-2" value="Peter">
-    </div>
-    <div class="form-group">
-      <label for="name2">Фамилия</label>
-      <input id="name2" class="form-control mx-2" value="Borisov">
-    </div>
+
     <button class="btn-dark my-3" type="button" data-toggle="modal" data-target="#Modal">Смени парола</button>
   </div>
   <div class="col-lg-9 col-md-8 border-left">
@@ -23,7 +27,7 @@
       <div class="col-4 bar h5">Past</div>
     </div>
 
-    <div id="Past" class="div-menu">
+    <!-- <div id="Past" class="div-menu">
       <div class="container border rounded my-4 row">
         <div class="col-3 ">
           <img class="p-2 img-responsive fit-image" src="https://i4.helikon.bg/products/0642/22/220642/220642_b.jpg">
@@ -42,9 +46,9 @@
           <button class="btn btn-danger">Изтрий</button>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <div id="Pending" class="div-menu" style="display: none;">
+    <div id="Pending" class="div-menu" >
       <div class="row text-center d-flex justify-content-center">
         <div class="col-xs-12 col-sm-4 col-md-2 book">
           <div routerLink="../">
@@ -55,12 +59,12 @@
           <button class="pendingbtn">Продължи</button>
         </div>
       </div>
-      <div class="row text-center d-flex justify-content-center">
+      <!-- <div class="row text-center d-flex justify-content-center">
         <p class="msg">Нямаш поискани книги.</p>
-      </div>
+      </div> -->
     </div>
 
-    <div id="Requested" class="div-menu" style="display: none;">
+    <!-- <div id="Requested" class="div-menu" >
       <div class="row text-center d-flex justify-content-center">
         <div class="col-xs-12 col-sm-4 col-md-2 book">
           <div routerLink="../">
@@ -74,7 +78,7 @@
       <div class="row text-center d-flex justify-content-center">
         <p class="msg">Нямаш поискани книги.</p>
       </div>
-    </div>
+    </div> -->
 
   </div>
 </section>

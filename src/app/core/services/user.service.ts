@@ -72,6 +72,20 @@ export class UserService {
         });
     }
 
+    updateUser(firstName: string, lastName: string, email: string) {
+        let bodyData = {
+            data: {
+                "firstName" : firstName,
+                "lastName" : lastName,
+                "email" : email
+            }
+        };
+
+        this.http.post(`${urlPrivate}/update-user-basic-data`, bodyData, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+            this.authService.getCurrentUserBasicData();
+        });
+    }
+
     cancelSubscriptions() {
         this._unreadNotificationsCountSubscriptions.forEach((s) => s.unsubscribe());
         this._requestSubscriptions.forEach((s) => s.unsubscribe());
