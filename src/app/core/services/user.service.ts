@@ -89,6 +89,14 @@ export class UserService {
         });
     }
 
+    updatePassword(data) {
+        this.http.post(`${urlPrivate}/update-password`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+            this.authService.getCurrentUserBasicData();
+        }, err=> {
+            alert("Невалидна парола!");
+        });
+    }
+
     cancelSubscriptions() {
         this._unreadNotificationsCountSubscriptions.forEach((s) => s.unsubscribe());
         this._requestSubscriptions.forEach((s) => s.unsubscribe());

@@ -80,4 +80,8 @@ export class UserProfileComponent implements OnInit {
       this.emailChanged.next(this.currEmail);
     }
   }
+
+  changePasswordHandler(data) {
+    this.userService.updatePassword(data);
+  }
 }

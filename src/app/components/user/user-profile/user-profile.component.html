@@ -103,20 +103,20 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form>
+      <form #changePasswordForm="ngForm" (ngSubmit)="changePasswordHandler(changePasswordForm.value)">
         <div class="modal-body">
           <div class="form-group pt-3">
-            <label for="p1">Стара парола</label>
-            <input id="p1" class="form-control mx-2" type="password">
+            <label for="p1">Текуща парола</label>
+            <input #currPasswordInput="ngModel" ngModel name="currPassword" id="p1" class="form-control mx-2" type="password" required minlength="6">
           </div>
           <div class="form-group">
             <label for="p2">Нова парола</label>
-            <input id="p2" class="form-control mx-2" type="password">
+            <input #newPasswordInput="ngModel" ngModel name="newPassword" id="p2" class="form-control mx-2" type="password" required minlength="6">
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
-          <button type="submit" class="btn-dark">Смени</button>
+          <button [disabled]="changePasswordForm.invalid" type="submit" class="btn-dark">Смени</button>
         </div>
       </form>
     </div>
