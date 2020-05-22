@@ -4,6 +4,7 @@ import { of, timer, Subject, Subscription } from 'rxjs';
 import { debounce, debounceTime, last } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
+declare var $: any;
 
 @Component({
   selector: 'app-user-profile',
@@ -30,6 +31,8 @@ export class UserProfileComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
   ) { }
+
+  get isPasswordChanged() { return this.userService.isPasswordChanged };
 
   ngOnInit() {
     this.authService.getCurrentUserBasicData();
@@ -83,5 +86,6 @@ export class UserProfileComponent implements OnInit {
 
   changePasswordHandler(data) {
     this.userService.updatePassword(data);
+    $(`#changePasswordModal`).modal('hide');
   }
 }

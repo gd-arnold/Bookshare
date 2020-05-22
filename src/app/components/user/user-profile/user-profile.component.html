@@ -1,6 +1,9 @@
 <section class="row" *ngIf="currentUserData">
   <div class="col-lg-3 col-md-4 col-sm-12 text-center profmenu">
-    <img src="/assets/static/profile.png" data-toggle="modal" data-target="#PhModal" class="m-5 img-profile">
+    <div *ngIf="isPasswordChanged" class="alert alert-success mt-2" role="alert">
+      Ти успешно промени паролата си!
+    </div>
+    <img src="/assets/static/profile.png" data-toggle="modal" data-target="#PhModal" class="m-3 img-profile">
     <h4 class="text-center">Редактиране на профил</h4>
     <div class="form-group pt-3">
       <div class="form-group">
@@ -27,7 +30,7 @@
 
     </div>
 
-    <button class="btn-dark my-3" type="button" data-toggle="modal" data-target="#Modal">Смени парола</button>
+    <button class="btn-dark my-3" type="button" data-toggle="modal" data-target="#changePasswordModal">Промени парола</button>
   </div>
   <div class="col-lg-9 col-md-8 border-left">
     <div class="row">
@@ -93,17 +96,17 @@
 </section>
 
 <!-- Password Modal -->
-<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Смени Парола</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Промени Парола</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form #changePasswordForm="ngForm" (ngSubmit)="changePasswordHandler(changePasswordForm.value)">
+      <form #changePasswordForm="ngForm" (ngSubmit)="changePasswordHandler(changePasswordForm.value); changePasswordForm.reset();">
         <div class="modal-body">
           <div class="form-group pt-3">
             <label for="p1">Текуща парола</label>
@@ -112,11 +115,12 @@
           <div class="form-group">
             <label for="p2">Нова парола</label>
             <input #newPasswordInput="ngModel" ngModel name="newPassword" id="p2" class="form-control mx-2" type="password" required minlength="6">
+            <div *ngIf="newPasswordInput.hasError('minlength') && newPasswordInput.touched" class="warning">Паролата трябва да бъде поне 6 символа.</div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
-          <button [disabled]="changePasswordForm.invalid" type="submit" class="btn-dark">Смени</button>
+          <button [disabled]="changePasswordForm.invalid" type="submit" class="btn-dark">Промени</button>
         </div>
       </form>
     </div>
@@ -142,4 +146,4 @@
     </div>
   </div>
 </div>
-<script src="./user-profile.component.spec.ts"> bars()</script>
+<!-- <script src="./user-profile.component.spec.ts"> bars()</script> -->

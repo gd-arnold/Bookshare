@@ -21,6 +21,8 @@ export class UserService {
     private _request: IRequest;
     private _requestSubscriptions: Subscription[] = [];
 
+    isPasswordChanged: boolean = false;
+
     constructor(
         private http: HttpClient,
         private authService: AuthService
@@ -92,6 +94,8 @@ export class UserService {
     updatePassword(data) {
         this.http.post(`${urlPrivate}/update-password`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
             this.authService.getCurrentUserBasicData();
+            this.isPasswordChanged = true;
+            console.log(this.isPasswordChanged);
         }, err=> {
             alert("Невалидна парола!");
         });
