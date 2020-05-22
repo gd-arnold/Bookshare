@@ -1,15 +1,20 @@
 <div *ngIf="request">
     <div class="container-fluid padding books" *ngIf="request.requester.books">
-        <h5 class="library-title">Избери си една от книгите на {{request.requester.firstName}}</h5>
+        <div class="row">
+            <h3 class="col-6 library-title pl-5">Избери си една от книгите на {{request.requester.firstName}}</h3>
+            <div class="col-6">
+                <button class="btn btn-danger float-right p-2 mr-4">Откажи</button>
+            </div>
+        </div>
         <div *ngIf="request.requester.books" class="row text-center d-flex justify-content-center">
-            <div *ngFor="let book of request.requester.books" data-toggle="modal"
-            [attr.data-target]="'#m' + book.id" (click)="selectBook(book)"
-                class="col-xs-12 col-sm-4 col-md-2 book">
+            <div *ngFor="let book of request.requester.books" data-toggle="modal" [attr.data-target]="'#m' + book.id"
+                (click)="selectBook(book)" class="col-xs-12 col-sm-4 col-md-2 book">
                 <img class="book-img" [src]="book.imageURL">
                 <p class="book-title">{{book.title}}</p>
                 <p class="book-author">Автор: {{book.author}}</p>
             </div>
-            <app-delivery-info-modal *ngIf="selectedBook" [currentUserData]="currentUserData" [bookId]="selectedBook.id" [requestId]="request.id"></app-delivery-info-modal>
+            <app-delivery-info-modal *ngIf="selectedBook" [currentUserData]="currentUserData" [bookId]="selectedBook.id"
+                [requestId]="request.id"></app-delivery-info-modal>
         </div>
     </div>
 </div>

@@ -35,12 +35,9 @@
 }
 
 .library-title {
-    margin-left: 20px;
     color: #F68D16;
 }
 
 .book:hover {
-    background-color: whitesmoke;
-    border: #F68D16 2px solid;
-    border-radius: 10%;
+    background-color: rgb(218, 218, 218);
 }
