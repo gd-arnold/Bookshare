@@ -83,6 +83,8 @@ export class UserService {
 
         this.http.post(`${urlPrivate}/update-user-basic-data`, bodyData, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
             this.authService.getCurrentUserBasicData();
+        }, err => {
+            alert("Вече съществува потребител с такъв имейл!");
         });
     }
 

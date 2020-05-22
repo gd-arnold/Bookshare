@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IUser } from '../../shared/interfaces/user';
 import { of, timer, Subject, Subscription } from 'rxjs';
-import { debounce, debounceTime } from 'rxjs/operators';
+import { debounce, debounceTime, last } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
 
@@ -11,6 +11,10 @@ import { UserService } from 'src/app/core/services/user.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+
+  currFirstName: string;
+  currLastName: string;
+  currEmail: string;
 
   currentUserData: IUser;
   currentUserDataSub: Subscription;
@@ -31,6 +35,9 @@ export class UserProfileComponent implements OnInit {
     this.authService.getCurrentUserBasicData();
     this.currentUserDataSub = this.authService.currentUserChanged.subscribe((user) => {
       this.currentUserData = user;
+      this.currFirstName = this.currentUserData.firstName;
+      this.currLastName = this.currentUserData.lastName;
+      this.currEmail = this.currentUserData.email;
       console.log(this.currentUserData);
     });
 
@@ -51,14 +58,27 @@ export class UserProfileComponent implements OnInit {
   };
 
   updateUserFirstName(firstName: string) {
-    this.firstNameChanged.next(firstName);
+    if (firstName.length > 0) {
+      this.firstNameChanged.next(firstName);
+    } else {
+      this.firstNameChanged.next(this.currFirstName);
+    }
   }
 
   updateUserLastName(lastName: string) {
-    this.lastNameChanged.next(lastName);
+    if (lastName.length > 0) {
+      this.lastNameChanged.next(lastName);
+    } else {
+      this.lastNameChanged.next(this.currLastName);
+    }
+
   }
 
-  updateUserEmail(email: string) {
-    this.emailChanged.next(email);
+  updateUserEmail(email: string, isInvalid: boolean) {
+    if (!isInvalid) {
+      this.emailChanged.next(email);
+    } else {
+      this.emailChanged.next(this.currEmail);
+    }
   }
 }

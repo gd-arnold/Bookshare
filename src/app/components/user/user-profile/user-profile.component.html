@@ -5,15 +5,18 @@
     <div class="form-group pt-3">
       <div class="form-group">
         <label for="first-name">Име</label>
-        <input id="first-name" class="form-control mx-2" [(ngModel)]='currentUserData.firstName' (ngModelChange)='updateUserFirstName($event)'>
+        <input id="first-name" name="firstName" #firstNameInput="ngModel" class="form-control mx-2" [(ngModel)]='currentUserData.firstName' (ngModelChange)='updateUserFirstName($event)' required>
+        <div *ngIf="firstNameInput.invalid && firstNameInput.touched" class="warning">Моля въведете валидно име.</div>
       </div>
       <div class="form-group">
         <label for="last-name">Фамилия</label>
-        <input id="last-name" class="form-control mx-2" [(ngModel)]='currentUserData.lastName' (ngModelChange)='updateUserLastName($event)'>
+        <input id="last-name" name="lastName" #lastNameInput="ngModel" class="form-control mx-2" [(ngModel)]='currentUserData.lastName' (ngModelChange)='updateUserLastName($event)' required>
+        <div *ngIf="lastNameInput.invalid && lastNameInput.touched" class="warning">Моля въведете валидна фамилия.</div>
       </div>
       <div class="form-group">
         <label for="email">Имейл</label>
-        <input id="email" class="form-control mx-2" [(ngModel)]='currentUserData.email' (ngModelChange)='updateUserEmail($event)'>  
+        <input id="email" class="form-control mx-2" name="email" #emailInput="ngModel" [(ngModel)]='currentUserData.email' (ngModelChange)='updateUserEmail($event, emailInput.invalid)' required email>  
+        <div *ngIf="emailInput.invalid && emailInput.touched" class="warning">Моля въведете валиден имейл адрес.</div>
       </div>
 
     </div>
