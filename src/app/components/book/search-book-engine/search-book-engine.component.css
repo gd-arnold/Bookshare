@@ -1,13 +1,13 @@
 .search-engine {
     margin-top: -12px;
-    width: 450px;
 }
 
 .books {
     position: absolute;
     background-color: white;
     border-color: white;
-    width: 420px;
+    width: 100% - 40px;
+    margin-right: 40px;
 }
 
 .book img {
