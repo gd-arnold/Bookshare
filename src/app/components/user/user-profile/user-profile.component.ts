@@ -20,6 +20,7 @@ export class UserProfileComponent implements OnInit {
   inPending: boolean = true;
 
   notAcceptedReceives: Array<any>;
+  notAcceptedRequests: Array<any>;
 
   currentUserData: IUser;
   currentUserDataSub: Subscription;
@@ -46,6 +47,7 @@ export class UserProfileComponent implements OnInit {
       this.currLastName = this.currentUserData.lastName;
       this.currEmail = this.currentUserData.email;
       this.notAcceptedReceives = this.currentUserData["receipts"].filter(receipt => receipt["isAccepted"] === false);
+      this.notAcceptedRequests = this.currentUserData["requests"].filter(request => request["isAccepted"] === false);
       console.log(this.currentUserData);
     });
 
