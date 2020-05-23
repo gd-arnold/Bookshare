@@ -19,6 +19,8 @@ export class UserProfileComponent implements OnInit {
 
   inPending: boolean = true;
 
+  notAcceptedReceives: Array<any>;
+
   currentUserData: IUser;
   currentUserDataSub: Subscription;
 
@@ -43,6 +45,7 @@ export class UserProfileComponent implements OnInit {
       this.currFirstName = this.currentUserData.firstName;
       this.currLastName = this.currentUserData.lastName;
       this.currEmail = this.currentUserData.email;
+      this.notAcceptedReceives = this.currentUserData["receipts"].filter(receipt => receipt["isAccepted"] === false);
       console.log(this.currentUserData);
     });
 
@@ -59,7 +62,7 @@ export class UserProfileComponent implements OnInit {
     this.emailChanged.pipe(debounceTime(1050))
       .subscribe(email => {
         this.userService.updateUser(null, null, email);
-      });   
+      }); 
   };
 
   updateUserFirstName(firstName: string) {
