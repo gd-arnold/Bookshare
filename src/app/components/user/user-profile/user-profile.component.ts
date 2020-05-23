@@ -21,6 +21,7 @@ export class UserProfileComponent implements OnInit {
 
   notAcceptedReceives: Array<any>;
   notAcceptedRequests: Array<any>;
+  successfulRequests: Array<any>;
 
   currentUserData: IUser;
   currentUserDataSub: Subscription;
@@ -43,12 +44,28 @@ export class UserProfileComponent implements OnInit {
     this.authService.getCurrentUserBasicData();
     this.currentUserDataSub = this.authService.currentUserChanged.subscribe((user) => {
       this.currentUserData = user;
+
       this.currFirstName = this.currentUserData.firstName;
       this.currLastName = this.currentUserData.lastName;
       this.currEmail = this.currentUserData.email;
+
       this.notAcceptedReceives = this.currentUserData["receipts"].filter(receipt => receipt["isAccepted"] === false);
       this.notAcceptedRequests = this.currentUserData["requests"].filter(request => request["isAccepted"] === false);
-      console.log(this.currentUserData);
+      
+      let successfulRequestsReceiver = this.currentUserData["receipts"].filter(receipt => receipt["isAccepted"] === true);
+      let successfulRequestsRequester = this.currentUserData["requests"].filter(request => request["isAccepted"] === true);
+      
+      Array.prototype.push.apply(successfulRequestsReceiver,successfulRequestsRequester);
+      this.successfulRequests = successfulRequestsReceiver;
+
+      this.successfulRequests.sort(function (a, b) {
+        if (a["id"] < b["id"]) {
+          return 1;
+        }
+        return 0;
+      });
+
+      console.log(this.successfulRequests);
     });
 
     this.firstNameChanged.pipe(debounceTime(1050))

@@ -3,8 +3,7 @@
     <div *ngIf="isPasswordChanged" class="alert alert-success mt-2" role="alert">
       Ти успешно промени паролата си!
     </div>
-    <img src="/assets/static/profile.png" data-toggle="modal" data-target="#PhModal" class="m-3 img-profile">
-    <h4 class="text-center">Редактиране на профил</h4>
+    <h4 class="text-center mt-4">Редактиране на профил</h4>
     <div class="form-group pt-3">
       <div class="form-group">
         <label for="first-name">Име</label>
@@ -40,22 +39,36 @@
     </div>
 
     <div id="Past" class="div-menu" *ngIf="inPast">
-      <div class="container border rounded my-4 row">
-        <div class="col-3 ">
-          <img class="p-2 img-responsive fit-image" src="https://i4.helikon.bg/products/0642/22/220642/220642_b.jpg">
+      <div *ngFor="let request of successfulRequests">
+        <div *ngIf="request.requester" class="container border rounded my-4 row request" routerLink="../../book/info/request/{{request.id}}">
+          <div class="col-3 ">
+            <img class="p-2 img-responsive fit-image" [src]="request.requestedBook.imageURL">
+          </div>
+          <div class="col-4 text-center justify-content-center align-self-center">
+            <h4 class="pl-2 past-book-title">{{request.requestedBook.title}}</h4>
+            <p class="pl-2 text-muted font-italic">Автор: {{request.requestedBook.author}}</p>
+            <span class="font-weight-bold">за:</span>
+            <h4 class="pl-2 past-book-title">{{request.chosenBook.title}}</h4>
+            <p class="pl-2 text-muted font-italic">Автор: {{request.chosenBook.author}}</p>
+          </div>
+          <div class="col-3">
+            <img class="p-2 img-responsive fit-image" [src]="request.chosenBook.imageURL">
+          </div>
         </div>
-        <div class="col-4 text-center justify-content-center align-self-center">
-          <h4 class="pl-2 past-book-title">На Мишел Обама книгата</h4>
-          <p class="pl-2 text-muted font-italic">Автор: book.author</p>
-          <span class="font-weight-bold">за:</span>
-          <h4 class="pl-2 past-book-title">Най тъпия език евър нз защо са го направили</h4>
-          <p class="pl-2 text-muted font-italic">Автор: book.author</p>
-        </div>
-        <div class="col-3">
-          <img class="p-2 img-responsive fit-image" src="https://i2.helikon.bg/products/0109/21/210109/210109_b.jpg">
-        </div>
-        <div class="col-2 text-center justify-content-center align-self-center">
-          <button class="btn btn-danger">Изтрий</button>
+        <div *ngIf="request.receiver" class="container border rounded my-4 row request" routerLink="../../book/info/request/{{request.id}}">
+          <div class="col-3 ">
+            <img class="p-2 img-responsive fit-image" [src]="request.chosenBook.imageURL">
+          </div>
+          <div class="col-4 text-center justify-content-center align-self-center">
+            <h4 class="pl-2 past-book-title">{{request.chosenBook.title}}</h4>
+            <p class="pl-2 text-muted font-italic">Автор: {{request.chosenBook.author}}</p>
+            <span class="font-weight-bold">за:</span>
+            <h4 class="pl-2 past-book-title">{{request.requestedBook.title}}</h4>
+            <p class="pl-2 text-muted font-italic">Автор: {{request.requestedBook.author}}</p>
+          </div>
+          <div class="col-3">
+            <img class="p-2 img-responsive fit-image" [src]="request.requestedBook.imageURL">
+          </div>
         </div>
       </div>
     </div>
@@ -127,24 +140,3 @@
     </div>
   </div>
 </div>
-
-<!-- Photo Modal -->
-<div class="modal fade" id="PhModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Смени Снимка</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form class="text-center">
-        Select image to upload:
-        <input class="p-2" type="file" name="fileToUpload" id="fileToUpload">
-        <button type="submit" class="btn-dark m-3" name="submit">Смени</button>
-      </form>
-    </div>
-  </div>
-</div>
-<!-- <script src="./user-profile.component.spec.ts"> bars()</script> -->
