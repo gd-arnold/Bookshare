@@ -158,6 +158,18 @@
     font-size: 14px;
 }
 
+.bold {
+    font-weight: 700;
+}
+
+.remove-bold {
+    font-weight: 100;
+}
+
+.bar:hover, .book:hover {
+    cursor: pointer;
+}
+
 @keyframes lds-ring {
     0% {
       transform: rotate(0deg);

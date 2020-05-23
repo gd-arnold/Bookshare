@@ -17,6 +17,8 @@ export class UserProfileComponent implements OnInit {
   currLastName: string;
   currEmail: string;
 
+  inPending: boolean = true;
+
   currentUserData: IUser;
   currentUserDataSub: Subscription;
 

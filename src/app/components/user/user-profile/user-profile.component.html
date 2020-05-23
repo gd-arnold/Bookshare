@@ -34,12 +34,12 @@
   </div>
   <div class="col-lg-9 col-md-8 border-left">
     <div class="row">
-      <div class="col-4 bar border-right h5">Pending</div>
-      <div class="col-4 bar border-right border-bottom h5">Requested</div>
-      <div class="col-4 bar border-right border-bottom h5">Past</div>
+      <div class="col-4 bar border-right bold h5" [ngClass]="{'border-bottom remove-bold': !inPending}" (click)="inPending=true; inRequested=false; inPast=false;">Заявки за книги</div>
+      <div class="col-4 bar border-right bold h5" [ngClass]="{'border-bottom remove-bold': !inRequested}" (click)="inRequested=true; inPending=false; inPast=false;">Поискани книги</div>
+      <div class="col-4 bar border-right bold h5" [ngClass]="{'border-bottom remove-bold': !inPast}" (click)="inPast=true; inRequested=false; inPending=false;">Размяни</div>
     </div>
 
-    <!-- <div id="Past" class="div-menu">
+    <div id="Past" class="div-menu" *ngIf="inPast">
       <div class="container border rounded my-4 row">
         <div class="col-3 ">
           <img class="p-2 img-responsive fit-image" src="https://i4.helikon.bg/products/0642/22/220642/220642_b.jpg">
@@ -58,9 +58,9 @@
           <button class="btn btn-danger">Изтрий</button>
         </div>
       </div>
-    </div> -->
+    </div>
 
-    <div id="Pending" class="div-menu" >
+    <div id="Pending" class="div-menu" *ngIf="inPending" >
       <div class="row text-center d-flex justify-content-center">
         <div *ngFor="let receive of currentUserData.receipts" class="col-xs-12 col-sm-4 col-md-2 book">
           <div *ngIf="!receive.isAccepted">
@@ -78,7 +78,7 @@
       </div> -->
     </div>
 
-    <!-- <div id="Requested" class="div-menu" >
+    <div id="Requested" class="div-menu" *ngIf="inRequested">
       <div class="row text-center d-flex justify-content-center">
         <div class="col-xs-12 col-sm-4 col-md-2 book">
           <div routerLink="../">
@@ -92,7 +92,7 @@
       <div class="row text-center d-flex justify-content-center">
         <p class="msg">Нямаш поискани книги.</p>
       </div>
-    </div> -->
+    </div>
 
   </div>
 </section>
