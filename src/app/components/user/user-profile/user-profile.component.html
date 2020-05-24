@@ -64,39 +64,44 @@
     </div>
 
     <div id="Past" class="div-menu" *ngIf="inPast">
-      <div *ngFor="let request of successfulRequests">
-        <div *ngIf="request.requester" class="container border rounded my-4 row request"
+      <div *ngIf="successfulRequests">
+        <div *ngFor="let request of successfulRequests">
+          <div *ngIf="request.requester" class="container border rounded my-4 row request"
+            (click)="requestInfo(request.id)">
+            <div class="col-4 ">
+              <img class="p-2 img-responsive fit-image" [src]="request.requestedBook.imageURL">
+            </div>
+            <div class="col-4 text-center justify-content-center align-self-center">
+              <h4 class="pl-2 past-book-title">{{request.requestedBook.title}}</h4>
+              <p class="pl-2 text-muted font-italic">Автор: {{request.requestedBook.author}}</p>
+              <span class="font-weight-bold">за:</span>
+              <h4 class="pl-2 past-book-title">{{request.chosenBook.title}}</h4>
+              <p class="pl-2 text-muted font-italic">Автор: {{request.chosenBook.author}}</p>
+            </div>
+            <div class="col-4">
+              <img class="p-2 img-responsive fit-image" [src]="request.chosenBook.imageURL">
+            </div>
+          </div>
+          <div *ngIf="request.receiver" class="container border rounded my-4 row request"
           (click)="requestInfo(request.id)">
-          <div class="col-4 ">
-            <img class="p-2 img-responsive fit-image" [src]="request.requestedBook.imageURL">
-          </div>
-          <div class="col-4 text-center justify-content-center align-self-center">
-            <h4 class="pl-2 past-book-title">{{request.requestedBook.title}}</h4>
-            <p class="pl-2 text-muted font-italic">Автор: {{request.requestedBook.author}}</p>
-            <span class="font-weight-bold">за:</span>
-            <h4 class="pl-2 past-book-title">{{request.chosenBook.title}}</h4>
-            <p class="pl-2 text-muted font-italic">Автор: {{request.chosenBook.author}}</p>
-          </div>
-          <div class="col-4">
-            <img class="p-2 img-responsive fit-image" [src]="request.chosenBook.imageURL">
-          </div>
-        </div>
-        <div *ngIf="request.receiver" class="container border rounded my-4 row request"
-        (click)="requestInfo(request.id)">
-          <div class="col-4 ">
-            <img class="p-2 img-responsive fit-image" [src]="request.chosenBook.imageURL">
-          </div>
-          <div class="col-4 text-center justify-content-center align-self-center">
-            <h4 class="pl-2 past-book-title">{{request.chosenBook.title}}</h4>
-            <p class="pl-2 text-muted font-italic">Автор: {{request.chosenBook.author}}</p>
-            <span class="font-weight-bold">за:</span>
-            <h4 class="pl-2 past-book-title">{{request.requestedBook.title}}</h4>
-            <p class="pl-2 text-muted font-italic">Автор: {{request.requestedBook.author}}</p>
-          </div>
-          <div class="col-4">
-            <img class="p-2 img-responsive fit-image" [src]="request.requestedBook.imageURL">
+            <div class="col-4 ">
+              <img class="p-2 img-responsive fit-image" [src]="request.chosenBook.imageURL">
+            </div>
+            <div class="col-4 text-center justify-content-center align-self-center">
+              <h4 class="pl-2 past-book-title">{{request.chosenBook.title}}</h4>
+              <p class="pl-2 text-muted font-italic">Автор: {{request.chosenBook.author}}</p>
+              <span class="font-weight-bold">за:</span>
+              <h4 class="pl-2 past-book-title">{{request.requestedBook.title}}</h4>
+              <p class="pl-2 text-muted font-italic">Автор: {{request.requestedBook.author}}</p>
+            </div>
+            <div class="col-4">
+              <img class="p-2 img-responsive fit-image" [src]="request.requestedBook.imageURL">
+            </div>
           </div>
         </div>
+      </div>
+      <div class="row text-center d-flex justify-content-center" *ngIf="!successfulRequests">
+        <p class="msg">Все още не си разменял книги.</p>
       </div>
     </div>
 
@@ -109,11 +114,10 @@
             <p class="book-author">Автор: {{receive.requestedBook.author}}</p>
           </div>
           <button class="pendingbtn" routerLink="../../book/choose/request/{{receive.id}}">Продължи</button>
-
         </div>
       </div>
       <div class="row text-center d-flex justify-content-center" *ngIf="notAcceptedReceives.length === 0">
-        <p class="msg">Все още никой не ти е поискал книга ;)</p>
+        <p class="msg">Все още никой не ти е поискал книга.</p>
       </div>
     </div>
 
@@ -129,7 +133,7 @@
         </div>
       </div>
       <div class="row text-center d-flex justify-content-center" *ngIf="notAcceptedRequests === 0">
-        <p class="msg">Все още не си поискал книга ;)</p>
+        <p class="msg">Все още не си поискал книга.</p>
       </div>
     </div>
 
@@ -171,3 +175,4 @@
     </div>
   </div>
 </div>
+<app-loader *ngIf="!currentUserData"></app-loader>
