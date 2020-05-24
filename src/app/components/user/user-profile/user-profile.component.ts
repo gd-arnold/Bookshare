@@ -56,16 +56,15 @@ export class UserProfileComponent implements OnInit {
       let successfulRequestsRequester = this.currentUserData["requests"].filter(request => request["isAccepted"] === true);
       
       Array.prototype.push.apply(successfulRequestsReceiver,successfulRequestsRequester);
-      this.successfulRequests = successfulRequestsReceiver;
 
-      this.successfulRequests.sort(function (a, b) {
+      successfulRequestsReceiver.sort(function (a, b) {
         if (a["id"] < b["id"]) {
           return 1;
         }
         return 0;
       });
 
-      console.log(this.successfulRequests);
+      this.successfulRequests = successfulRequestsReceiver;
     });
 
     this.firstNameChanged.pipe(debounceTime(1050))
