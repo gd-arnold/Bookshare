@@ -179,6 +179,12 @@
     cursor: pointer;
 }
 
+@media (max-width: 768px) {
+    .h5 {
+        font-size: 1rem;
+    }
+}
+
 @keyframes lds-ring {
     0% {
       transform: rotate(0deg);
