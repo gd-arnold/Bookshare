@@ -1,0 +1,195 @@
+.books {
+    margin-top: 20px;
+}
+
+.book {
+    margin: 20px;
+}
+
+.book-img {
+    width: 150px;
+    height: 200px;
+    margin-top: 15px;
+}
+
+.book-author {
+    white-space: normal;
+    font-size: 13px;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+
+.book-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 5px;
+    line-height: 16px;
+}
+
+.library-title {
+    margin-left: 20px;
+    color: rgb(206, 112, 5);
+}
+
+.removebtn {
+    color: rgb(250, 250, 250);
+    font-size: 1.0rem;
+    margin-top: -0.1rem;
+    font-weight: bold;
+    background-color: rgb(190, 22, 0);
+    border-color: rgb(190, 22, 0);
+    border-radius: 0.3rem;
+    height: 1.9rem;
+    width: 9rem;
+    padding-bottom: 2px;
+    border-style: solid;
+    margin-bottom: 20px;
+}
+
+.pendingbtn{
+    color: rgb(250, 250, 250);
+    font-size: 1.0rem;
+    margin-top: -0.1rem;
+    font-weight: bold;
+    background-color: rgb(12, 148, 35);
+    border-color: rgb(12, 148, 35);
+    border-radius: 0.3rem;
+    height: 1.9rem;
+    width: 9rem;
+    padding-bottom: 2px;
+    border-style: solid;
+    margin-bottom: 20px;
+}
+
+.removebtn:hover {
+    border-color: rgb(190, 22, 0);
+    background-color: rgb(250, 250, 250);
+    color: rgb(190, 22, 0);
+}
+
+.pendingbtn:hover {
+    border-color: rgb(12, 148, 35);
+    background-color: rgb(250, 250, 250);
+    color: rgb(12, 148, 35);
+}
+
+.book:hover, .request:hover {
+    background-color: whitesmoke;
+}
+
+.msg {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    font-size: 18px;
+    color: rgb(206, 112, 5);
+    font-weight: 700;
+}
+
+.past-books {
+    position: relative;
+    top: 65vh;
+}
+
+.past-book {
+    height: 480px;
+}
+
+.item {
+    position: absolute;
+    bottom: 0;
+}
+
+.profmenu {
+    height: calc(100vh - 165px);
+}
+
+.div-menu {
+    height: calc(100vh - 165px);
+    overflow-y: scroll;
+}
+
+.title {
+    color: rgb(206, 112, 5);
+}
+
+.past-book-title {
+    color: rgb(206, 112, 5);
+}
+
+.tick {
+    display: inline-block;
+    position: absolute;
+    width: 26px;
+    height: 30px;
+    margin-top: -35px;
+    margin-left: 143px;
+}
+
+.lds-ring {
+    display: inline-block;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    margin-top: -39px;
+    margin-left: 140px;
+}
+
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin: 8px;
+    border: 12px solid #EF5E1B;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #EF5E1B transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+
+.warning {
+    color: #EF5E1B;
+    font-weight: 750;
+    font-size: 14px;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.remove-bold {
+    font-weight: 100;
+}
+
+.bar:hover, .book:hover, .request:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .h5 {
+        font-size: 1rem;
+    }
+}
+
+@keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+}

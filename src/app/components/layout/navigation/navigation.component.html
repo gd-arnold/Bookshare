@@ -15,6 +15,10 @@
                     <li class="nav-item" *ngIf="isAuth">
                         <app-notifications></app-notifications>
                     </li>
+                    <li class="nav-item" *ngIf="isAuth">
+                        <a class="nav-link nav-item" routerLink="/user/profile"><img class="logout"
+                            src="assets/static/user.png"></a>
+                    </li>
                     <li class="nav-item" *ngIf="!isAuth">
                         <a class="nav-link px-4 text-dark login" routerLink="/auth/login">Влез</a>
                     </li>
@@ -23,7 +27,7 @@
                                 се</button></a>
                     </li>
                     <li class="nav-item" *ngIf="isAuth">
-                        <a (click)="logout()" class="nav-item nav-link"><img class="logout"
+                        <a (click)="logout()" class="nav-link nav-item" routerLink="/"><img class="logout"
                                 src="assets/static/logout.png"></a>
                     </li>
 
