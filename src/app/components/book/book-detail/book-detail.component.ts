@@ -50,6 +50,7 @@ export class BookDetailComponent implements OnInit, OnDestroy {
       this.currentUserDataSub.unsubscribe();
       this.authService.cancelSubscriptions();
     }
+    this.bookService.book = null;
   }
 
 }

@@ -108,6 +108,10 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  requestInfo(id: string) {
+    this.userService.fetchRequestInfoById(id);
+  }
+
   changePasswordHandler(data) {
     this.userService.updatePassword(data);
     $(`#changePasswordModal`).modal('hide');

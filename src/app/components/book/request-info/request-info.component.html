@@ -1,4 +1,4 @@
-<div *ngIf="request">
+<div *ngIf="request && currentUserData">
     <div *ngIf="isReceiver()">
         <h2 class="text-center text-dark py-4">
             Поздравления! Вие разменихте "{{request.requestedBook.title}}" за "{{request.chosenBook.title}}"!
@@ -48,4 +48,4 @@
         </div>
     </div>
 </div>
-<app-loader *ngIf="!request"></app-loader>
+<app-loader *ngIf="!request || !currentUserData"></app-loader>

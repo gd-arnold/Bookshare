@@ -4,6 +4,7 @@ import { Subject, Subscription } from 'rxjs';
 import { IRequest } from 'src/app/components/shared/interfaces/request';
 import { AuthService } from './auth.service';
 import { ICourierService } from 'src/app/components/shared/interfaces/courier-service';
+import { Router } from '@angular/router';
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
@@ -19,17 +20,18 @@ export class UserService {
     courierServices: ICourierService[];
     cities: any[];
     addresses: any[];
+    request: IRequest;
 
     private _unreadNotificationsCount: number = 0;
     private _unreadNotificationsCountSubscriptions: Subscription[] = [];
-    private _request: IRequest;
     private _requestSubscriptions: Subscription[] = [];
 
     isPasswordChanged: boolean = false;
 
     constructor(
         private http: HttpClient,
-        private authService: AuthService
+        private authService: AuthService,
+        private router: Router
     ) { }
 
     getHttpOptions(token) {
@@ -66,15 +68,16 @@ export class UserService {
 
     fetchRequestById(id: string) {
         this.http.get<IRequest>(`${urlPrivate}/request/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(request => {
-            this._request = request;
-            this.requestChanged.next(this._request);
+            this.request = request;
+            this.requestChanged.next(this.request);
         });
     }
 
     fetchRequestInfoById(id: string) {
         this.http.get<IRequest>(`${urlPrivate}/request-info/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(request => {
-            this._request = request;
-            this.requestChanged.next(this._request);
+            this.request = request;
+            this.requestChanged.next(this.request);
+            this.router.navigateByUrl(`book/info/request/${id}`);
         });
     }
 
@@ -111,7 +114,7 @@ export class UserService {
             this.authService.getCurrentUserBasicData();    
         })
     }
-    
+
     updateUser(firstName: string, lastName: string, email: string) {
         let bodyData = {
             data: {

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { IRequest } from '../../shared/interfaces/request';
 import { IUser } from '../../shared/interfaces/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -55,6 +56,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   isReceiver(request: IRequest) {
     return request.receiver.id === this.currentUserData.id;
+  }
+
+  requestInfo(id: string) {
+    this.userService.fetchRequestInfoById(id);
   }
 
   ngOnDestroy() {

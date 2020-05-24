@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IUser } from '../../shared/interfaces/user';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { IRequest } from '../../shared/interfaces/request';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -16,8 +16,8 @@ export class RequestInfoComponent implements OnInit, OnDestroy {
   currentUserData: IUser;
   currentUserDataSub: Subscription;
 
-  request: IRequest;
-  requestSub: Subscription;
+  get request() {return this.userService.request};
+  // get requestId() { return this.route.snapshot.paramMap.get('id'); };
 
   constructor(
     private route: ActivatedRoute,
@@ -30,14 +30,9 @@ export class RequestInfoComponent implements OnInit, OnDestroy {
     this.authService.getCurrentUserBasicData();
     this.currentUserDataSub = this.authService.currentUserChanged.subscribe((user) => {
       this.currentUserData = user;
-
-      let requestId = this.route.snapshot.paramMap.get('id');
-      this.userService.fetchRequestInfoById(requestId);
-      this.userService.requestChanged.subscribe((request) => {
-        if (request.requester.id === this.currentUserData.id && !request.isAccepted) {
+      this.userService.requestChanged.subscribe(() => {
+        if (this.request.requester.id === this.currentUserData.id && !this.request.isAccepted) {
           this.router.navigate(["/"]);
-        } else {
-          this.request = request;
         }
       })
     })
@@ -53,6 +48,7 @@ export class RequestInfoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userService.cancelSubscriptions();
+    this.userService.request = null;
   }
 
 }
