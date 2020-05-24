@@ -7,6 +7,7 @@
     background-color: white;
     border-color: white;
     width: calc(100% - 40px);
+    z-index: 1000;
 }
 
 .book img {

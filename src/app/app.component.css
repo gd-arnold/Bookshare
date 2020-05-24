@@ -1,0 +1,8 @@
+div {
+    position: relative;
+    min-height: 100vh;
+}
+
+section {
+    padding-bottom: 2.5rem;
+}

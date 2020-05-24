@@ -6,7 +6,6 @@
 #template{
     width: 100%;
     height: 90vh;
-    position: absolute;
     z-index: -1;
 }
 
@@ -17,8 +16,10 @@
 }
 
 .search-engine-box {
-    margin-top: 70px;
     padding: 20px;
     background-color: whitesmoke;
     border-radius: 2%;
+    position: relative;
+    margin-top: -70vh;
+    height: 120px;
 }
