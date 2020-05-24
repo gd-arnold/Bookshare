@@ -1,65 +1,76 @@
-<div class="modal fade top" id="m{{bookId}}" tabindex="-1" role="dialog"
-aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
-<div class="modal-dialog modal-frame modal-top modal-notify modal-success" role="document">
-    <div class="modal-content">
-        <div class="modal-body">
-            <h4>
-                <span class="badge mb-2">Адрес и телефон за доставка:</span>
-            </h4>
-            <div class="row justify-content-center align-items-center">
-                <form #requestForm="ngForm" (ngSubmit)="requestId ? chooseBook(requestForm.value) : requestBook(requestForm.value)">
-                    <div *ngIf="courierServices" class="form-group">
-                        <div class="row">
-                            <div class="col-2"></div>
-                            <div *ngFor="let courier of courierServices" class="col-4">
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="{{courier.id}}" name="customRadio"
-                                        class="custom-control-input" (change)="fetchCitiesByCourier(courier.id)">
-                                    <label class="custom-control-label"
-                                        for="{{courier.id}}">{{courier.courierServiceName}}</label>
+<div class="modal fade top" id="m{{bookId}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true" data-backdrop="true">
+    <div class="modal-dialog modal-frame modal-top modal-notify modal-success" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4>
+                    <span class="badge mb-2">Адрес и телефон за доставка:</span>
+                </h4>
+                <div class="row justify-content-center align-items-center">
+                    <form #requestForm="ngForm"
+                        (ngSubmit)="requestId ? chooseBook(requestForm.value) : requestBook(requestForm.value)">
+                        <div *ngIf="courierServices" class="form-group">
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div *ngFor="let courier of courierServices" class="col-4">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="{{courier.id}}" name="customRadio"
+                                            class="custom-control-input" (change)="fetchCitiesByCourier(courier.id)">
+                                        <label class="custom-control-label"
+                                            for="{{courier.id}}">{{courier.courierServiceName}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="courierId" class="form-group">
+                            <input type="search" class="search-town-engine form-control" (keyup)="searchCity($event)"
+                                placeholder="Избери град">
+                            <div class="searchedCities" *ngIf="searchedCities">
+                                <div *ngFor="let city of searchedCities" class="city"
+                                    (click)="selectCity(city.city.cityName, city.city.id)">
+                                    <p class="cityName">{{city.city.cityName}}</p>
                                 </div>
                             </div>
-                            <div class="col-2"></div>
                         </div>
-                    </div>
 
-                    <div *ngIf="courierId" class="form-group">
-                        <input type="search" class="search-town-engine form-control" (keyup)="searchCity($event)" placeholder="Избери град">
-                        <div class="searchedCities" *ngIf="searchedCities">
-                            <div *ngFor="let city of searchedCities" class="city" (click)="selectCity(city.city.cityName, city.city.id)">
-                                <p class="cityName">{{city.city.cityName}}</p>
+                        <div *ngIf="cityId" class="form-group">
+                            <input list="addresses" autocomplete="off" name="address" #addressInput="ngModel" ngModel
+                                class="custom-select custom-select-md" required>
+                            <datalist id="addresses">
+                                <option *ngFor="let address of addresses" data-value="address.id"
+                                    [value]="address.address"></option>
+                            </datalist>
+                        </div>
+
+                        <div class="form-group">
+                            <input #phoneNumberInput="ngModel" autocomplete="off"
+                                [(ngModel)]="currentUserData.phoneNumber" name="phoneNumber" pattern="[0-9,+]{10,13}"
+                                class="form-control" required>
+                        </div>
+                        <div *ngIf="(phoneNumberInput.hasError('pattern') || phoneNumberInput.hasError('required')) && phoneNumberInput.touched"
+                            class="phone-exception">
+                            Моля въведете валиден телефонен номер.
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <button *ngIf="bookId && requestId == null"
+                                    [disabled]="requestForm.invalid || cityId == null || isAddressInvalid()"
+                                    class="mr-5 btn btn-dark">Поискай
+                                </button>
+                                <button *ngIf="requestId && bookId"
+                                    [disabled]="requestForm.invalid || cityId == null || isAddressInvalid()"
+                                    class="mr-5 btn btn-dark">Напред
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <a type="button" class="ml-5 btn btn-light waves-effect" data-dismiss="modal">Назад</a>
                             </div>
                         </div>
-                    </div>
-
-                    <div *ngIf="cityId" class="form-group">
-                        <input list="addresses" autocomplete="off" name="address" #addressInput="ngModel" ngModel class="custom-select custom-select-md" required>
-                        <datalist id="addresses">
-                            <option *ngFor="let address of addresses" data-value="address.id" [value]="address.address"></option>
-                        </datalist>
-                    </div>
-
-                    <div class="form-group">
-                        <input #phoneNumberInput="ngModel" autocomplete="off" [(ngModel)]="currentUserData.phoneNumber" name="phoneNumber" pattern="[0-9,+]{10,13}" class="form-control" required>
-                    </div>
-                    <div *ngIf="(phoneNumberInput.hasError('pattern') || phoneNumberInput.hasError('required')) && phoneNumberInput.touched" class="phone-exception">  
-                        Моля въведете валиден телефонен номер.
-                      </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <button *ngIf="bookId && requestId == null" [disabled]="requestForm.invalid || cityId == null || isAddressInvalid()"  class="btn btn-dark">Поискай
-                            </button>
-                            <button *ngIf="requestId && bookId" [disabled]="requestForm.invalid || cityId == null || isAddressInvalid()"  class="btn btn-dark">Напред
-                            </button>
-                        </div>
-                        <div class="col-6">
-                            <a type="button" class="btn btn-light waves-effect"
-                                data-dismiss="modal">Назад</a>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
