@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { BookService } from 'src/app/core/services/book.service';
 import { Router } from '@angular/router';
 
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './search-book-engine.component.html',
   styleUrls: ['./search-book-engine.component.css']
 })
-export class SearchBookEngineComponent {
+export class SearchBookEngineComponent implements OnDestroy {
 
   get searchedBooks() { return this.bookService.searchedBooks; }
 
@@ -24,6 +24,10 @@ export class SearchBookEngineComponent {
   viewBook(id: string) {
     this.bookService.searchedBooks = [];
     this.router.navigate([`book/${id}`]);
+  }
+
+  ngOnDestroy() {
+    this.bookService.searchedBooks = [];
   }
 
 }
