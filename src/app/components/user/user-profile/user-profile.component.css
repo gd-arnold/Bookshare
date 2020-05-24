@@ -101,6 +101,15 @@
     bottom: 0;
 }
 
+.profmenu {
+    height: calc(100vh - 165px);
+}
+
+.div-menu {
+    height: calc(100vh - 165px);
+    overflow-y: scroll;
+}
+
 .title {
     color: rgb(206, 112, 5);
 }
