@@ -40,7 +40,7 @@ aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
                     </div>
 
                     <div class="form-group">
-                        <input #phoneNumberInput="ngModel" autocomplete="off" [(ngModel)]="currentUserData.phoneNumber" name="phoneNumber" pattern="[0-9,+]{10,13}" class="form-control" required>
+                        <input #phoneNumberInput="ngModel" autocomplete="off" [(ngModel)]="currentUserData.phoneNumber" name="phoneNumber" pattern="[0-9,+]{10,13}" class="form-control" placeholder="Тел. номер" required>
                     </div>
                     <div *ngIf="(phoneNumberInput.hasError('pattern') || phoneNumberInput.hasError('required')) && phoneNumberInput.touched" class="phone-exception">  
                         Моля въведете валиден телефонен номер.
