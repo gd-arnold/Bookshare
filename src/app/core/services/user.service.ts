@@ -5,6 +5,7 @@ import { IRequest } from 'src/app/components/shared/interfaces/request';
 import { AuthService } from './auth.service';
 import { ICourierService } from 'src/app/components/shared/interfaces/courier-service';
 import { Router } from '@angular/router';
+import { BookService } from './book.service';
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";

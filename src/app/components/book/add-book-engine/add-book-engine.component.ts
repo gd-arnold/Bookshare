@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { BookService } from 'src/app/core/services/book.service';
 import { IBook } from '../../shared/interfaces/book';
 
@@ -7,7 +7,7 @@ import { IBook } from '../../shared/interfaces/book';
   templateUrl: './add-book-engine.component.html',
   styleUrls: ['./add-book-engine.component.css']
 })
-export class AddBookEngineComponent {
+export class AddBookEngineComponent implements OnDestroy {
 
   get searchedBooks() { return this.bookService.searchedBooks; }
 
@@ -24,4 +24,7 @@ export class AddBookEngineComponent {
     this.bookService.addBook(book);
   }
 
+  ngOnDestroy() {
+    this.bookService.searchedBooks = [];
+  }
 }
