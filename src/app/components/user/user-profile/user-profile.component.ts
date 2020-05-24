@@ -4,6 +4,7 @@ import { of, timer, Subject, Subscription } from 'rxjs';
 import { debounce, debounceTime, last } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { BookService } from 'src/app/core/services/book.service';
 declare var $: any;
 
 @Component({
@@ -36,6 +37,7 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private bookService: BookService
   ) { }
 
   get isPasswordChanged() { return this.userService.isPasswordChanged };
@@ -110,6 +112,11 @@ export class UserProfileComponent implements OnInit {
 
   requestInfo(id: string) {
     this.userService.fetchRequestInfoById(id);
+  }
+
+  cancelRequest(id: string) {
+    this.bookService.cancelRequest(id);
+    $(`#cancelModal${id}`).modal('hide');
   }
 
   changePasswordHandler(data) {

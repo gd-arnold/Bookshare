@@ -104,6 +104,16 @@ export class BookService {
     .subscribe((books) => { this.newestBooks = books; });
   }
 
+  cancelRequest(id: string) {
+    let data = {
+      id: id
+    };
+
+    this.http.post(`${urlPrivate}/cancel-request`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+      this.authService.getCurrentUserBasicData();
+    })
+  }
+
   cancelSubscriptions() {
     this._bookSubscriptions.forEach((s) => s.unsubscribe());
   }
