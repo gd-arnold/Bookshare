@@ -91,7 +91,7 @@ export class BookService {
     };
 
     this.http.post(`${urlPrivate}/accept-book`, data, this.getHttpOptions(localStorage.getItem("token")))
-      .subscribe(() => { console.log("accepted"); });
+      .subscribe(() => { });
   }
 
   fetchMostExchangedBooks() {
