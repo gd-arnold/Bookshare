@@ -17,9 +17,6 @@
                                 Библиотека</button></a>
                     </li>
                     <li class="nav-item" *ngIf="isAuth">
-                        <a routerLink="/user/admin" class="nav-item nav-link">Admin icon</a>
-                    </li>
-                    <li class="nav-item" *ngIf="isAuth">
                         <app-notifications></app-notifications>
                     </li>
                     <li class="nav-item profile-icon" *ngIf="isAuth">
@@ -32,6 +29,10 @@
                     <li class="nav-item" *ngIf="!isAuth">
                         <a routerLink="/auth/register" class="nav-item nav-link"><button class="navbtn">Регистрирай
                                 се</button></a>
+                    </li>
+                    <li class="nav-item" *ngIf="isAuth">
+                        <a class="nav-link nav-item" routerLink="/user/admin"><img class="logout"
+                                src="assets/static/settings.png"></a>
                     </li>
                     <li class="nav-item" *ngIf="isAuth">
                         <a (click)="logout()" class="nav-link nav-item" routerLink="/"><img class="logout"
