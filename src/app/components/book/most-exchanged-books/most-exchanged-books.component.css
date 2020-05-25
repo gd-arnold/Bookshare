@@ -18,3 +18,9 @@
 .book-title {
     color: rgb(206, 112, 5);
 }
+
+@media (max-width: 576px) {
+    .book {
+        height: unset;
+    }
+}
