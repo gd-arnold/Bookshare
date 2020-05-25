@@ -38,3 +38,15 @@
 .profile-icon {
     margin-left: -4px;
 }
+
+@media (max-width: 991px) {
+    .navbar-collapse {
+        position: absolute;
+        margin-top: 63.9px;
+        background-color: rgba(255, 255, 255, 0.979);
+        padding-left: 1rem;
+        padding-right: 1rem;
+        width: 100%;
+        margin-left: calc(-100vw + 72px);
+    }
+}
