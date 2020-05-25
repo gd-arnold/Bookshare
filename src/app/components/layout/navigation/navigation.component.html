@@ -17,6 +17,9 @@
                                 Библиотека</button></a>
                     </li>
                     <li class="nav-item" *ngIf="isAuth">
+                        <a routerLink="/user/admin" class="nav-item nav-link">Admin icon</a>
+                    </li>
+                    <li class="nav-item" *ngIf="isAuth">
                         <app-notifications></app-notifications>
                     </li>
                     <li class="nav-item profile-icon" *ngIf="isAuth">
