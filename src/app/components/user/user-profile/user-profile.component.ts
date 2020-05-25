@@ -116,7 +116,6 @@ export class UserProfileComponent implements OnInit {
 
   cancelRequest(id: string) {
     this.bookService.cancelRequest(id);
-    $(`#cancelModal${id}`).modal('hide');
   }
 
   changePasswordHandler(data) {

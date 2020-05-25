@@ -4,6 +4,7 @@ import { IBook } from 'src/app/components/shared/interfaces/book';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from './auth.service';
+declare var $: any;
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
@@ -111,6 +112,7 @@ export class BookService {
 
     this.http.post(`${urlPrivate}/cancel-request`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
       this.authService.getCurrentUserBasicData();
+      $(`#cancelModal${id}`).modal('hide');
     })
   }
 
