@@ -21,17 +21,18 @@
     color: black;
     font-size: 13px;
     margin-right: 10px;
-    top: 58px;
+    top: 50px;
     border-radius: 2%;
     z-index: 1;
-    border-bottom: rgb(194, 105, 4) 2px solid;
+    border-bottom: rgb(224, 224, 224) 0.5px solid;
+    box-shadow: 0 1px 15px rgba(27,31,35,.15);
 }
 
 .request {
     padding: 5px;
-    border-left: rgb(194, 105, 4) 2px solid;
-    border-right: rgb(194, 105, 4) 2px solid;
-    border-top: rgb(194, 105, 4) 2px solid;
+    border-left: rgb(224, 224, 224) 0.5px solid;
+    border-right: rgb(224, 224, 224) 0.5px solid;
+    border-top: rgb(224, 224, 224) 0.5px solid;
 }
 
 .request:hover {
