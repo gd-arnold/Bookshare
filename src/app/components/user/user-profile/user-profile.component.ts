@@ -112,10 +112,6 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  requestInfo(id: string) {
-    this.userService.fetchRequestInfoById(id);
-  }
-
   cancelRequest(id: string) {
     this.bookService.cancelRequest(id);
   }
