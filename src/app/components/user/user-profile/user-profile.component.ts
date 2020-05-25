@@ -19,6 +19,8 @@ export class UserProfileComponent implements OnInit {
   currEmail: string;
 
   inPending: boolean = true;
+  inPast: boolean = false;
+  inRequested: boolean = false;
 
   notAcceptedReceives: Array<any>;
   notAcceptedRequests: Array<any>;
