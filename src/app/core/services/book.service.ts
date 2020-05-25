@@ -4,6 +4,7 @@ import { IBook } from 'src/app/components/shared/interfaces/book';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 declare var $: any;
 
 const url = "https://bookshare-rest-api.herokuapp.com";
@@ -21,13 +22,15 @@ export class BookService {
   book: IBook;
   booksChanged = new Subject<IBook[]>();
   isSuccesfullyRequestedId: string;
+  isChosen: boolean = false;
 
   private _booksForUser: IBook[] = [];
   private _bookSubscriptions: Subscription[] = [];
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) { }
 
   getHttpOptions(token) {
@@ -92,7 +95,9 @@ export class BookService {
     };
 
     this.http.post(`${urlPrivate}/accept-book`, data, this.getHttpOptions(localStorage.getItem("token")))
-      .subscribe(() => { });
+      .subscribe(() => {
+        this.userService.fetchRequestInfoById(requestId);
+       });
   }
 
   fetchMostExchangedBooks() {

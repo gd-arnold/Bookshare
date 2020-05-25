@@ -83,7 +83,6 @@ export class DeliveryInfoModalComponent implements OnInit {
     const addressId = this.addresses.filter(address => address.address === data.address)[0].id;
     this.bookService.chooseBook(this.requestId, this.bookId, addressId);
     this.userService.addDeliveryInfo(addressId, data.phoneNumber);
-    this.userService.fetchRequestInfoById(this.requestId);
     $(`#m${this.bookId}`).modal('hide');
   }
 
