@@ -22,7 +22,6 @@ export class BookService {
   book: IBook;
   booksChanged = new Subject<IBook[]>();
   isSuccesfullyRequestedId: string;
-  isChosen: boolean = false;
 
   private _booksForUser: IBook[] = [];
   private _bookSubscriptions: Subscription[] = [];
@@ -30,7 +29,8 @@ export class BookService {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
   ) { }
 
   getHttpOptions(token) {
@@ -96,8 +96,8 @@ export class BookService {
 
     this.http.post(`${urlPrivate}/accept-book`, data, this.getHttpOptions(localStorage.getItem("token")))
       .subscribe(() => {
-        this.userService.fetchRequestInfoById(requestId);
-       });
+        this.router.navigate([`book/info/request/${requestId}`]);
+      });
   }
 
   fetchMostExchangedBooks() {

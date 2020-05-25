@@ -78,7 +78,6 @@ export class UserService {
         this.http.get<IRequest>(`${urlPrivate}/request-info/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(request => {
             this.request = request;
             this.requestChanged.next(this.request);
-            this.router.navigateByUrl(`book/info/request/${id}`);
         });
     }
 
