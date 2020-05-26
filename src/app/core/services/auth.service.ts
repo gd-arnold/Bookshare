@@ -16,11 +16,11 @@ const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
 })
 export class AuthService {
 
-  currentUser: IUser;
-  currentUserChanged = new Subject<IUser>();
-
   private _userSubscriptions: Subscription[] = [];
   private _userData: IUser; 
+
+  currentUser: IUser;
+  currentUserChanged = new Subject<IUser>();
 
   constructor(
     private http: HttpClient,
@@ -28,9 +28,7 @@ export class AuthService {
   ) { }
 
   get isAuth() {
-    if (localStorage.getItem("token")) {
-      return true;
-    } return false;
+    return localStorage.getItem("token") ? true : false;
   }
 
   getHttpOptions(token) {
@@ -78,9 +76,10 @@ export class AuthService {
     this.http.get<IUser>(`${urlPrivate}/current-user-basic-data`, this.getHttpOptions(localStorage.getItem('token'))).subscribe((user) => {
       this._userData = user;
       this.currentUserChanged.next(this._userData);
+      console.log(user);
     });
   }
-
+  
   cancelSubscriptions() {
     this._userSubscriptions.forEach((s) => s.unsubscribe());
   }

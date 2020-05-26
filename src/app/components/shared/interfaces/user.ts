@@ -8,4 +8,5 @@ export interface IUser {
     phoneNumber: string;
     requests: [];
     books: [];
+    roles: Array<string>;
 }
