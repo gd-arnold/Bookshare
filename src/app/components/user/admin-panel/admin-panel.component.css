@@ -1,7 +1,34 @@
 .user-list {
-    height: 100vh;
+    height: calc(100vh - 150px);
+    padding: 0;
+    overflow-y: scroll;
+}
+
+.message-list {
+    height: calc(100vh - 150px);
+    padding: 0;
+    overflow-y: scroll;
 }
 
 ul {
     list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.btn-view {
+  color: rgb(250, 250, 250);
+  font-size: 1.0rem;
+  margin-top: -0.1rem;
+  font-weight: bold;
+  background-color: #F68D16;
+  border-color: #F68D16;
+  border-radius: 0.3rem;
+  border-style: solid;
+}
+
+.btn-view:hover {
+    color: #E33729;
+    background-color: #ffffff;
+    border-color: #E33729;
 }
