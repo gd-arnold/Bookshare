@@ -4,11 +4,18 @@
     overflow-y: scroll;
 }
 
-.message-list {
+.message-list{
     height: calc(100vh - 150px);
     padding: 0;
     overflow-y: scroll;
 }
+
+.panel {
+    height: calc(100vh - 150px);
+    padding: 0;
+    overflow-y: scroll;
+}
+
 
 ul {
     list-style: none;
