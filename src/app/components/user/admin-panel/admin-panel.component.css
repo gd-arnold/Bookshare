@@ -1,19 +1,23 @@
 .user-list {
-    height: calc(100vh - 150px);
+    height: calc(100vh - 130px);
     padding: 0;
     overflow-y: scroll;
 }
 
 .message-list{
-    height: calc(100vh - 150px);
+    height: calc(100vh - 130px);
     padding: 0;
     overflow-y: scroll;
 }
 
 .panel {
-    height: calc(100vh - 150px);
+    height: calc(100vh - 130px);
     padding: 0;
     overflow-y: scroll;
+}
+
+#book-desc {
+    height: 25vh;
 }
 
 
