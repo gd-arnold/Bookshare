@@ -3,14 +3,43 @@ footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 2.5rem; 
 }
 
 a {
     text-decoration: none;
     color: white;
+    padding-left: 3rem;
+    padding-right: 3rem;
 }
 
 img {
     width: 40px;
+}
+
+@media only screen and (max-width: 680px) {
+    span {
+        font-size: 12px;
+    }
+
+    a {
+        font-size: 9px;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+
+@media only screen and (min-width: 680px) {
+    a {
+        font-size: 12px;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+@media only screen and (min-width: 978px) {
+    a {
+        font-size: 15px;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
 }
