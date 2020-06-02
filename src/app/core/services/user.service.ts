@@ -22,6 +22,7 @@ export class UserService {
     cities: any[];
     addresses: any[];
     request: IRequest;
+    users: any[]; 
 
     private _unreadNotificationsCount: number = 0;
     private _unreadNotificationsCountSubscriptions: Subscription[] = [];
@@ -141,6 +142,15 @@ export class UserService {
         }, err=> {
             alert("Невалидна парола!");
         });
+    }
+
+    fetchAllUsersBasicData() {
+        this.http.get<any[]>(`${urlPrivate}/all-users`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(users => {
+            this.users = users;
+            console.log(users);
+        }, err => {
+            alert("Нямате права да достъпвате тази страница!")
+        })
     }
 
     cancelSubscriptions() {
