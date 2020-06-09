@@ -17,7 +17,7 @@ const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
 export class AuthService {
 
   private _userSubscriptions: Subscription[] = [];
-  private _userData: IUser; 
+  _userData: IUser; 
 
   currentUser: IUser;
   currentUserChanged = new Subject<IUser>();

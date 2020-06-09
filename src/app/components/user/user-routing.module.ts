@@ -3,6 +3,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { AdminGuard } from 'src/app/core/guards/admin.guard';
 
 
 const routes: Routes = [
@@ -17,7 +18,7 @@ const routes: Routes = [
         {
             path: 'admin',
             component: AdminPanelComponent,
-            canActivate: [AuthGuard]
+            canActivate: [AuthGuard, AdminGuard]
         }
     ]
   }
