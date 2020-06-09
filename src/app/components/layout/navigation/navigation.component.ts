@@ -13,20 +13,19 @@ export class NavigationComponent implements OnInit {
 
   currentUserData: IUser;
   currentUserDataSub: Subscription;
-  isAdmin: boolean;
 
   constructor(
     private authService: AuthService
   ) { }
 
   get isAuth() { return this.authService.isAuth; }
+  get isAdmin() { return this.currentUserData ? this.currentUserData.roles.includes("ADMIN") : false}
   
   ngOnInit() {
     if (this.isAuth) {
       this.authService.getCurrentUserBasicData();
       this.currentUserDataSub = this.authService.currentUserChanged.subscribe((user) => {
         this.currentUserData = user;
-        this.isAdmin = this.currentUserData.roles.includes("ADMIN");
       });
     }
   }
