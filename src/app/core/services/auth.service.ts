@@ -76,7 +76,6 @@ export class AuthService {
     this.http.get<IUser>(`${urlPrivate}/current-user-basic-data`, this.getHttpOptions(localStorage.getItem('token'))).subscribe((user) => {
       this._userData = user;
       this.currentUserChanged.next(this._userData);
-      console.log(user);
     });
   }
   

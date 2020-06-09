@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import { ICourierService } from 'src/app/components/shared/interfaces/courier-service';
 import { Router } from '@angular/router';
 import { BookService } from './book.service';
+import { IUser } from 'src/app/components/shared/interfaces/user';
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
@@ -22,11 +23,12 @@ export class UserService {
     cities: any[];
     addresses: any[];
     request: IRequest;
-    users: any[]; 
+    usersChanged = new Subject<IUser[]>(); 
 
     private _unreadNotificationsCount: number = 0;
     private _unreadNotificationsCountSubscriptions: Subscription[] = [];
     private _requestSubscriptions: Subscription[] = [];
+    private _usersSubscription: Subscription[] = [];
 
     isPasswordChanged: boolean = false;
 
@@ -145,9 +147,8 @@ export class UserService {
     }
 
     fetchAllUsersBasicData() {
-        this.http.get<any[]>(`${urlPrivate}/all-users`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(users => {
-            this.users = users;
-            console.log(users);
+        this.http.get<IUser[]>(`${urlPrivate}/all-users`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(users => {
+            this.usersChanged.next(users);
         }, err => {
             alert("Нямате права да достъпвате тази страница!")
         })

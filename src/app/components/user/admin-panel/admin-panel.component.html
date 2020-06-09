@@ -6,9 +6,9 @@
             </li>
 
             <li class="border-bottom list-header text-center">
-                <input class="form-control" type="text" placeholder="Търси по име...">
+                <input class="form-control" (keyup)="searchUser($event)" type="text" placeholder="Търси по име...">
             </li>
-            <div *ngFor="let user of users">
+            <div *ngFor="let user of searchedUsers">
                 <li class="border-bottom row">
                     <div class="col-6">
                         <span class="pl-3">{{user.firstName}} {{user.lastName}}</span>
