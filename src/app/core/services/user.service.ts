@@ -129,18 +129,17 @@ export class UserService {
         };
 
         this.http.post(`${urlPrivate}/update-user-basic-data`, bodyData, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
-            this.authService.getCurrentUserBasicData();
+            this.authService.getUserBasicData(this.authService._userData.id)
         }, err => {
-            this.authService.getCurrentUserBasicData();
+            this.authService.getUserBasicData(this.authService._userData.id)
             alert("Вече съществува потребител с такъв имейл!");
         });
     }
 
     updatePassword(data) {
         this.http.post(`${urlPrivate}/update-password`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
-            this.authService.getCurrentUserBasicData();
+            this.authService.getUserBasicData(this.authService._userData.id)
             this.isPasswordChanged = true;
-            console.log(this.isPasswordChanged);
         }, err=> {
             alert("Невалидна парола!");
         });
