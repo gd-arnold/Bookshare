@@ -1,4 +1,4 @@
-<section class="row" *ngIf="currentUserData">
+<section class="row" *ngIf="userData">
   <div class="col-lg-3 col-md-4 col-sm-12 py-lg-5 text-center profmenu">
     <div *ngIf="isPasswordChanged" class="alert alert-success mt-2" role="alert">
       Ти успешно промени паролата си!
@@ -8,7 +8,7 @@
       <div class="form-group">
         <label for="first-name">Име</label>
         <input id="first-name" name="firstName" #firstNameInput="ngModel" class="form-control mx-2"
-          [(ngModel)]='currentUserData.firstName' (ngModelChange)='updateUserFirstName($event)' required>
+          [(ngModel)]='userData.firstName' (ngModelChange)='updateUserFirstName($event)' required>
         <div *ngIf="currFirstName !== firstNameInput.value" class="lds-ring">
           <div></div>
           <div></div>
@@ -22,7 +22,7 @@
       <div class="form-group">
         <label for="last-name">Фамилия</label>
         <input id="last-name" name="lastName" #lastNameInput="ngModel" class="form-control mx-2"
-          [(ngModel)]='currentUserData.lastName' (ngModelChange)='updateUserLastName($event)' required>
+          [(ngModel)]='userData.lastName' (ngModelChange)='updateUserLastName($event)' required>
         <div *ngIf="currLastName !== lastNameInput.value" class="lds-ring">
           <div></div>
           <div></div>
@@ -36,7 +36,7 @@
       <div class="form-group">
         <label for="email">Имейл</label>
         <input id="email" class="form-control mx-2" name="email" #emailInput="ngModel"
-          [(ngModel)]='currentUserData.email' (ngModelChange)='updateUserEmail($event, emailInput.invalid)' required
+          [(ngModel)]='userData.email' (ngModelChange)='updateUserEmail($event, emailInput.invalid)' required
           email>
         <div *ngIf="currEmail !== emailInput.value" class="lds-ring">
           <div></div>
@@ -198,4 +198,4 @@
     </div>
   </div>
 </div>
-<app-loader *ngIf="!currentUserData"></app-loader>
+<app-loader *ngIf="!userData"></app-loader>

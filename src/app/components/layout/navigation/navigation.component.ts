@@ -11,23 +11,15 @@ import { Subscription } from 'rxjs';
 })
 export class NavigationComponent implements OnInit {
 
-  currentUserData: IUser;
-  currentUserDataSub: Subscription;
-
   constructor(
     private authService: AuthService
   ) { }
 
   get isAuth() { return this.authService.isAuth; }
-  get isAdmin() { return this.currentUserData ? this.currentUserData.roles.includes("ADMIN") : false}
-  
+  get isAdmin() { return this.authService._currentUserData ? this.authService._currentUserData.roles.includes("ADMIN") : false }
+  get userId() { return this.authService._currentUserData ? this.authService._currentUserData.id : 0 }
+
   ngOnInit() {
-    if (this.isAuth) {
-      this.authService.getCurrentUserBasicData();
-      this.currentUserDataSub = this.authService.currentUserChanged.subscribe((user) => {
-        this.currentUserData = user;
-      });
-    }
   }
 
   logout() {

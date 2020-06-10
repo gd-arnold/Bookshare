@@ -17,10 +17,14 @@ const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
 export class AuthService {
 
   private _userSubscriptions: Subscription[] = [];
-  _userData: IUser; 
+  _currentUserData: IUser; 
+  _userData: IUser;
 
   currentUser: IUser;
   currentUserChanged = new Subject<IUser>();
+
+  user: IUser;
+  userChanged = new Subject<IUser>();
 
   constructor(
     private http: HttpClient,
@@ -74,8 +78,15 @@ export class AuthService {
 
   getCurrentUserBasicData() {
     this.http.get<IUser>(`${urlPrivate}/current-user-basic-data`, this.getHttpOptions(localStorage.getItem('token'))).subscribe((user) => {
+      this._currentUserData = user;
+      this.currentUserChanged.next(this._currentUserData);
+    });
+  }
+
+  getUserBasicData(id: string) {
+    this.http.get<IUser>(`${urlPrivate}/user-basic-data/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe((user) => {
       this._userData = user;
-      this.currentUserChanged.next(this._userData);
+      this.userChanged.next(this._userData);
     });
   }
   

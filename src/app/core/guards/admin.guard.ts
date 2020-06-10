@@ -20,7 +20,7 @@ export class AdminGuard implements CanActivate {
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | import("@angular/router").UrlTree | import("rxjs").Observable<boolean | import("@angular/router").UrlTree> | Promise<boolean | import("@angular/router").UrlTree> {
-        return this.authService._userData ? this.authService._userData.roles.includes("ADMIN") : this.router.navigate(['/']);
+        return this.authService._currentUserData ? this.authService._currentUserData.roles.includes("ADMIN") : this.router.navigate(['/']);
     }
 
   } 

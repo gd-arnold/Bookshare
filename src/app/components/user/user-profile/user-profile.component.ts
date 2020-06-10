@@ -5,6 +5,8 @@ import { debounce, debounceTime, last } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { BookService } from 'src/app/core/services/book.service';
+import { Route } from '@angular/compiler/src/core';
+import { ActivatedRoute } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -24,8 +26,8 @@ export class UserProfileComponent implements OnInit {
   notAcceptedRequests: Array<any>;
   successfulRequests: Array<any>;
 
-  currentUserData: IUser;
-  currentUserDataSub: Subscription;
+  userData: IUser;
+  userDataSub: Subscription;
 
   fistName: string;
   firstNameChanged: Subject<string> = new Subject<string>();
@@ -34,28 +36,31 @@ export class UserProfileComponent implements OnInit {
   email: string;
   emailChanged: Subject<string> = new Subject<string>();
 
+  get userId() { return this.router.snapshot.paramMap.get('id'); };
+
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private bookService: BookService
+    private bookService: BookService,
+    private router: ActivatedRoute
   ) { }
 
   get isPasswordChanged() { return this.userService.isPasswordChanged };
 
   ngOnInit() {
-    this.authService.getCurrentUserBasicData();
-    this.currentUserDataSub = this.authService.currentUserChanged.subscribe((user) => {
-      this.currentUserData = user;
+    this.authService.getUserBasicData(this.userId)
+    this.userDataSub = this.authService.userChanged.subscribe((user) => {
+      this.userData = user;
 
-      this.currFirstName = this.currentUserData.firstName;
-      this.currLastName = this.currentUserData.lastName;
-      this.currEmail = this.currentUserData.email;
+      this.currFirstName = this.userData.firstName;
+      this.currLastName = this.userData.lastName;
+      this.currEmail = this.userData.email;
 
-      this.notAcceptedReceives = this.currentUserData["receipts"].filter(receipt => receipt["isAccepted"] === false);
-      this.notAcceptedRequests = this.currentUserData["requests"].filter(request => request["isAccepted"] === false);
+      this.notAcceptedReceives = this.userData["receipts"].filter(receipt => receipt["isAccepted"] === false);
+      this.notAcceptedRequests = this.userData["requests"].filter(request => request["isAccepted"] === false);
       
-      let successfulRequestsReceiver = this.currentUserData["receipts"].filter(receipt => receipt["isAccepted"] === true);
-      let successfulRequestsRequester = this.currentUserData["requests"].filter(request => request["isAccepted"] === true);
+      let successfulRequestsReceiver = this.userData["receipts"].filter(receipt => receipt["isAccepted"] === true);
+      let successfulRequestsRequester = this.userData["requests"].filter(request => request["isAccepted"] === true);
       
       Array.prototype.push.apply(successfulRequestsReceiver,successfulRequestsRequester);
 
