@@ -119,13 +119,14 @@ export class UserService {
         })
     }
 
-    updateUser(firstName: string, lastName: string, email: string) {
+    updateUser(firstName: string, lastName: string, email: string, userId: string) {
         let bodyData = {
             data: {
                 "firstName" : firstName,
                 "lastName" : lastName,
                 "email" : email
-            }
+            },
+            id: userId
         };
 
         this.http.post(`${urlPrivate}/update-user-basic-data`, bodyData, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {

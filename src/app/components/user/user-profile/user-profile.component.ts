@@ -76,17 +76,17 @@ export class UserProfileComponent implements OnInit {
 
     this.firstNameChanged.pipe(debounceTime(1050))
       .subscribe(firstName => {
-        this.userService.updateUser(firstName, null, null);
+        this.userService.updateUser(firstName, null, null, this.userId);
       });
 
     this.lastNameChanged.pipe(debounceTime(1050))
       .subscribe(lastName => {
-        this.userService.updateUser(null, lastName, null);
+        this.userService.updateUser(null, lastName, null, this.userId);
       });  
 
     this.emailChanged.pipe(debounceTime(1050))
       .subscribe(email => {
-        this.userService.updateUser(null, null, email);
+        this.userService.updateUser(null, null, email, this.userId);
       }); 
   };
 
