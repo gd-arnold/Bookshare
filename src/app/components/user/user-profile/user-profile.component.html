@@ -1,4 +1,4 @@
-<section class="row" *ngIf="userData">
+<section class="row" *ngIf="userData && currUserData">
   <div class="col-lg-3 col-md-4 col-sm-12 py-lg-5 text-center profmenu">
     <div *ngIf="isPasswordChanged" class="alert alert-success mt-2" role="alert">
       Ти успешно промени паролата си!
@@ -198,4 +198,4 @@
     </div>
   </div>
 </div>
-<app-loader *ngIf="!userData"></app-loader>
+<app-loader *ngIf="!userData || !currUserData"></app-loader>

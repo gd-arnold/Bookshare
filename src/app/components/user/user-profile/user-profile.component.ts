@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IUser } from '../../shared/interfaces/user';
 import { of, timer, Subject, Subscription } from 'rxjs';
 import { debounce, debounceTime, last } from 'rxjs/operators';
@@ -14,7 +14,7 @@ declare var $: any;
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
 
   routerSubscribtion: Subscription;
 
@@ -30,6 +30,9 @@ export class UserProfileComponent implements OnInit {
 
   userData: IUser;
   userDataSub: Subscription;
+
+  currUserData: IUser;
+  currUserDataSub: Subscription;
 
   fistName: string;
   firstNameChanged: Subject<string> = new Subject<string>();
@@ -52,48 +55,51 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     this.routerSubscribtion = this.route.params.subscribe(
       (params: Params) => {
-        this.authService.getUserBasicData(this.userId)
+        this.authService.getCurrentUserBasicData();
+        this.currUserDataSub = this.authService.currentUserChanged.subscribe((currUser) => {
+          this.currUserData = currUser;
+        })
+        this.authService.getUserBasicData(params["id"])
         this.userDataSub = this.authService.userChanged.subscribe((user) => {
           this.userData = user;
-    
+
           this.currFirstName = this.userData.firstName;
           this.currLastName = this.userData.lastName;
           this.currEmail = this.userData.email;
-    
+
           this.notAcceptedReceives = this.userData["receipts"].filter(receipt => receipt["isAccepted"] === false);
           this.notAcceptedRequests = this.userData["requests"].filter(request => request["isAccepted"] === false);
-          
+
           let successfulRequestsReceiver = this.userData["receipts"].filter(receipt => receipt["isAccepted"] === true);
           let successfulRequestsRequester = this.userData["requests"].filter(request => request["isAccepted"] === true);
-          
-          Array.prototype.push.apply(successfulRequestsReceiver,successfulRequestsRequester);
-    
+
+          Array.prototype.push.apply(successfulRequestsReceiver, successfulRequestsRequester);
+
           successfulRequestsReceiver.sort(function (a, b) {
             if (a["id"] < b["id"]) {
               return 1;
             }
             return 0;
           });
-    
+
           this.successfulRequests = successfulRequestsReceiver;
         });
-    
+
         this.firstNameChanged.pipe(debounceTime(1050))
           .subscribe(firstName => {
             this.userService.updateUser(firstName, null, null, this.userId);
           });
-    
+
         this.lastNameChanged.pipe(debounceTime(1050))
           .subscribe(lastName => {
             this.userService.updateUser(null, lastName, null, this.userId);
-          });  
-    
+          });
+
         this.emailChanged.pipe(debounceTime(1050))
           .subscribe(email => {
             this.userService.updateUser(null, null, email, this.userId);
-          }); 
+          });
       })
-    
   };
 
   updateUserFirstName(firstName: string) {
@@ -132,5 +138,10 @@ export class UserProfileComponent implements OnInit {
   changePasswordHandler(data) {
     this.userService.updatePassword(data);
     $(`#changePasswordModal`).modal('hide');
+  }
+
+  ngOnDestroy() {
+    this.routerSubscribtion.unsubscribe();
+    this.userDataSub.unsubscribe();
   }
 }
