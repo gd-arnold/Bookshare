@@ -100,8 +100,9 @@
           </div>
         </div>
       </div>
-      <div class="row text-center d-flex justify-content-center" *ngIf="!successfulRequests">
-        <p class="msg">Все още не си разменял книги.</p>
+      <div class="row text-center d-flex justify-content-center" *ngIf="successfulRequests.length == 0">
+        <p *ngIf="currUserData.id == userData.id" class="msg">Все още не сте разменяли книги.</p>
+        <p *ngIf="currUserData.id != userData.id" class="msg">{{userData.firstName}} не е разменял книги.</p>
       </div>
     </div>
 
@@ -117,7 +118,8 @@
         </div>
       </div>
       <div class="row text-center d-flex justify-content-center" *ngIf="notAcceptedReceives.length === 0">
-        <p class="msg">Все още никой не ти е поискал книга.</p>
+        <p *ngIf="currUserData.id == userData.id" class="msg">Все още никой не ви е поискал книга.</p>
+        <p *ngIf="currUserData.id != userData.id" class="msg">Все още никой не е поискал книга на {{userData.firstName}}.</p>
       </div>
     </div>
 
@@ -153,10 +155,10 @@
 
         </div>
 
-
       </div>
       <div class="row text-center d-flex justify-content-center" *ngIf="notAcceptedRequests.length===0">
-        <p class="msg">Все още не си поискал книга.</p>
+        <p *ngIf="currUserData.id == userData.id" class="msg">Не сте поискали книги.</p>
+        <p *ngIf="currUserData.id != userData.id" class="msg">{{userData.firstName}} не е поискал книги.</p>
       </div>
 
     </div>
