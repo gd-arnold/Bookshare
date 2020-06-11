@@ -132,7 +132,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   cancelRequest(id: string) {
-    this.bookService.cancelRequest(id);
+    this.bookService.cancelRequest(id, this.userData.id);
   }
 
   changePasswordHandler(data) {

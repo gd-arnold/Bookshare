@@ -110,14 +110,14 @@ export class BookService {
     .subscribe((books) => { this.newestBooks = books; });
   }
 
-  cancelRequest(id: string) {
+  cancelRequest(requestId: string, userId: string) {
     let data = {
-      id: id
+      id: requestId
     };
 
     this.http.post(`${urlPrivate}/cancel-request`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
-      this.authService.getCurrentUserBasicData();
-      $(`#cancelModal${id}`).modal('hide');
+      this.authService.getUserBasicData(userId);
+      $(`#cancelModal${requestId}`).modal('hide');
     })
   }
 
