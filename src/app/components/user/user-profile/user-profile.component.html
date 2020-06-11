@@ -50,7 +50,7 @@
 
     </div>
 
-    <button class="btn-dark my-3" type="button" data-toggle="modal" data-target="#changePasswordModal">Промени
+    <button *ngIf="currUserData.id == userData.id" class="btn-dark my-3" type="button" data-toggle="modal" data-target="#changePasswordModal">Промени
       парола</button>
   </div>
   <div class="col-lg-9 col-md-8 border-left">
@@ -162,9 +162,8 @@
     </div>
 
   </div>
-</section>
-<!-- Password Modal -->
-<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+
+  <div *ngIf="currUserData.id == userData.id" class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -198,4 +197,6 @@
     </div>
   </div>
 </div>
+
+</section>
 <app-loader *ngIf="!userData || !currUserData"></app-loader>
