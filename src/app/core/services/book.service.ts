@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
+import { IBookSuggestion } from 'src/app/components/shared/interfaces/suggestion';
 declare var $: any;
 
 const url = "https://bookshare-rest-api.herokuapp.com";
@@ -23,6 +24,7 @@ export class BookService {
   booksChanged = new Subject<IBook[]>();
   isSuccesfullyRequestedId: string;
   isChosen: boolean = false;
+  bookSuggestions: IBookSuggestion[];
 
   private _booksForUser: IBook[] = [];
   private _bookSubscriptions: Subscription[] = [];
@@ -119,6 +121,13 @@ export class BookService {
     this.http.post(`${urlPrivate}/cancel-request`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
       this.authService.getUserBasicData(userId);
       $(`#cancelModal${requestId}`).modal('hide');
+    })
+  }
+
+  fetchAllSuggestions() {
+    this.http.get<IBookSuggestion[]>(`${urlPrivate}/suggestions`, this.getHttpOptions(localStorage.getItem("token"))).subscribe( suggestions => {
+      this.bookSuggestions = suggestions;
+      console.log(this.bookSuggestions);
     })
   }
 

@@ -16,17 +16,38 @@
                         <span class="pl-3">{{user.email}}</span>
                     </div>
                     <div class="col-6">
-                        <button class="btn float-right btn-view my-2" routerLink="../../user/profile/{{user.id}}">Виж</button>
+                        <button class="btn float-right btn-view my-2"
+                            routerLink="../../user/profile/{{user.id}}">Виж</button>
                     </div>
                 </li>
             </div>
 
         </ul>
     </div>
-    <div class="message-list col-lg-5 col-md-7 border-right border-bottom">
+    <div class="message-list col-lg-4 col-md-7 border-right border-bottom">
         <ul>
             <li class="border-bottom list-header text-center">
-                <h5 class="pt-2">Съобщения и предложения</h5>
+                <h5 class="pt-2">Предложения за книги</h5>
+            </li>
+
+            <li class="border-bottom row" *ngFor="let suggestion of bookSuggestions">
+                <div class="col-10">
+                    <span class="pl-3">{{suggestion.bookTitle}}</span>
+                    <br>
+                    <span class="pl-3">Автор: {{suggestion.bookAuthor}}</span>
+                    <br>
+                    <span class="pl-3">Предложена от: {{suggestion.proposer.firstName}} {{suggestion.proposer.lastName}}</span>
+                </div>
+                <div class="col-2">
+                    <a class="btn float-right btn-view my-2 mt-2">Добави</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="message-list col-lg-4 col-md-7 border-right border-bottom" id="panel">
+        <ul>
+            <li class="border-bottom list-header text-center">
+                <h5 class="pt-2">Съобщения</h5>
             </li>
 
             <li class="border-bottom row">
@@ -39,22 +60,9 @@
                     <a class="btn float-right btn-view my-2">Виж</a>
                 </div>
             </li>
-
-            <li class=" border-bottom row">
-                <div class="col-6">
-                    <span class="pl-3">Николай Коперник</span>
-                    <br>
-                    <span class="pl-3">Предложение за книга</span>
-                </div>
-                <div class="col-6">
-                    <a class="btn float-right btn-view my-2">Прегледай</a>
-                </div>
-            </li>
         </ul>
-    </div>
-    <div class="panel col-lg-3 text-center" id="panel">
-        <h4 class="text-center py-3">Контролен Панел</h4>
-        <!-- "Виж" съобщение -->
+        <!-- <h4 class="text-center py-3">Контролен Панел</h4>
+        
         <div class="d-none">
             <div class="row">
                 <div class="col-7">
@@ -71,7 +79,7 @@
                 излиза а мога само по заглавия да търся което някакси не ме кефи :)</p>
             <button class="btn btn-danger">Изтрий</button>
         </div>
-        <!-- "Прегледай" заявка -->
+        
         <div class="">
             <div class="row">
                 <div class="col-7">
@@ -94,8 +102,7 @@
             </form>
 
             <button class="btn btn-danger mr-4 mb-3">Отхвърли</button>
-            <button class="btn btn-success ml-4 mb-3">Добави</button>
-
-        </div>
-    </div>
+            <button class="btn btn-success ml-4 mb-3">Добави</button> -->
+<!-- 
+    </div> -->
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { IUser } from '../../shared/interfaces/user';
 import { Subscription } from 'rxjs';
+import { BookService } from 'src/app/core/services/book.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -15,10 +16,14 @@ export class AdminPanelComponent implements OnInit {
 
   searchedUsers: IUser[];
 
-  constructor(private userService: UserService) { }
+  get bookSuggestions() { return this.bookService.bookSuggestions; }
+
+  constructor(private userService: UserService,
+              private bookService: BookService) { }
 
   ngOnInit() {
-    this.userService.fetchAllUsersBasicData()
+    this.userService.fetchAllUsersBasicData();
+    this.bookService.fetchAllSuggestions();
     this.searchedUsers = this.users;
     this.usersDataSub = this.userService.usersChanged.subscribe((users) => {
       this.users = users;
