@@ -112,9 +112,10 @@ export class BookService {
 
   cancelRequest(requestId: string, userId: string) {
     let data = {
-      id: requestId
+      requestId: requestId,
+      userId: userId
     };
-
+    
     this.http.post(`${urlPrivate}/cancel-request`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
       this.authService.getUserBasicData(userId);
       $(`#cancelModal${requestId}`).modal('hide');
