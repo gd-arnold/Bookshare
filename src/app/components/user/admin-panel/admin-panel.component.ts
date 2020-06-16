@@ -43,4 +43,8 @@ export class AdminPanelComponent implements OnInit {
     return user["firstName"] + " " + user["lastName"];
   }
 
+  deleteMessage(messageId: string) {
+    this.userService.deleteMessage(messageId);
+  }
+
 }

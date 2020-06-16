@@ -127,7 +127,6 @@ export class BookService {
   fetchAllSuggestions() {
     this.http.get<IBookSuggestion[]>(`${urlPrivate}/suggestions`, this.getHttpOptions(localStorage.getItem("token"))).subscribe( suggestions => {
       this.bookSuggestions = suggestions;
-      console.log(this.bookSuggestions);
     })
   }
 

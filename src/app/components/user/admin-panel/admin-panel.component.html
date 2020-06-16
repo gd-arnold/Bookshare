@@ -57,7 +57,7 @@
                     <span class="pl-1">{{message.description}}</span>
                 </div>
                 <div class="col-2">
-                    <a class="btn float-right btn-view my-2">Изтрий</a>
+                    <a class="btn float-right btn-view my-2" (click)="deleteMessage(message.id)">Изтрий</a>
                 </div>
             </li>
         </ul>

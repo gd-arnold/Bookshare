@@ -159,9 +159,17 @@ export class UserService {
     fetchAllMessages() {
         this.http.get<IMessage[]>(`${urlPrivate}/all-messages`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(messages => {
             this.messages = messages;
-            console.log(messages);
         }, err => {
             alert("Нямате права да достъпвате тази страница!");
+        })
+    }
+
+    deleteMessage(messageId: string) {
+        this.http.post(`${urlPrivate}/delete-message`, {messageId: messageId}, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+            this.fetchAllMessages();
+        }, err => {
+            console.log(err);
+            alert("An error occurred!");
         })
     }
 
