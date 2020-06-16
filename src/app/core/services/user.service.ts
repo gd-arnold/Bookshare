@@ -7,6 +7,7 @@ import { ICourierService } from 'src/app/components/shared/interfaces/courier-se
 import { Router } from '@angular/router';
 import { BookService } from './book.service';
 import { IUser } from 'src/app/components/shared/interfaces/user';
+import { IMessage } from 'src/app/components/shared/interfaces/message';
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
@@ -24,6 +25,7 @@ export class UserService {
     addresses: any[];
     request: IRequest;
     usersChanged = new Subject<IUser[]>(); 
+    messages: IMessage[];
 
     private _unreadNotificationsCount: number = 0;
     private _unreadNotificationsCountSubscriptions: Subscription[] = [];
@@ -151,6 +153,15 @@ export class UserService {
             this.usersChanged.next(users);
         }, err => {
             alert("Нямате права да достъпвате тази страница!")
+        })
+    }
+
+    fetchAllMessages() {
+        this.http.get<IMessage[]>(`${urlPrivate}/all-messages`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(messages => {
+            this.messages = messages;
+            console.log(messages);
+        }, err => {
+            alert("Нямате права да достъпвате тази страница!");
         })
     }
 

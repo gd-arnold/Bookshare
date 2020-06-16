@@ -50,14 +50,14 @@
                 <h5 class="pt-2">Съобщения</h5>
             </li>
 
-            <li class="border-bottom row">
-                <div class="col-6">
-                    <span class="pl-3">Михайл Горбачев</span>
+            <li class="border-bottom row" *ngFor="let message of messages">
+                <div class="col-10">
+                    <span class="pl-3">От: {{message.sender.firstName}} {{message.sender.lastName}}</span>
                     <br>
-                    <span class="pl-3">Съобщение</span>
+                    <span class="pl-1">{{message.description}}</span>
                 </div>
-                <div class="col-6">
-                    <a class="btn float-right btn-view my-2">Виж</a>
+                <div class="col-2">
+                    <a class="btn float-right btn-view my-2">Изтрий</a>
                 </div>
             </li>
         </ul>

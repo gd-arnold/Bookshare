@@ -17,6 +17,7 @@ export class AdminPanelComponent implements OnInit {
   searchedUsers: IUser[];
 
   get bookSuggestions() { return this.bookService.bookSuggestions; }
+  get messages() { return this.userService.messages; }
 
   constructor(private userService: UserService,
               private bookService: BookService) { }
@@ -24,6 +25,7 @@ export class AdminPanelComponent implements OnInit {
   ngOnInit() {
     this.userService.fetchAllUsersBasicData();
     this.bookService.fetchAllSuggestions();
+    this.userService.fetchAllMessages();
     this.searchedUsers = this.users;
     this.usersDataSub = this.userService.usersChanged.subscribe((users) => {
       this.users = users;
