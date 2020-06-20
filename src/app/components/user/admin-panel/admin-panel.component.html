@@ -36,10 +36,55 @@
                     <br>
                     <span class="pl-3">Автор: {{suggestion.bookAuthor}}</span>
                     <br>
-                    <span class="pl-3">Предложена от: {{suggestion.proposer.firstName}} {{suggestion.proposer.lastName}}</span>
+                    <span class="pl-3">Предложена от: {{suggestion.proposer.firstName}}
+                        {{suggestion.proposer.lastName}}</span>
                 </div>
                 <div class="col-2">
-                    <a class="btn float-right btn-view my-2 mt-2">Добави</a>
+                    <a data-toggle="modal" [attr.data-target]="'#addBookModal' + suggestion.id"
+                        class="btn float-right btn-view my-2 mt-2">Добави</a>
+                </div>
+                <div class="modal fade" id="addBookModal{{suggestion.id}}" tabindex="-1" role="dialog"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Добави книга</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="px-2 form-group">
+                                    <input class="form-control" placeholder="Заглавие" type="text"
+                                        value="{{suggestion.bookTitle}}" id="book-name">
+                                    <input class="form-control" placeholder="Автор" type="text"
+                                        value="{{suggestion.bookAuthor}}" id="book-author">
+                                    <textarea class="form-control" id="book-desc" placeholder="Описание"></textarea>
+                                    <input class="form-control" placeholder="Линк към изображение" type="text"
+                                        id="book-image">
+                                    <input class="form-control" placeholder="Издателство" type="text"
+                                        id="book-publisher">
+                                    <input class="form-control" placeholder="Дата на издаване" type="date"
+                                        id="book-date-published">
+                                    <input (change)="selectCategory($event.target.value)" list="categories" autocomplete="off" name="category" class="custom-select custom-select-md" required>
+                                    <datalist id="categories" >
+                                        <option *ngFor="let category of categories" data-value="category.id"
+                                            [value]="category.categoryName"></option>
+                                    </datalist>
+                                    <div *ngIf="subcategoriesFetched">
+                                        <input id="subcategoryField" list="subcategories" autocomplete="off" name="subcategory" class="custom-select custom-select-md" required>
+                                        <datalist id="subcategories" >
+                                            <option *ngFor="let subcategory of subcategories" data-value="subcategory.id"
+                                                [value]="subcategory.subcategoryName"></option>
+                                        </datalist>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Затвори</button>
+                                    <button type="submit" class="btn btn-danger">Добави</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -61,48 +106,5 @@
                 </div>
             </li>
         </ul>
-        <!-- <h4 class="text-center py-3">Контролен Панел</h4>
-        
-        <div class="d-none">
-            <div class="row">
-                <div class="col-7">
-                    <h6 class="pt-2 float-right">Михайл Горбачев</h6>
-                </div>
-                <div class="col-5">
-                    <a class="btn btn-view float-left">Виж</a>
-                </div>
-            </div>
-            <span class="py-5">misho_gorbachev@sovietmail.ru</span>
-            <p class="pt-4 px-2">Здравейте аз съм на СССР водача и имам проблем с намирането на книги по жанрове. Като
-                напиша
-                СССР нищо не
-                излиза а мога само по заглавия да търся което някакси не ме кефи :)</p>
-            <button class="btn btn-danger">Изтрий</button>
-        </div>
-        
-        <div class="">
-            <div class="row">
-                <div class="col-7">
-                    <h6 class="pt-2 float-right">Михайл Горбачев</h6>
-                </div>
-                <div class="col-5">
-                    <a class="btn btn-view float-left">Виж</a>
-                </div>
-            </div>
-            <span class="py-5">misho_gorbachev@sovietmail.ru</span>
-            <form class="pt-4 px-2 form-group">
-                <label for="book-name">Име</label>
-                <input class="form-control" type="text" value="Война и Мир" id="book-name">
-                <label for="book-author">Автор</label>
-                <input class="form-control" type="text" value="Лев Толсой" id="book-author">
-                <label for="book-desc">Описание</label>
-                <input class="form-control" type="text" value="" id="book-desc">
-                <label for="book-image">Изображение</label>
-                <input class="form-control" type="text" value="" id="book-image">
-            </form>
-
-            <button class="btn btn-danger mr-4 mb-3">Отхвърли</button>
-            <button class="btn btn-success ml-4 mb-3">Добави</button> -->
-<!-- 
-    </div> -->
+    </div>
 </div>

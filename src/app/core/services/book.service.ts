@@ -6,6 +6,8 @@ import { Subject, Subscription } from 'rxjs';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 import { IBookSuggestion } from 'src/app/components/shared/interfaces/suggestion';
+import { ICategory } from 'src/app/components/shared/interfaces/category';
+import { ISubcategory } from 'src/app/components/shared/interfaces/subcategory';
 declare var $: any;
 
 const url = "https://bookshare-rest-api.herokuapp.com";
@@ -25,6 +27,8 @@ export class BookService {
   isSuccesfullyRequestedId: string;
   isChosen: boolean = false;
   bookSuggestions: IBookSuggestion[];
+  categories: ICategory[];
+  subcategories: ISubcategory[];
 
   private _booksForUser: IBook[] = [];
   private _bookSubscriptions: Subscription[] = [];
@@ -128,6 +132,18 @@ export class BookService {
     this.http.get<IBookSuggestion[]>(`${urlPrivate}/suggestions`, this.getHttpOptions(localStorage.getItem("token"))).subscribe( suggestions => {
       this.bookSuggestions = suggestions;
     })
+  }
+
+  fetchAllCategories() {
+    this.http.get<ICategory[]>(`${urlPrivate}/all-categories`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(categories => {
+      this.categories = categories;
+    })
+  }
+
+  fetchSubcategoriesByCategory(categoryId: string) {
+    this.http.get<ISubcategory[]>(`${urlPrivate}/subcategories-by-category/${categoryId}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(subcategories => {
+      this.subcategories = subcategories;
+    });
   }
 
   cancelSubscriptions() {
