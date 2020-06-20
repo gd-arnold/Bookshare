@@ -29,6 +29,7 @@ export class BookService {
   bookSuggestions: IBookSuggestion[];
   categories: ICategory[];
   subcategories: ISubcategory[];
+  createdBook: IBook;
 
   private _booksForUser: IBook[] = [];
   private _bookSubscriptions: Subscription[] = [];
@@ -150,6 +151,7 @@ export class BookService {
     this.http.post(`${urlPrivate}/create-book`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
       $(`#addBookModal${data["suggestionId"]}`).modal('hide');
       this.fetchAllSuggestions();
+      this.createdBook = data;
     }, err => {
       console.log(err);
     })

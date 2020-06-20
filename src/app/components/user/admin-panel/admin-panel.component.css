@@ -20,6 +20,15 @@
     height: 25vh;
 }
 
+.msg {
+    display: inline-block;
+    position: absolute;
+    margin-top: 20%;
+    text-align: center;
+    font-size: 18px;
+    color: rgb(206, 112, 5);
+    font-weight: 700;
+}
 
 ul {
     list-style: none;

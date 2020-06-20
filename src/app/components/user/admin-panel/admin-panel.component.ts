@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { IUser } from '../../shared/interfaces/user';
+import { IBook } from '../../shared/interfaces/book';
 import { Subscription } from 'rxjs';
 import { BookService } from 'src/app/core/services/book.service';
 import { ISubcategory } from '../../shared/interfaces/subcategory';
@@ -14,16 +15,17 @@ declare var $: any;
 export class AdminPanelComponent implements OnInit {
 
   users: IUser[];
-  usersDataSub: Subscription;
-
   searchedUsers: IUser[];
-  subcategoriesFetched: boolean;
   subcategory: ISubcategory;
+
+  usersDataSub: Subscription;
+  subcategoriesFetched: boolean;
 
   get bookSuggestions() { return this.bookService.bookSuggestions; }
   get messages() { return this.userService.messages; }
   get categories() { return this.bookService.categories; }
   get subcategories() { return this.bookService.subcategories; }
+  get createdBook() { return this.bookService.createdBook; }
 
   constructor(private userService: UserService,
               private bookService: BookService) { }
