@@ -157,6 +157,12 @@ export class BookService {
     })
   }
 
+  cancelSuggestion(suggestionId: string) {
+    this.http.post(`${urlPrivate}/cancel-suggestion`, {suggestionId: suggestionId}, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+      this.fetchAllSuggestions();  
+    })
+  }
+
   cancelSubscriptions() {
     this._bookSubscriptions.forEach((s) => s.unsubscribe());
   }
