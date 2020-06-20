@@ -103,7 +103,7 @@ export class BookService {
 
     this.http.post(`${urlPrivate}/accept-book`, data, this.getHttpOptions(localStorage.getItem("token")))
       .subscribe(() => {
-        this.userService.fetchRequestInfoById(requestId);
+        this.userService.fetchRequestInfoById(requestId, true);
        });
   }
 

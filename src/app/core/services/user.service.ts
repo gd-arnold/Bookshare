@@ -79,11 +79,15 @@ export class UserService {
         });
     }
 
-    fetchRequestInfoById(id: string) {
+    fetchRequestInfoById(id: string, isCurrUserInfo: boolean) {
         this.http.get<IRequest>(`${urlPrivate}/request-info/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(request => {
             this.request = request;
             this.requestChanged.next(this.request);
-            this.router.navigateByUrl(`book/info/request/${id}`);
+            if (isCurrUserInfo) {
+                this.router.navigateByUrl(`book/info/request/${id}`);
+            } else {
+                this.router.navigateByUrl(`book/admin/request/${id}`);
+            }
         });
     }
 

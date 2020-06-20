@@ -128,7 +128,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   requestInfo(id: string) {
-    this.userService.fetchRequestInfoById(id);
+    this.userService.fetchRequestInfoById(id, this.userId == this.currUserData.id);
   }
 
   cancelRequest(requestId: string) {

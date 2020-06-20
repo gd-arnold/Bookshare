@@ -59,7 +59,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   requestInfo(id: string) {
-    this.userService.fetchRequestInfoById(id);
+    this.userService.fetchRequestInfoById(id, true);
   }
 
   ngOnDestroy() {
