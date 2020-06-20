@@ -54,17 +54,17 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form class="px-2 form-group">
-                                    <input class="form-control" placeholder="Заглавие" type="text"
-                                        value="{{suggestion.bookTitle}}" id="book-name">
-                                    <input class="form-control" placeholder="Автор" type="text"
-                                        value="{{suggestion.bookAuthor}}" id="book-author">
-                                    <textarea class="form-control" id="book-desc" placeholder="Описание"></textarea>
-                                    <input class="form-control" placeholder="Линк към изображение" type="text"
+                                <form class="px-2 form-group" #addBookForm="ngForm" (ngSubmit)="addBook(addBookForm.value)">
+                                    <input class="form-control" placeholder="Заглавие" [(ngModel)]="suggestion.bookTitle" type="text"
+                                        name="title" id="book-name">
+                                    <input class="form-control" placeholder="Автор" [(ngModel)]="suggestion.bookAuthor" type="text"
+                                        name="author" id="book-author">
+                                    <textarea class="form-control" id="book-desc" ngModel name="description" placeholder="Описание"></textarea>
+                                    <input class="form-control" ngModel placeholder="Линк към изображение" name="imageURL" type="text"
                                         id="book-image">
-                                    <input class="form-control" placeholder="Издателство" type="text"
+                                    <input class="form-control" placeholder="Издателство" ngModel name="publisher" type="text"
                                         id="book-publisher">
-                                    <input class="form-control" placeholder="Дата на издаване" type="date"
+                                    <input class="form-control" placeholder="Дата на издаване" ngModel name="datePublished" type="date"
                                         id="book-date-published">
                                     <input (change)="selectCategory($event.target.value)" list="categories" autocomplete="off" name="category" class="custom-select custom-select-md" required>
                                     <datalist id="categories" >
@@ -72,7 +72,7 @@
                                             [value]="category.categoryName"></option>
                                     </datalist>
                                     <div *ngIf="subcategoriesFetched">
-                                        <input id="subcategoryField" list="subcategories" autocomplete="off" name="subcategory" class="custom-select custom-select-md" required>
+                                        <input (change)="selectSubcategory($event.target.value)" id="subcategoryField" list="subcategories" autocomplete="off" name="subcategory" class="custom-select custom-select-md" required>
                                         <datalist id="subcategories" >
                                             <option *ngFor="let subcategory of subcategories" data-value="subcategory.id"
                                                 [value]="subcategory.subcategoryName"></option>

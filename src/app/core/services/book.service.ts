@@ -146,6 +146,14 @@ export class BookService {
     });
   }
 
+  createBook(data) {
+    this.http.post(`${urlPrivate}/create-book`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+      console.log("created");
+    }, err => {
+      console.log(err);
+    })
+  }
+
   cancelSubscriptions() {
     this._bookSubscriptions.forEach((s) => s.unsubscribe());
   }

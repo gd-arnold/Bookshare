@@ -3,6 +3,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { IUser } from '../../shared/interfaces/user';
 import { Subscription } from 'rxjs';
 import { BookService } from 'src/app/core/services/book.service';
+import { ISubcategory } from '../../shared/interfaces/subcategory';
 declare var $: any;
 
 @Component({
@@ -17,6 +18,7 @@ export class AdminPanelComponent implements OnInit {
 
   searchedUsers: IUser[];
   subcategoriesFetched: boolean;
+  subcategory: ISubcategory;
 
   get bookSuggestions() { return this.bookService.bookSuggestions; }
   get messages() { return this.userService.messages; }
@@ -60,6 +62,15 @@ export class AdminPanelComponent implements OnInit {
       this.bookService.fetchSubcategoriesByCategory(categoryId);
       this.subcategoriesFetched = true;
     }
+  }
+
+  selectSubcategory(subcategoryName: string) {
+    this.subcategory = this.subcategories.filter(subcategory => subcategory.subcategoryName === subcategoryName)[0];
+  }
+
+  addBook(data) {
+    data["subcategoryId"] = this.subcategory.id;
+    this.bookService.createBook(data);
   }
 
 }
