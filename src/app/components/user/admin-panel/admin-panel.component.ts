@@ -68,8 +68,9 @@ export class AdminPanelComponent implements OnInit {
     this.subcategory = this.subcategories.filter(subcategory => subcategory.subcategoryName === subcategoryName)[0];
   }
 
-  addBook(data) {
+  addBook(data, suggestionId) {
     data["subcategoryId"] = this.subcategory.id;
+    data["suggestionId"] = suggestionId;
     this.bookService.createBook(data);
   }
 

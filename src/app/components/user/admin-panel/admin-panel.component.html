@@ -54,7 +54,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form class="px-2 form-group" #addBookForm="ngForm" (ngSubmit)="addBook(addBookForm.value)">
+                                <form class="px-2 form-group" #addBookForm="ngForm" (ngSubmit)="addBook(addBookForm.value, suggestion.id)">
                                     <input class="form-control" placeholder="Заглавие" [(ngModel)]="suggestion.bookTitle" type="text"
                                         name="title" id="book-name">
                                     <input class="form-control" placeholder="Автор" [(ngModel)]="suggestion.bookAuthor" type="text"

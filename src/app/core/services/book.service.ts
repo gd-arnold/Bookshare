@@ -148,7 +148,8 @@ export class BookService {
 
   createBook(data) {
     this.http.post(`${urlPrivate}/create-book`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
-      console.log("created");
+      $(`#addBookModal${data["suggestionId"]}`).modal('hide');
+      this.fetchAllSuggestions();
     }, err => {
       console.log(err);
     })
