@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-admin-request-info',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminRequestInfoComponent implements OnInit {
 
-  constructor() { }
+  get request() { return this.userService.request; }
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
   }

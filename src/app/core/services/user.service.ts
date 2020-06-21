@@ -88,6 +88,7 @@ export class UserService {
             } else {
                 this.router.navigateByUrl(`book/admin/request/${id}`);
             }
+            console.log(request);
         });
     }
 
