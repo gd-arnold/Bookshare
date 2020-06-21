@@ -5,6 +5,8 @@ import { BookDetailComponent } from './book-detail/book-detail.component';
 import { ChooseBookComponent } from './choose-book/choose-book.component';
 import { RequestInfoComponent } from './request-info/request-info.component';
 import { AddBookRegComponent } from './add-book-reg/add-book-reg.component';
+import { AdminRequestInfoComponent } from './admin-request-info/admin-request-info.component';
+import { AdminGuard } from 'src/app/core/guards/admin.guard';
 
 
 const routes: Routes = [
@@ -34,6 +36,11 @@ const routes: Routes = [
         path: 'register/add',
         component: AddBookRegComponent,
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'admin/request/:id',
+        component: AdminRequestInfoComponent,
+        canActivate: [AuthGuard, AdminGuard]
       }
     ]
   }

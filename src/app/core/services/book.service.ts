@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
+import { IBookSuggestion } from 'src/app/components/shared/interfaces/suggestion';
+import { ICategory } from 'src/app/components/shared/interfaces/category';
+import { ISubcategory } from 'src/app/components/shared/interfaces/subcategory';
 declare var $: any;
 
 const url = "https://bookshare-rest-api.herokuapp.com";
@@ -22,6 +25,11 @@ export class BookService {
   book: IBook;
   booksChanged = new Subject<IBook[]>();
   isSuccesfullyRequestedId: string;
+  isChosen: boolean = false;
+  bookSuggestions: IBookSuggestion[];
+  categories: ICategory[];
+  subcategories: ISubcategory[];
+  createdBook: IBook;
 
   private _booksForUser: IBook[] = [];
   private _bookSubscriptions: Subscription[] = [];
@@ -96,8 +104,8 @@ export class BookService {
 
     this.http.post(`${urlPrivate}/accept-book`, data, this.getHttpOptions(localStorage.getItem("token")))
       .subscribe(() => {
-        this.router.navigate([`book/info/request/${requestId}`]);
-      });
+        this.userService.fetchRequestInfoById(requestId, true);
+       });
   }
 
   fetchMostExchangedBooks() {
@@ -110,14 +118,49 @@ export class BookService {
     .subscribe((books) => { this.newestBooks = books; });
   }
 
-  cancelRequest(id: string) {
+  cancelRequest(requestId: string, userId: string) {
     let data = {
-      id: id
+      requestId: requestId,
+      userId: userId
     };
-
+    
     this.http.post(`${urlPrivate}/cancel-request`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
-      this.authService.getCurrentUserBasicData();
-      $(`#cancelModal${id}`).modal('hide');
+      this.authService.getUserBasicData(userId);
+      $(`#cancelModal${requestId}`).modal('hide');
+    })
+  }
+
+  fetchAllSuggestions() {
+    this.http.get<IBookSuggestion[]>(`${urlPrivate}/suggestions`, this.getHttpOptions(localStorage.getItem("token"))).subscribe( suggestions => {
+      this.bookSuggestions = suggestions;
+    })
+  }
+
+  fetchAllCategories() {
+    this.http.get<ICategory[]>(`${urlPrivate}/all-categories`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(categories => {
+      this.categories = categories;
+    })
+  }
+
+  fetchSubcategoriesByCategory(categoryId: string) {
+    this.http.get<ISubcategory[]>(`${urlPrivate}/subcategories-by-category/${categoryId}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(subcategories => {
+      this.subcategories = subcategories;
+    });
+  }
+
+  createBook(data) {
+    this.http.post(`${urlPrivate}/create-book`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+      $(`#addBookModal${data["suggestionId"]}`).modal('hide');
+      this.fetchAllSuggestions();
+      this.createdBook = data;
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  cancelSuggestion(suggestionId: string) {
+    this.http.post(`${urlPrivate}/cancel-suggestion`, {suggestionId: suggestionId}, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+      this.fetchAllSuggestions();  
     })
   }
 

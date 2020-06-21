@@ -58,6 +58,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     return request.receiver.id === this.currentUserData.id;
   }
 
+  requestInfo(id: string) {
+    this.userService.fetchRequestInfoById(id, true);
+  }
+
   ngOnDestroy() {
     this.unreadNotificationsCountSub.unsubscribe();
     this.currentUserDataSub.unsubscribe();

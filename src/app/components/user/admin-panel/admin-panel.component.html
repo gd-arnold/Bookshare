@@ -1,0 +1,163 @@
+<div *ngIf="createdBook" class="alert alert-success mt-2" role="alert">
+    Вие успешно добавихте "{{createdBook.title}}"!
+</div>
+<div class="row">
+    <div class="user-list col-lg-4 col-md-5 border-right border-bottom">
+        <ul>
+            <li class="border-bottom list-header text-center">
+                <h5 class="pt-2">Потребители</h5>
+            </li>
+            <div *ngIf="searchedUsers">
+                <li class="border-bottom list-header text-center">
+                    <input class="form-control" (keyup)="searchUser($event)" type="text" placeholder="Търси по име...">
+                </li>
+
+                <div *ngFor="let user of searchedUsers">
+                    <li class="border-bottom row">
+                        <div class="col-6">
+                            <span class="pl-3">{{user.firstName}} {{user.lastName}}</span>
+                            <br>
+                            <span class="pl-3">{{user.email}}</span>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn float-right btn-view my-2"
+                                routerLink="../../user/profile/{{user.id}}">Виж</button>
+                        </div>
+                    </li>
+                </div>
+            </div>
+            <div *ngIf="!searchedUsers">
+                <app-loader></app-loader>
+            </div>
+        </ul>
+    </div>
+    <div class="message-list col-lg-4 col-md-7 border-right border-bottom">
+        <ul>
+            <li class="border-bottom list-header text-center">
+                <h5 class="pt-2">Предложения за книги</h5>
+            </li>
+            <div *ngIf="bookSuggestions">
+                <div *ngIf="bookSuggestions.length > 0">
+                    <li class="border-bottom mb-2 row" *ngFor="let suggestion of bookSuggestions">
+                        <div class="col-12">
+                            <span class="pl-3">{{suggestion.bookTitle}}</span>
+                            <br>
+                            <span class="pl-3">Автор: {{suggestion.bookAuthor}}</span>
+                            <br>
+                            <span class="pl-3">Предложена от: {{suggestion.proposer.firstName}}
+                                {{suggestion.proposer.lastName}}</span>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <a data-toggle="modal" (click)="cancelSuggestion(suggestion.id)"
+                                class="btn btn-view my-2">Откажи</a>
+                        </div>
+                        <div class="col-3">
+                            <a data-toggle="modal" [attr.data-target]="'#addBookModal' + suggestion.id"
+                                class="btn btn-view my-2">Добави</a>
+                        </div>
+                        <div class="modal fade" id="addBookModal{{suggestion.id}}" tabindex="-1" role="dialog"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Добави книга</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="px-2 form-group" #addBookForm="ngForm"
+                                            (ngSubmit)="addBook(addBookForm.value, suggestion.id)">
+                                            <input class="my-1 form-control" placeholder="Заглавие"
+                                                [(ngModel)]="suggestion.bookTitle" type="text" name="title"
+                                                id="book-name" required>
+                                            <input class="my-1 form-control" placeholder="Автор"
+                                                [(ngModel)]="suggestion.bookAuthor" type="text" name="author"
+                                                id="book-author" required>
+                                            <textarea class="my-1 form-control" id="book-desc" ngModel
+                                                name="description" placeholder="Описание" required></textarea>
+                                            <input class="my-1 form-control" ngModel placeholder="Линк към изображение"
+                                                name="imageURL" type="text" id="book-image" required>
+                                            <input class="my-1 form-control" placeholder="Издателство" ngModel
+                                                name="publisher" type="text" id="book-publisher" required>
+                                            <input class="my-1 form-control" placeholder="Дата на издаване" ngModel
+                                                name="datePublished" type="date" id="book-date-published" required>
+                                            <input class="my-1 form-control"
+                                                (change)="selectCategory($event.target.value)" list="categories"
+                                                autocomplete="off" name="category"
+                                                class="custom-select custom-select-md" required>
+                                            <datalist id="categories">
+                                                <option *ngFor="let category of categories" data-value="category.id"
+                                                    [value]="category.categoryName"></option>
+                                            </datalist>
+                                            <div *ngIf="subcategoriesFetched">
+                                                <input (change)="selectSubcategory($event.target.value)"
+                                                    id="subcategoryField" list="subcategories" autocomplete="off"
+                                                    name="subcategory" class="custom-select custom-select-md my-1"
+                                                    required>
+                                                <datalist id="subcategories">
+                                                    <option *ngFor="let subcategory of subcategories"
+                                                        data-value="subcategory.id"
+                                                        [value]="subcategory.subcategoryName"></option>
+                                                </datalist>
+                                            </div>
+                                            <button type="button" class="btn btn-secondary my-2"
+                                                data-dismiss="modal">Затвори</button>
+                                            <button type="submit" [disabled]="addBookForm.invalid"
+                                                class="btn btn-view my-2 float-right">Добави</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div *ngIf="bookSuggestions.length == 0" class="col-8">
+                        <p class="msg">Няма предложения за книги.</p>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+            </div>
+            <div *ngIf="!bookSuggestions">
+                <app-loader></app-loader>
+            </div>
+        </ul>
+    </div>
+    <div class="message-list col-lg-4 col-md-7 border-right border-bottom" id="panel">
+        <ul>
+            <li class="border-bottom list-header text-center">
+                <h5 class="pt-2">Съобщения</h5>
+            </li>
+            <div *ngIf="messages">
+                <div *ngIf="messages.length > 0">
+                    <li class="border-bottom row" *ngFor="let message of messages">
+                        <div class="col-10">
+                            <span class="pl-1">От: {{message.sender.firstName}} {{message.sender.lastName}}</span>
+                            <br>
+                            <span class="pl-1">Email: {{message.sender.email}}</span>
+                            <br>
+                            <span class="pl-3">{{message.description}}</span>
+                        </div>
+                        <div class="col-2">
+                            <a class="btn float-right btn-view my-2" (click)="deleteMessage(message.id)">Изтрий</a>
+                        </div>
+                    </li>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div *ngIf="messages.length == 0" class="col-8">
+                        <p class="msg">Няма съобщения.</p>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+            </div>
+            <div *ngIf="!messages">
+                <app-loader></app-loader>
+            </div>
+
+        </ul>
+    </div>
+</div>

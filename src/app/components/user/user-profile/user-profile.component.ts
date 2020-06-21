@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IUser } from '../../shared/interfaces/user';
 import { of, timer, Subject, Subscription } from 'rxjs';
 import { debounce, debounceTime, last } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { BookService } from 'src/app/core/services/book.service';
+import { Route } from '@angular/compiler/src/core';
+import { ActivatedRoute, Params } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -12,7 +14,9 @@ declare var $: any;
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
+
+  routerSubscribtion: Subscription;
 
   currFirstName: string;
   currLastName: string;
@@ -26,8 +30,11 @@ export class UserProfileComponent implements OnInit {
   notAcceptedRequests: Array<any>;
   successfulRequests: Array<any>;
 
-  currentUserData: IUser;
-  currentUserDataSub: Subscription;
+  userData: IUser;
+  userDataSub: Subscription;
+
+  currUserData: IUser;
+  currUserDataSub: Subscription;
 
   fistName: string;
   firstNameChanged: Subject<string> = new Subject<string>();
@@ -36,52 +43,62 @@ export class UserProfileComponent implements OnInit {
   email: string;
   emailChanged: Subject<string> = new Subject<string>();
 
+  get userId() { return this.route.snapshot.paramMap.get('id'); };
+
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private bookService: BookService
+    private bookService: BookService,
+    private route: ActivatedRoute
   ) { }
 
   get isPasswordChanged() { return this.userService.isPasswordChanged };
 
   ngOnInit() {
-    this.authService.getCurrentUserBasicData();
-    this.currentUserDataSub = this.authService.currentUserChanged.subscribe((user) => {
-      this.currentUserData = user;
+    this.routerSubscribtion = this.route.params.subscribe(
+      (params: Params) => {
+        this.authService.getCurrentUserBasicData();
+        this.currUserDataSub = this.authService.currentUserChanged.subscribe((currUser) => {
+          this.currUserData = currUser;
+        })
+        this.authService.getUserBasicData(params["id"])
+        this.userDataSub = this.authService.userChanged.subscribe((user) => {
+          this.userData = user;
 
-      this.currFirstName = this.currentUserData.firstName;
-      this.currLastName = this.currentUserData.lastName;
-      this.currEmail = this.currentUserData.email;
+          this.currFirstName = this.userData.firstName;
+          this.currLastName = this.userData.lastName;
+          this.currEmail = this.userData.email;
 
-      this.notAcceptedReceives = this.currentUserData["receipts"].filter(receipt => receipt["isAccepted"] === false);
-      this.notAcceptedRequests = this.currentUserData["requests"].filter(request => request["isAccepted"] === false);
-      
-      let successfulRequestsReceiver = this.currentUserData["receipts"].filter(receipt => receipt["isAccepted"] === true);
-      let successfulRequestsRequester = this.currentUserData["requests"].filter(request => request["isAccepted"] === true);
-      
-      Array.prototype.push.apply(successfulRequestsReceiver,successfulRequestsRequester);
+          this.notAcceptedReceives = this.userData["receipts"].filter(receipt => receipt["isAccepted"] === false);
+          this.notAcceptedRequests = this.userData["requests"].filter(request => request["isAccepted"] === false);
 
-      successfulRequestsReceiver.sort(function (firstRequest, secondRequest) {
-        return parseInt(firstRequest["id"]) < parseInt(secondRequest["id"]) ? 1 : -1;
-      });
+          let successfulRequestsReceiver = this.userData["receipts"].filter(receipt => receipt["isAccepted"] === true);
+          let successfulRequestsRequester = this.userData["requests"].filter(request => request["isAccepted"] === true);
 
-      this.successfulRequests = successfulRequestsReceiver;
-    });
+          Array.prototype.push.apply(successfulRequestsReceiver, successfulRequestsRequester);
 
-    this.firstNameChanged.pipe(debounceTime(1050))
-      .subscribe(firstName => {
-        this.userService.updateUser(firstName, null, null);
-      });
+          successfulRequestsReceiver.sort(function (firstRequest, secondRequest) {
+            return parseInt(firstRequest["id"]) < parseInt(secondRequest["id"]) ? 1 : -1;
+          });
 
-    this.lastNameChanged.pipe(debounceTime(1050))
-      .subscribe(lastName => {
-        this.userService.updateUser(null, lastName, null);
-      });  
+          this.successfulRequests = successfulRequestsReceiver;
+        });
 
-    this.emailChanged.pipe(debounceTime(1050))
-      .subscribe(email => {
-        this.userService.updateUser(null, null, email);
-      }); 
+        this.firstNameChanged.pipe(debounceTime(1050))
+          .subscribe(firstName => {
+            this.userService.updateUser(firstName, null, null, this.userId);
+          });
+
+        this.lastNameChanged.pipe(debounceTime(1050))
+          .subscribe(lastName => {
+            this.userService.updateUser(null, lastName, null, this.userId);
+          });
+
+        this.emailChanged.pipe(debounceTime(1050))
+          .subscribe(email => {
+            this.userService.updateUser(null, null, email, this.userId);
+          });
+      })
   };
 
   updateUserFirstName(firstName: string) {
@@ -109,12 +126,21 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  cancelRequest(id: string) {
-    this.bookService.cancelRequest(id);
+  requestInfo(id: string) {
+    this.userService.fetchRequestInfoById(id, this.userId == this.currUserData.id);
+  }
+
+  cancelRequest(requestId: string) {
+    this.bookService.cancelRequest(requestId, this.userData.id);
   }
 
   changePasswordHandler(data) {
     this.userService.updatePassword(data);
     $(`#changePasswordModal`).modal('hide');
+  }
+
+  ngOnDestroy() {
+    this.routerSubscribtion.unsubscribe();
+    this.userDataSub.unsubscribe();
   }
 }

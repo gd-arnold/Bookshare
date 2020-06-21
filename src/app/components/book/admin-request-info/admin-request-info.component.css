@@ -1,0 +1,26 @@
+.info {
+    background-color: rgb(247, 247, 247);
+}
+
+.book {
+    height: 480px;
+    width: 280px;
+}
+
+@media (min-width: 992px) {
+    .info{
+        margin-top: calc(50vh - 225px);
+        margin-bottom: calc(50vh - 225px);
+    }
+
+    .book{
+        margin-top: calc(50vh - 315px);
+        margin-bottom: calc(50vh - 315px);
+    }
+}
+
+@media only screen and (max-width: 575px){
+    .fit-image {
+        height: 25rem;
+    }
+}

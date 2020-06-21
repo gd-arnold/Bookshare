@@ -1,4 +1,4 @@
-<section class="row" *ngIf="currentUserData">
+<section class="row" *ngIf="userData && currUserData">
   <div class="col-lg-3 col-md-4 col-sm-12 py-lg-5 text-center profmenu">
     <div *ngIf="isPasswordChanged" class="alert alert-success mt-2" role="alert">
       Ти успешно промени паролата си!
@@ -8,7 +8,7 @@
       <div class="form-group">
         <label for="first-name">Име</label>
         <input id="first-name" name="firstName" #firstNameInput="ngModel" class="form-control mx-2"
-          [(ngModel)]='currentUserData.firstName' (ngModelChange)='updateUserFirstName($event)' required>
+          [(ngModel)]='userData.firstName' (ngModelChange)='updateUserFirstName($event)' required>
         <div *ngIf="currFirstName !== firstNameInput.value" class="lds-ring">
           <div></div>
           <div></div>
@@ -22,7 +22,7 @@
       <div class="form-group">
         <label for="last-name">Фамилия</label>
         <input id="last-name" name="lastName" #lastNameInput="ngModel" class="form-control mx-2"
-          [(ngModel)]='currentUserData.lastName' (ngModelChange)='updateUserLastName($event)' required>
+          [(ngModel)]='userData.lastName' (ngModelChange)='updateUserLastName($event)' required>
         <div *ngIf="currLastName !== lastNameInput.value" class="lds-ring">
           <div></div>
           <div></div>
@@ -36,7 +36,7 @@
       <div class="form-group">
         <label for="email">Имейл</label>
         <input id="email" class="form-control mx-2" name="email" #emailInput="ngModel"
-          [(ngModel)]='currentUserData.email' (ngModelChange)='updateUserEmail($event, emailInput.invalid)' required
+          [(ngModel)]='userData.email' (ngModelChange)='updateUserEmail($event, emailInput.invalid)' required
           email>
         <div *ngIf="currEmail !== emailInput.value" class="lds-ring">
           <div></div>
@@ -50,7 +50,7 @@
 
     </div>
 
-    <button class="btn-dark my-3" type="button" data-toggle="modal" data-target="#changePasswordModal">Промени
+    <button *ngIf="currUserData.id == userData.id" class="btn-dark my-3" type="button" data-toggle="modal" data-target="#changePasswordModal">Промени
       парола</button>
   </div>
   <div class="col-lg-9 col-md-8 border-left">
@@ -100,24 +100,26 @@
           </div>
         </div>
       </div>
-      <div class="row text-center d-flex justify-content-center" *ngIf="!successfulRequests">
-        <p class="msg">Все още не си разменял книги.</p>
+      <div class="row text-center d-flex justify-content-center" *ngIf="successfulRequests.length == 0">
+        <p *ngIf="currUserData.id == userData.id" class="msg">Все още не сте разменяли книги.</p>
+        <p *ngIf="currUserData.id != userData.id" class="msg">{{userData.firstName}} не е разменял книги.</p>
       </div>
     </div>
 
     <div id="Pending" class="div-menu" *ngIf="inPending">
       <div class="row text-center d-flex justify-content-center" *ngIf="notAcceptedReceives.length > 0">
         <div *ngFor="let receive of notAcceptedReceives" class="col-xs-12 col-sm-4 col-md-4 col-lg-4 book">
-          <div routerLink="../../book/choose/request/{{receive.id}}">
+          <div routerLink="../../../book/{{receive.requestedBook.id}}">
             <img class="book-img" [src]="receive.requestedBook.imageURL">
             <p class="book-title">{{receive.requestedBook.title}}</p>
             <p class="book-author">Автор: {{receive.requestedBook.author}}</p>
           </div>
-          <button class="pendingbtn" routerLink="../../book/choose/request/{{receive.id}}">Продължи</button>
+          <button *ngIf="currUserData.id == userData.id" class="pendingbtn" routerLink="../../../book/choose/request/{{receive.id}}">Продължи</button>
         </div>
       </div>
       <div class="row text-center d-flex justify-content-center" *ngIf="notAcceptedReceives.length === 0">
-        <p class="msg">Все още никой не ти е поискал книга.</p>
+        <p *ngIf="currUserData.id == userData.id" class="msg">Все още никой не ви е поискал книга.</p>
+        <p *ngIf="currUserData.id != userData.id" class="msg">Все още никой не е поискал книга на {{userData.firstName}}.</p>
       </div>
     </div>
 
@@ -141,7 +143,8 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <h6>Сигурни ли сте, че искате да откажете заявката ви за "{{request.requestedBook.title}}"?</h6>
+                  <h6 *ngIf="currUserData.id == userData.id">Сигурни ли сте, че искате да откажете заявката ви за "{{request.requestedBook.title}}"?</h6>
+                  <h6 *ngIf="currUserData.id != userData.id">Сигурни ли сте, че искате да откажете заявката на {{userData.firstName}} за "{{request.requestedBook.title}}"?</h6>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
@@ -153,18 +156,17 @@
 
         </div>
 
-
       </div>
       <div class="row text-center d-flex justify-content-center" *ngIf="notAcceptedRequests.length===0">
-        <p class="msg">Все още не си поискал книга.</p>
+        <p *ngIf="currUserData.id == userData.id" class="msg">Не сте поискали книги.</p>
+        <p *ngIf="currUserData.id != userData.id" class="msg">{{userData.firstName}} не е поискал книги.</p>
       </div>
 
     </div>
 
   </div>
-</section>
-<!-- Password Modal -->
-<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+
+  <div *ngIf="currUserData.id == userData.id" class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -198,4 +200,6 @@
     </div>
   </div>
 </div>
-<app-loader *ngIf="!currentUserData"></app-loader>
+
+</section>
+<app-loader *ngIf="!userData || !currUserData"></app-loader>

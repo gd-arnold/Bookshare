@@ -6,6 +6,8 @@ import { AuthService } from './auth.service';
 import { ICourierService } from 'src/app/components/shared/interfaces/courier-service';
 import { Router } from '@angular/router';
 import { BookService } from './book.service';
+import { IUser } from 'src/app/components/shared/interfaces/user';
+import { IMessage } from 'src/app/components/shared/interfaces/message';
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
@@ -22,10 +24,13 @@ export class UserService {
     cities: any[];
     addresses: any[];
     request: IRequest;
+    usersChanged = new Subject<IUser[]>(); 
+    messages: IMessage[];
 
     private _unreadNotificationsCount: number = 0;
     private _unreadNotificationsCountSubscriptions: Subscription[] = [];
     private _requestSubscriptions: Subscription[] = [];
+    private _usersSubscription: Subscription[] = [];
 
     isPasswordChanged: boolean = false;
 
@@ -74,10 +79,15 @@ export class UserService {
         });
     }
 
-    fetchRequestInfoById(id: string) {
+    fetchRequestInfoById(id: string, isCurrUserInfo: boolean) {
         this.http.get<IRequest>(`${urlPrivate}/request-info/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(request => {
             this.request = request;
             this.requestChanged.next(this.request);
+            if (isCurrUserInfo) {
+                this.router.navigateByUrl(`book/info/request/${id}`);
+            } else {
+                this.router.navigateByUrl(`book/admin/request/${id}`);
+            }
         });
     }
 
@@ -115,31 +125,56 @@ export class UserService {
         })
     }
 
-    updateUser(firstName: string, lastName: string, email: string) {
+    updateUser(firstName: string, lastName: string, email: string, userId: string) {
         let bodyData = {
             data: {
                 "firstName" : firstName,
                 "lastName" : lastName,
                 "email" : email
-            }
+            },
+            id: userId
         };
 
         this.http.post(`${urlPrivate}/update-user-basic-data`, bodyData, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
-            this.authService.getCurrentUserBasicData();
+            this.authService.getUserBasicData(this.authService._userData.id)
         }, err => {
-            this.authService.getCurrentUserBasicData();
+            this.authService.getUserBasicData(this.authService._userData.id)
             alert("Вече съществува потребител с такъв имейл!");
         });
     }
 
     updatePassword(data) {
         this.http.post(`${urlPrivate}/update-password`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
-            this.authService.getCurrentUserBasicData();
+            this.authService.getUserBasicData(this.authService._userData.id)
             this.isPasswordChanged = true;
-            console.log(this.isPasswordChanged);
         }, err=> {
             alert("Невалидна парола!");
         });
+    }
+
+    fetchAllUsersBasicData() {
+        this.http.get<IUser[]>(`${urlPrivate}/all-users`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(users => {
+            this.usersChanged.next(users);
+        }, err => {
+            alert("Нямате права да достъпвате тази страница!")
+        })
+    }
+
+    fetchAllMessages() {
+        this.http.get<IMessage[]>(`${urlPrivate}/all-messages`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(messages => {
+            this.messages = messages;
+        }, err => {
+            alert("Нямате права да достъпвате тази страница!");
+        })
+    }
+
+    deleteMessage(messageId: string) {
+        this.http.post(`${urlPrivate}/delete-message`, {messageId: messageId}, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+            this.fetchAllMessages();
+        }, err => {
+            console.log(err);
+            alert("An error occurred!");
+        })
     }
 
     cancelSubscriptions() {

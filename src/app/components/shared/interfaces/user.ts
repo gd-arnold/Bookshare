@@ -1,5 +1,5 @@
 export interface IUser {
-    id: number;
+    id: string;
     username: string;
     email: string;
     firstName: string;
@@ -8,4 +8,5 @@ export interface IUser {
     phoneNumber: string;
     requests: [];
     books: [];
+    roles: Array<string>;
 }

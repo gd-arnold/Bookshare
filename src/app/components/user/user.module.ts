@@ -4,11 +4,12 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserRoutingModule } from './user-routing.module';
 import { FormsModule } from '@angular/forms';
 import { LayoutModule } from '../layout/layout.module';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 
 
 @NgModule({
-  declarations: [UserProfileComponent],
+  declarations: [UserProfileComponent, AdminPanelComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

@@ -1,0 +1,54 @@
+.user-list {
+    height: calc(100vh - 130px);
+    padding: 0;
+    overflow-y: scroll;
+}
+
+.message-list{
+    height: calc(100vh - 130px);
+    padding: 0;
+    overflow-y: scroll;
+}
+
+.panel {
+    height: calc(100vh - 130px);
+    padding: 0;
+    overflow-y: scroll;
+}
+
+#book-desc {
+    height: 25vh;
+}
+
+.msg {
+    display: inline-block;
+    position: absolute;
+    margin-top: 20%;
+    text-align: center;
+    font-size: 18px;
+    color: rgb(206, 112, 5);
+    font-weight: 700;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.btn-view {
+  color: rgb(250, 250, 250);
+  font-size: 1.0rem;
+  margin-top: -0.1rem;
+  font-weight: bold;
+  background-color: #F68D16;
+  border-color: #F68D16;
+  border-radius: 0.3rem;
+  border-style: solid;
+}
+
+.btn-view:hover {
+    color: #E33729;
+    background-color: #ffffff;
+    border-color: #E33729;
+}
