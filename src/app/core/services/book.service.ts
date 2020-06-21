@@ -121,6 +121,12 @@ export class BookService {
     })
   }
 
+  suggestBook(data) {
+    this.http.post(`${urlPrivate}/suggest-book`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+      $(`#suggestBookModal`).modal('hide');
+    })
+  }
+
   cancelSubscriptions() {
     this._bookSubscriptions.forEach((s) => s.unsubscribe());
   }
