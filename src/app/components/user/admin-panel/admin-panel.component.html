@@ -20,7 +20,8 @@
                             <span class="pl-3">{{user.email}}</span>
                         </div>
                         <div class="col-6">
-                            <button class="btn float-right btn-view my-2" routerLink="../../user/profile/{{user.id}}">Виж</button>
+                            <button class="btn float-right btn-view my-2"
+                                routerLink="../../user/profile/{{user.id}}">Виж</button>
                         </div>
                     </li>
                 </div>
@@ -48,12 +49,15 @@
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3">
-                            <a data-toggle="modal" (click)="cancelSuggestion(suggestion.id)" class="btn btn-view mt-2">Откажи</a>
+                            <a data-toggle="modal" (click)="cancelSuggestion(suggestion.id)"
+                                class="btn btn-view my-2">Откажи</a>
                         </div>
                         <div class="col-3">
-                            <a data-toggle="modal" [attr.data-target]="'#addBookModal' + suggestion.id" class="btn btn-view mt-2">Добави</a>
+                            <a data-toggle="modal" [attr.data-target]="'#addBookModal' + suggestion.id"
+                                class="btn btn-view my-2">Добави</a>
                         </div>
-                        <div class="modal fade" id="addBookModal{{suggestion.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal fade" id="addBookModal{{suggestion.id}}" tabindex="-1" role="dialog"
+                            aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -63,28 +67,45 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="px-2 form-group" #addBookForm="ngForm" (ngSubmit)="addBook(addBookForm.value, suggestion.id)">
-                                            <input class="form-control" placeholder="Заглавие" [(ngModel)]="suggestion.bookTitle" type="text" name="title" id="book-name" required>
-                                            <input class="form-control" placeholder="Автор" [(ngModel)]="suggestion.bookAuthor" type="text" name="author" id="book-author" required>
-                                            <textarea class="form-control" id="book-desc" ngModel name="description" placeholder="Описание" required></textarea>
-                                            <input class="form-control" ngModel placeholder="Линк към изображение" name="imageURL" type="text" id="book-image" required>
-                                            <input class="form-control" placeholder="Издателство" ngModel name="publisher" type="text" id="book-publisher" required>
-                                            <input class="form-control" placeholder="Дата на издаване" ngModel name="datePublished" type="date" id="book-date-published" required>
-                                            <input (change)="selectCategory($event.target.value)" list="categories" autocomplete="off" name="category" class="custom-select custom-select-md" required>
+                                        <form class="px-2 form-group" #addBookForm="ngForm"
+                                            (ngSubmit)="addBook(addBookForm.value, suggestion.id)">
+                                            <input class="my-1 form-control" placeholder="Заглавие"
+                                                [(ngModel)]="suggestion.bookTitle" type="text" name="title"
+                                                id="book-name" required>
+                                            <input class="my-1 form-control" placeholder="Автор"
+                                                [(ngModel)]="suggestion.bookAuthor" type="text" name="author"
+                                                id="book-author" required>
+                                            <textarea class="my-1 form-control" id="book-desc" ngModel
+                                                name="description" placeholder="Описание" required></textarea>
+                                            <input class="my-1 form-control" ngModel placeholder="Линк към изображение"
+                                                name="imageURL" type="text" id="book-image" required>
+                                            <input class="my-1 form-control" placeholder="Издателство" ngModel
+                                                name="publisher" type="text" id="book-publisher" required>
+                                            <input class="my-1 form-control" placeholder="Дата на издаване" ngModel
+                                                name="datePublished" type="date" id="book-date-published" required>
+                                            <input class="my-1 form-control"
+                                                (change)="selectCategory($event.target.value)" list="categories"
+                                                autocomplete="off" name="category"
+                                                class="custom-select custom-select-md" required>
                                             <datalist id="categories">
                                                 <option *ngFor="let category of categories" data-value="category.id"
                                                     [value]="category.categoryName"></option>
                                             </datalist>
                                             <div *ngIf="subcategoriesFetched">
-                                                <input (change)="selectSubcategory($event.target.value)" id="subcategoryField" list="subcategories" autocomplete="off" name="subcategory" class="custom-select custom-select-md" required>
+                                                <input (change)="selectSubcategory($event.target.value)"
+                                                    id="subcategoryField" list="subcategories" autocomplete="off"
+                                                    name="subcategory" class="custom-select custom-select-md my-1"
+                                                    required>
                                                 <datalist id="subcategories">
                                                     <option *ngFor="let subcategory of subcategories"
                                                         data-value="subcategory.id"
                                                         [value]="subcategory.subcategoryName"></option>
                                                 </datalist>
                                             </div>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
-                                            <button type="submit" [disabled]="addBookForm.invalid" class="btn btn-dark">Добави</button>
+                                            <button type="button" class="btn btn-secondary my-2"
+                                                data-dismiss="modal">Затвори</button>
+                                            <button type="submit" [disabled]="addBookForm.invalid"
+                                                class="btn btn-view my-2 float-right">Добави</button>
                                         </form>
                                     </div>
                                 </div>
@@ -114,11 +135,11 @@
                 <div *ngIf="messages.length > 0">
                     <li class="border-bottom row" *ngFor="let message of messages">
                         <div class="col-10">
-                            <span class="pl-3">От: {{message.sender.firstName}} {{message.sender.lastName}}</span>
+                            <span class="pl-1">От: {{message.sender.firstName}} {{message.sender.lastName}}</span>
                             <br>
-                            <span class="pl-3">Email: {{message.sender.email}}</span>
+                            <span class="pl-1">Email: {{message.sender.email}}</span>
                             <br>
-                            <span class="pl-1">{{message.description}}</span>
+                            <span class="pl-3">{{message.description}}</span>
                         </div>
                         <div class="col-2">
                             <a class="btn float-right btn-view my-2" (click)="deleteMessage(message.id)">Изтрий</a>
