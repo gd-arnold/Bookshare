@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import { ICourierService } from 'src/app/components/shared/interfaces/courier-service';
 import { Router } from '@angular/router';
 import { BookService } from './book.service';
+declare var $: any;
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
@@ -140,6 +141,12 @@ export class UserService {
         }, err=> {
             alert("Невалидна парола!");
         });
+    }
+
+    sendMessage(data) {
+        this.http.post(`${urlPrivate}/send-message`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+            $(`#sendMessageModal`).modal('hide');
+        })
     }
 
     cancelSubscriptions() {

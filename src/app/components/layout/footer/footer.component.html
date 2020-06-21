@@ -1,3 +1,24 @@
+<div class="modal fade" id="sendMessageModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Изпрати съобщение</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form #sendMessageForm="ngForm" (ngSubmit)="sendMessageFormHandler(sendMessageForm.value); sendMessageForm.reset();">
+                <div class="modal-body">
+                    <div class="form-group pt-3">
+                        <textarea #descriptionInput="ngModel" ngModel name="description" required></textarea>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
+                <button [disabled]="sendMessageForm.invalid" type="submit" class="btn-dark">Изпрати</button>
+            </form>
+        </div>
+    </div>
+</div>
 <footer class="font-small text-light bg-dark row">
     <div class="text-center py-2 col-sm-5 col-xs-3">
         <span class="align-middle">Bookshare © 2020</span>
@@ -7,7 +28,7 @@
     </div>
     <div class="text-center py-2 col-sm-5 col-xs-8">
         <div>
-            <a href="/user/support">Контакт</a>
+            <a type="button" data-toggle="modal" data-target="#sendMessageModal">Контакт</a>
             <a href="/user/support">Предложи книга</a>
             <a href="https://github.com/GeorgiArn/Bookshare" target="_blank">Документация</a>
         </div>
