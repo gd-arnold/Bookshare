@@ -10,6 +10,7 @@ import { IBook } from '../../shared/interfaces/book';
 export class AddBookEngineComponent implements OnDestroy {
 
   get searchedBooks() { return this.bookService.searchedBooks; }
+  get suggestedBookTitle() { return this.bookService.suggestedBookTitle; }
 
   constructor(private bookService: BookService) { }
 

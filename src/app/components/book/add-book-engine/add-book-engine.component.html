@@ -1,16 +1,20 @@
-<app-suggest-book-modal></app-suggest-book-modal>
+<div *ngIf="suggestedBookTitle" class="alert alert-success mt-2" role="alert">
+    Вие успешно предложихте "{{suggestedBookTitle}}"!
+</div>
+<app-suggest-book-modal>
+</app-suggest-book-modal>
 <div>
-    <form class="form-inline">
-        <input type="text" class="search-engine form-control" (keyup)="search($event)" placeholder="Заглавие на книга...">
+    <form class=" form-inline ">
+        <input #searchBookInput="ngModel" ngModel name="searchBook" type="text" class="search-engine form-control " (keyup)="search($event) " placeholder="Заглавие на книга... ">
     </form>
 
-    <div class="books" *ngIf="searchedBooks">
-        <div *ngFor="let book of searchedBooks" (click)="selectBookHandler(book, $event)" class="book">
-            <img [src]="book.imageURL">
-            <p class="book-title">{{book.title}}</p>
-            <p class="book-author">Автор: {{book.author}}</p>
+    <div class="books " *ngIf="searchedBooks ">
+        <div *ngFor="let book of searchedBooks " (click)="selectBookHandler(book, $event) " class="book ">
+            <img [src]="book.imageURL ">
+            <p class="book-title ">{{book.title}}</p>
+            <p class="book-author ">Автор: {{book.author}}</p>
         </div>
-        <div class="book py-2 text-center">
+        <div class="book py-2 text-center" *ngIf="searchBookInput.dirty">
             <a type="button" data-toggle="modal" data-target="#suggestBookModal">Не намираш книга? Предложи я!</a>
         </div>
     </div>
