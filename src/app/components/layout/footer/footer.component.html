@@ -1,5 +1,68 @@
-<footer class="font-small text-light bg-dark">
-    <div class="text-center py-2">
-        <span>Bookshare © 2020</span>
+<div class="modal fade" id="sendMessageModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Изпрати съобщение</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form #sendMessageForm="ngForm"
+                (ngSubmit)="sendMessageFormHandler(sendMessageForm.value); sendMessageForm.reset();">
+                <div class="modal-body">
+                    <div class="form-group pt-3">
+                        <textarea #descriptionInput="ngModel" class="form-control" rows="3" ngModel name="description"
+                            required></textarea>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary m-2" data-dismiss="modal">Затвори</button>
+                <button [disabled]="sendMessageForm.invalid" type="submit"
+                    class="btn-dark float-right m-2">Изпрати</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="suggestBookModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Предложи Книга</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form #suggestBookForm="ngForm"
+                (ngSubmit)="suggestBookFormHandler(suggestBookForm.value); suggestBookForm.reset();">
+                <div class="modal-body">
+                    <div class="form-group pt-3">
+                        <label for="p1">Заглавие на книга</label>
+                        <input #titleInput="ngModel" ngModel name="title" id="p1" class="form-control mx-2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="p2">Aвтор</label>
+                        <input #authorInput="ngModel" ngModel name="author" id="p2" class="form-control mx-2" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
+                    <button [disabled]="suggestBookForm.invalid" type="submit" class="btn-dark">Предложи</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<footer class="font-small text-light bg-dark row">
+    <div class="text-center py-2 col-sm-5 col-xs-3">
+        <span class="align-middle">Bookshare © 2020</span>
+    </div>
+    <div class="col-sm-2  col-xs-1 text-center">
+        <a href="/"><img src="assets\static\footer-logo.png"></a>
+    </div>
+    <div class="text-center py-2 col-sm-5 col-xs-8">
+        <div>
+            <a type="button" data-toggle="modal" data-target="#sendMessageModal">Контакт</a>
+            <a type="button" data-toggle="modal" data-target="#suggestBookModal">Предложи книга</a>
+            <a href="https://github.com/GeorgiArn/Bookshare" target="_blank">Документация</a>
+        </div>
     </div>
 </footer>

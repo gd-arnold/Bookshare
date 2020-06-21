@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/core/services/user.service';
+import { BookService } from 'src/app/core/services/book.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor
+  (private userService: UserService,
+    private bookService: BookService) { }
 
   ngOnInit() {
+  }
+
+  sendMessageFormHandler(data) {
+    this.userService.sendMessage(data);
+  }
+
+  suggestBookFormHandler(data) {
+    this.bookService.suggestBook(data);
   }
 
 }

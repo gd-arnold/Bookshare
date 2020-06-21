@@ -20,6 +20,7 @@ import { UserBooksRegComponent } from './user-books-reg/user-books-reg.component
 import { FormsModule } from '@angular/forms';
 import { DeliveryInfoModalComponent } from './delivery-info-modal/delivery-info-modal.component';
 import { AdminRequestInfoComponent } from './admin-request-info/admin-request-info.component';
+import { SuggestBookModalComponent } from './suggest-book-modal/suggest-book-modal.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { AdminRequestInfoComponent } from './admin-request-info/admin-request-in
     AddBookRegComponent,
     UserBooksRegComponent,
     DeliveryInfoModalComponent,
-    AdminRequestInfoComponent
+    AdminRequestInfoComponent,
+    SuggestBookModalComponent
   ],
   imports: [
     CommonModule,

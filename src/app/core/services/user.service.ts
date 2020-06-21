@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { BookService } from './book.service';
 import { IUser } from 'src/app/components/shared/interfaces/user';
 import { IMessage } from 'src/app/components/shared/interfaces/message';
+declare var $: any;
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
@@ -172,8 +173,13 @@ export class UserService {
         this.http.post(`${urlPrivate}/delete-message`, {messageId: messageId}, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
             this.fetchAllMessages();
         }, err => {
-            console.log(err);
             alert("An error occurred!");
+        })
+    }
+    
+    sendMessage(data) {
+        this.http.post(`${urlPrivate}/send-message`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+            $(`#sendMessageModal`).modal('hide');
         })
     }
 
