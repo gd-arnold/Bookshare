@@ -27,6 +27,7 @@ export class UserService {
     request: IRequest;
     usersChanged = new Subject<IUser[]>(); 
     messages: IMessage[];
+    emptyRequest: IRequest;
 
     private _unreadNotificationsCount: number = 0;
     private _unreadNotificationsCountSubscriptions: Subscription[] = [];
@@ -75,8 +76,7 @@ export class UserService {
 
     fetchRequestById(id: string) {
         this.http.get<IRequest>(`${urlPrivate}/request/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(request => {
-            this.request = request;
-            this.requestChanged.next(this.request);
+            this.emptyRequest = request;
         });
     }
 

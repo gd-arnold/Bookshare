@@ -3,24 +3,18 @@
     <p *ngIf="unreadNotificationsCount > 0" class="count">{{unreadNotificationsCount}}</p>
     <div *ngIf="requests" class="requests pb-10">
         <div *ngFor="let request of requests">
-            <div *ngIf="isReceiver(request) && request.isAccepted" routerLink="book/info/request/{{request.id}}"
-                class="request">
+            <div *ngIf="isReceiver(request) && request.isAccepted" (click)="requestInfo(request.id)" class="request">
                 <p>
-                    {{request.requester.firstName}} ти поиска "{{request.requestedBook.title}}".
-                    Избери си една от неговите книги.
+                    {{request.requester.firstName}} ти поиска "{{request.requestedBook.title}}". Избери си една от неговите книги.
                 </p>
             </div>
-            <div *ngIf="isReceiver(request) && !request.isAccepted" routerLink="book/choose/request/{{request.id}}"
-                class="request">
+            <div *ngIf="isReceiver(request) && !request.isAccepted" routerLink="book/choose/request/{{request.id}}" class="request">
                 <p>
-                    {{request.requester.firstName}} ти поиска "{{request.requestedBook.title}}".
-                    Избери си една от неговите книги.
+                    {{request.requester.firstName}} ти поиска "{{request.requestedBook.title}}". Избери си една от неговите книги.
                 </p>
             </div>
-            <div *ngIf="!isReceiver(request) && request.isAccepted" routerLink="book/info/request/{{request.id}}"
-                class="request">
-                <p>Твоята заявка за "{{request.requestedBook.title}}" беше приета
-                    от {{request.receiver.firstName}}, който поиска "{{request.chosenBook.title}}".</p>
+            <div *ngIf="!isReceiver(request) && request.isAccepted" (click)="requestInfo(request.id)" class="request">
+                <p>Твоята заявка за "{{request.requestedBook.title}}" беше приета от {{request.receiver.firstName}}, който поиска "{{request.chosenBook.title}}".</p>
             </div>
         </div>
     </div>

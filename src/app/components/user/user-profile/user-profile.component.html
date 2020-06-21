@@ -57,7 +57,7 @@
         <div id="Past" class="div-menu" *ngIf="inPast">
             <div *ngIf="successfulRequests">
                 <div *ngFor="let request of successfulRequests">
-                    <div *ngIf="request.requester" class="container border rounded my-4 row request" routerLink="../../book/info/request/{{request.id}}">
+                    <div *ngIf="request.requester" class="container border rounded my-4 row request" (click)="requestInfo(request.id)">
                         <div class="col-4 ">
                             <img class="p-2 img-responsive fit-image" [src]="request.requestedBook.imageURL">
                         </div>
@@ -72,7 +72,7 @@
                             <img class="p-2 img-responsive fit-image" [src]="request.chosenBook.imageURL">
                         </div>
                     </div>
-                    <div *ngIf="request.receiver" class="container border rounded my-4 row request" routerLink="../../book/info/request/{{request.id}}">
+                    <div *ngIf="request.receiver" class="container border rounded my-4 row request" (click)="requestInfo(request.id)">
                         <div class="col-4 ">
                             <img class="p-2 img-responsive fit-image" [src]="request.chosenBook.imageURL">
                         </div>

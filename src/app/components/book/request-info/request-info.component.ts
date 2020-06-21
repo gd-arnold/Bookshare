@@ -17,8 +17,8 @@ export class RequestInfoComponent implements OnInit, OnDestroy {
   currentUserDataSub: Subscription;
   routerSubscription: Subscription;
 
-  request: IRequest = null;
   get requestId() { return this.route.snapshot.params["id"]; }
+  get request() { return this.userService.request; }
 
   constructor(
     private route: ActivatedRoute,
@@ -32,13 +32,6 @@ export class RequestInfoComponent implements OnInit, OnDestroy {
         this.authService.getCurrentUserBasicData();
         this.currentUserDataSub = this.authService.currentUserChanged.subscribe((user) => {
           this.currentUserData = user;
-          this.userService.fetchRequestInfoById(this.requestId, true);
-
-          this.userService.requestChanged.subscribe((request) => {
-            if (request.requestedBook && request.id == this.requestId) {
-              this.request = request;
-            }
-          })
         })
       })
   }

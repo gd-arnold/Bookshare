@@ -18,8 +18,7 @@ export class ChooseBookComponent implements OnInit, OnDestroy {
   currentUserData: IUser;
   currentUserDataSub: Subscription;
 
-  request: IRequest;
-  requestSub: Subscription;
+  get request() { return this.userService.emptyRequest; }
 
   selectedBook: IBook;
 
@@ -36,16 +35,11 @@ export class ChooseBookComponent implements OnInit, OnDestroy {
 
       let requestId = this.route.snapshot.paramMap.get('id');
       this.userService.fetchRequestById(requestId);
-      this.userService.requestChanged.subscribe((request) => {
-        this.request = request;
-      })
     })
   }
 
   ngOnDestroy() {
     this.userService.cancelSubscriptions();
-
-    this.request = null;
   }
 
   selectBook(book: IBook) {
