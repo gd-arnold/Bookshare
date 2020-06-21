@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IUser } from '../../shared/interfaces/user';
-import { Subscription, Subject } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { IRequest } from '../../shared/interfaces/request';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -15,27 +15,32 @@ export class RequestInfoComponent implements OnInit, OnDestroy {
 
   currentUserData: IUser;
   currentUserDataSub: Subscription;
+  routerSubscription: Subscription;
 
-  get request() {return this.userService.request};
-  // get requestId() { return this.route.snapshot.paramMap.get('id'); };
+  request: IRequest = null;
+  get requestId() { return this.route.snapshot.params["id"]; }
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private userService: UserService,
     private authService: AuthService,
   ) { }
 
   ngOnInit() {
-    this.authService.getCurrentUserBasicData();
-    this.currentUserDataSub = this.authService.currentUserChanged.subscribe((user) => {
-      this.currentUserData = user;
-      this.userService.requestChanged.subscribe(() => {
-        if (this.request.requester.id === this.currentUserData.id && !this.request.isAccepted) {
-          this.router.navigate(["/"]);
-        }
+    this.routerSubscription = this.route.params.subscribe(
+      (params: Params) => {
+        this.authService.getCurrentUserBasicData();
+        this.currentUserDataSub = this.authService.currentUserChanged.subscribe((user) => {
+          this.currentUserData = user;
+          this.userService.fetchRequestInfoById(this.requestId, true);
+
+          this.userService.requestChanged.subscribe((request) => {
+            if (request.requestedBook && request.id == this.requestId) {
+              this.request = request;
+            }
+          })
+        })
       })
-    })
   }
 
   isRequester() {
@@ -47,8 +52,10 @@ export class RequestInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userService.cancelSubscriptions();
-    this.userService.request = null;
+    // this.userService.cancelSubscriptions();
+    // this.userService.request = null;
+    this.routerSubscription.unsubscribe();
+    // this.userService.requestChanged.unsubscribe(); 
   }
 
 }

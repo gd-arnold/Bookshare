@@ -44,6 +44,8 @@ export class ChooseBookComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userService.cancelSubscriptions();
+
+    this.request = null;
   }
 
   selectBook(book: IBook) {

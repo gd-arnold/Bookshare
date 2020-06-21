@@ -37,7 +37,8 @@ export class BookService {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
   ) { }
 
   getHttpOptions(token) {

@@ -23,6 +23,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   currEmail: string;
 
   inPending: boolean = true;
+  inPast: boolean = false;
+  inRequested: boolean = false;
 
   notAcceptedReceives: Array<any>;
   notAcceptedRequests: Array<any>;
@@ -75,11 +77,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
           Array.prototype.push.apply(successfulRequestsReceiver, successfulRequestsRequester);
 
-          successfulRequestsReceiver.sort(function (a, b) {
-            if (a["id"] < b["id"]) {
-              return 1;
-            }
-            return 0;
+          successfulRequestsReceiver.sort(function (firstRequest, secondRequest) {
+            return parseInt(firstRequest["id"]) < parseInt(secondRequest["id"]) ? 1 : -1;
           });
 
           this.successfulRequests = successfulRequestsReceiver;

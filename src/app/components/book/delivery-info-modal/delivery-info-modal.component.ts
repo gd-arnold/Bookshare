@@ -25,6 +25,7 @@ export class DeliveryInfoModalComponent implements OnInit {
   get addresses() { return this.userService.addresses }
 
   constructor(
+    private router: Router,
     private userService: UserService,
     private bookService: BookService
   ) { }
@@ -82,7 +83,7 @@ export class DeliveryInfoModalComponent implements OnInit {
   chooseBook(data) {
     const addressId = this.addresses.filter(address => address.address === data.address)[0].id;
     this.bookService.chooseBook(this.requestId, this.bookId, addressId);
-    this.userService.addDeliveryInfo(addressId, data.phoneNumber);
+    this.userService.addDeliveryInfo(addressId, data.phoneNumber);                                               
     $(`#m${this.bookId}`).modal('hide');
   }
 
