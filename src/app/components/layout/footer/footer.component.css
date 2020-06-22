@@ -10,6 +10,7 @@ a {
     color: white;
     padding-left: 3rem;
     padding-right: 3rem;
+    font-weight: 500;
 }
 
 img {
@@ -20,7 +21,6 @@ img {
     span {
         font-size: 12px;
     }
-
     a {
         font-size: 9px;
         padding-left: 0.5rem;

@@ -7,17 +7,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form #sendMessageForm="ngForm"
-                (ngSubmit)="sendMessageFormHandler(sendMessageForm.value); sendMessageForm.reset();">
+            <form #sendMessageForm="ngForm" (ngSubmit)="sendMessageFormHandler(sendMessageForm.value); sendMessageForm.reset();">
                 <div class="modal-body">
                     <div class="form-group pt-3">
-                        <textarea #descriptionInput="ngModel" class="form-control" rows="3" ngModel name="description"
-                            required></textarea>
+                        <textarea #descriptionInput="ngModel" class="form-control" rows="3" ngModel name="description" required></textarea>
                     </div>
                 </div>
                 <button type="button" class="btn btn-secondary m-2" data-dismiss="modal">Затвори</button>
-                <button [disabled]="sendMessageForm.invalid" type="submit"
-                    class="btn-dark float-right m-2">Изпрати</button>
+                <button [disabled]="sendMessageForm.invalid" type="submit" class="btn-dark float-right m-2">Изпрати</button>
             </form>
         </div>
     </div>
@@ -31,8 +28,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form #suggestBookForm="ngForm"
-                (ngSubmit)="suggestBookFormHandler(suggestBookForm.value); suggestBookForm.reset();">
+            <form #suggestBookForm="ngForm" (ngSubmit)="suggestBookFormHandler(suggestBookForm.value); suggestBookForm.reset();">
                 <div class="modal-body">
                     <div class="form-group pt-3">
                         <label for="p1">Заглавие на книга</label>
@@ -56,13 +52,12 @@
         <span class="align-middle">Bookshare © 2020</span>
     </div>
     <div class="col-sm-2  col-xs-1 text-center">
-        <a href="/"><img src="assets\static\footer-logo.png"></a>
+        <a routerLink="/"><img src="assets\static\footer-logo.png"></a>
     </div>
     <div class="text-center py-2 col-sm-5 col-xs-8">
         <div>
-            <a type="button" data-toggle="modal" data-target="#sendMessageModal">Контакт</a>
-            <a type="button" data-toggle="modal" data-target="#suggestBookModal">Предложи книга</a>
-            <a href="https://github.com/GeorgiArn/Bookshare" target="_blank">Документация</a>
+            <a *ngIf="isAuth" type="button" data-toggle="modal" data-target="#sendMessageModal">Контакт</a>
+            <a *ngIf="isAuth" type="button" data-toggle="modal" data-target="#suggestBookModal">Предложи книга</a>
         </div>
     </div>
 </footer>
