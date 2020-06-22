@@ -5,39 +5,44 @@
         </h2>
         <div class="row m-0 pt-5">
             <div class="col-1"></div>
-            <div class="col-2">
-                <img _ngcontent-heq-c5="" class="img-responsive fit-image shadow" [src]="request.requestedBook.imageURL">
+            <div class="col-md-5 col-xs-12 my-3 col-lg-3 col-sm-5">
+                <img _ngcontent-heq-c5="" class="img-responsive fit-image shadow book"
+                    [src]="request.requestedBook.imageURL">
             </div>
-            <div class="col-2">
-                <img _ngcontent-heq-c5="" class="img-responsive fit-image shadow" [src]="request.chosenBook.imageURL">
+            <div class="col-md-5 col-xs-12 my-3 col-lg-3 col-sm-5">
+                <img _ngcontent-heq-c5="" class="img-responsive fit-image shadow book"
+                    [src]="request.chosenBook.imageURL">
             </div>
             <div class="col-1"></div>
- 
-            <div class="col-5 text-center text-dark pt-4 request">
-                <h4>Информация за изпращане</h4>
-                <p><b>Куриерска фирма:</b> {{request.requesterAddress.courierService.courierServiceName}}</p>
-                <p><b>Име:</b> {{request.requester.firstName}} {{request.requester.lastName}}</p>
-                <p><b>Tел. номер:</b> {{request.requester.phoneNumber}}</p>
-                <p><b>Град:</b> {{request.requesterAddress.city.cityName}}</p>
-                <p><b>Адрес на офис:</b> {{request.requesterAddress.address}}</p>
+
+            <div class="col-12 col-lg-4">
+                <div class=" text-center text-dark p-4 request lastdiv">
+                    <h4>Информация за изпращане</h4>
+                    <p><b>Куриерска фирма:</b> {{request.requesterAddress.courierService.courierServiceName}}</p>
+                    <p><b>Име:</b> {{request.requester.firstName}} {{request.requester.lastName}}</p>
+                    <p><b>Tел. номер:</b> {{request.requester.phoneNumber}}</p>
+                    <p><b>Град:</b> {{request.requesterAddress.city.cityName}}</p>
+                    <p><b>Адрес на офис:</b> {{request.requesterAddress.address}}</p>
+                </div>
             </div>
         </div>
     </div>
     <div *ngIf="isRequester()">
         <h2 class="text-center text-dark py-4">
-            Поздравления! Вие разменихте <span class="book-title">"{{request.chosenBook.title}}"</span> за <span class="book-title">"{{request.requestedBook.title}}"</span>!
+            Поздравления! Вие разменихте <span class="book-title">"{{request.chosenBook.title}}"</span> за <span
+                class="book-title">"{{request.requestedBook.title}}"</span>!
         </h2>
         <div class="row m-0 pt-5">
             <div class="col-1"></div>
-            <div class="col-2">
+            <div class="col-md-5 col-sm-12 my-3">
                 <img class="img-responsive fit-image shadow" [src]="request.chosenBook.imageURL">
             </div>
-            <div class="col-2">
+            <div class="col-md-5 col-sm-12 my-3">
                 <img class="img-responsive fit-image shadow" [src]="request.requestedBook.imageURL">
             </div>
             <div class="col-1"></div>
- 
-            <div class="col-5 text-center text-dark pt-4 request">
+
+            <div class="col-12 text-center text-dark pt-4 request lastdiv">
                 <h4>Информация за изпращане</h4>
                 <p><b>Куриерска фирма:</b> {{request.receiverAddress.courierService.courierServiceName}}</p>
                 <p><b>Име:</b> {{request.receiver.firstName}} {{request.receiver.lastName}}</p>

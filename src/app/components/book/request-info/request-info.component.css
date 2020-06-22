@@ -3,16 +3,21 @@ p {
     margin-bottom: 11px;
 }
 
-h2 {
-    color: #EF5E1B;
+h4 {
+    padding-bottom: 16px;
 }
 
-h4 {
-    color: #EF5E1B;
-    padding-bottom: 16px;
+.book {
+    height: 440px;
 }
 
 .request {
     background-color: rgb(238, 237, 237);
-    border-radius: 7%;
+}
+
+@media only screen and (max-width: 575px){
+.lastdiv {
+    margin-top: 1rem;
+    margin-bottom: calc(80px + 1rem);
+}
 }
