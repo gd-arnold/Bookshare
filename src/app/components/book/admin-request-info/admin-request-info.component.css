@@ -29,4 +29,8 @@
     .lastdiv {
         margin-bottom: calc(80px + 1rem);
     }
+
+    .book {
+        height: 360px;
+    }
 }

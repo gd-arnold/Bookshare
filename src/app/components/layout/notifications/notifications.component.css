@@ -42,8 +42,12 @@
     cursor: pointer;
 }
 
-@media( max-width: 990px) {
+@media( max-width: 991px) {
     .count {
         top: 45px;
+    }
+
+    .requests {
+        margin-left: -20px;
     }
 }
