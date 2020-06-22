@@ -22,6 +22,7 @@
     "bootstrap": "^4.4.1",
     "bootstrap-select": "^1.13.16",
     "jquery": "^3.5.0",
+    "ngx-cookie-service": "^3.0.4",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

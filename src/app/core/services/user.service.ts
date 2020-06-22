@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { BookService } from './book.service';
 import { IUser } from 'src/app/components/shared/interfaces/user';
 import { IMessage } from 'src/app/components/shared/interfaces/message';
+import { CookieService } from 'ngx-cookie-service';
 declare var $: any;
 
 const url = "https://bookshare-rest-api.herokuapp.com";
@@ -39,7 +40,8 @@ export class UserService {
     constructor(
         private http: HttpClient,
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        private cookieService: CookieService
     ) { }
 
     getHttpOptions(token) {
@@ -51,7 +53,7 @@ export class UserService {
     }
 
     fetchUnreadNotificationsCount() {
-        this.http.get(`${urlPrivate}/unread-requests-count`, this.getHttpOptions(localStorage.getItem("token")))
+        this.http.get(`${urlPrivate}/unread-requests-count`, this.getHttpOptions(this.cookieService.get("access_token")))
             .subscribe((count) => {
                 this._unreadNotificationsCount = parseInt(count.toString());
                 this.unreadNotificationsCountChanged.next(this._unreadNotificationsCount);
@@ -63,25 +65,25 @@ export class UserService {
     }
 
     fetchNotificationsForCurrentUser() {
-        this.http.get<IRequest[]>(`${urlPrivate}/all-requests`, this.getHttpOptions(localStorage.getItem("token")))
+        this.http.get<IRequest[]>(`${urlPrivate}/all-requests`, this.getHttpOptions(this.cookieService.get("access_token")))
             .subscribe((requests) => {
                 this.requests = requests;
             })
     }
 
     readUnreadNotificationsforCurrentUser() {
-        this.http.get(`${urlPrivate}/read-unread-requests`, this.getHttpOptions(localStorage.getItem("token")))
+        this.http.get(`${urlPrivate}/read-unread-requests`, this.getHttpOptions(this.cookieService.get("access_token")))
             .subscribe()
     }
 
     fetchRequestById(id: string) {
-        this.http.get<IRequest>(`${urlPrivate}/request/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(request => {
+        this.http.get<IRequest>(`${urlPrivate}/request/${id}`, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(request => {
             this.emptyRequest = request;
         });
     }
 
     fetchRequestInfoById(id: string, isCurrUserInfo: boolean) {
-        this.http.get<IRequest>(`${urlPrivate}/request-info/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(request => {
+        this.http.get<IRequest>(`${urlPrivate}/request-info/${id}`, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(request => {
             this.request = request;
             this.requestChanged.next(this.request);
             if (isCurrUserInfo) {
@@ -93,13 +95,13 @@ export class UserService {
     }
 
     fetchCourierServices() {
-        this.http.get<ICourierService[]>(`${urlPrivate}/couriers`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(couriers => {
+        this.http.get<ICourierService[]>(`${urlPrivate}/couriers`, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(couriers => {
             this.courierServices = couriers;
         })
     }
 
     fetchCitiesByCourierId(id: string) {
-        this.http.get<any[]>(`${urlPrivate}/cities-by-courier/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(cities => {
+        this.http.get<any[]>(`${urlPrivate}/cities-by-courier/${id}`, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(cities => {
             this.cities = cities;
         })
     }
@@ -110,7 +112,7 @@ export class UserService {
             courierId: courierId
         };
 
-        this.http.post<any[]>(`${urlPrivate}/addresses-by-city`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(addresses => {
+        this.http.post<any[]>(`${urlPrivate}/addresses-by-city`, data, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(addresses => {
             this.addresses = addresses;
         })
     }
@@ -121,7 +123,7 @@ export class UserService {
             phoneNumber: phoneNumber
         };
 
-        this.http.post(`${urlPrivate}/add-address`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {  
+        this.http.post(`${urlPrivate}/add-address`, data, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(() => {  
             this.authService.getCurrentUserBasicData();    
         })
     }
@@ -136,7 +138,7 @@ export class UserService {
             id: userId
         };
 
-        this.http.post(`${urlPrivate}/update-user-basic-data`, bodyData, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+        this.http.post(`${urlPrivate}/update-user-basic-data`, bodyData, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(() => {
             this.authService.getUserBasicData(this.authService._userData.id)
         }, err => {
             this.authService.getUserBasicData(this.authService._userData.id)
@@ -145,7 +147,7 @@ export class UserService {
     }
 
     updatePassword(data) {
-        this.http.post(`${urlPrivate}/update-password`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+        this.http.post(`${urlPrivate}/update-password`, data, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(() => {
             this.authService.getUserBasicData(this.authService._userData.id)
             this.isPasswordChanged = true;
         }, err=> {
@@ -154,7 +156,7 @@ export class UserService {
     }
 
     fetchAllUsersBasicData() {
-        this.http.get<IUser[]>(`${urlPrivate}/all-users`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(users => {
+        this.http.get<IUser[]>(`${urlPrivate}/all-users`, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(users => {
             this.usersChanged.next(users);
         }, err => {
             alert("Нямате права да достъпвате тази страница!")
@@ -162,7 +164,7 @@ export class UserService {
     }
 
     fetchAllMessages() {
-        this.http.get<IMessage[]>(`${urlPrivate}/all-messages`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(messages => {
+        this.http.get<IMessage[]>(`${urlPrivate}/all-messages`, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(messages => {
             this.messages = messages;
         }, err => {
             alert("Нямате права да достъпвате тази страница!");
@@ -170,7 +172,7 @@ export class UserService {
     }
 
     deleteMessage(messageId: string) {
-        this.http.post(`${urlPrivate}/delete-message`, {messageId: messageId}, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+        this.http.post(`${urlPrivate}/delete-message`, {messageId: messageId}, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(() => {
             this.fetchAllMessages();
         }, err => {
             alert("An error occurred!");
@@ -178,7 +180,7 @@ export class UserService {
     }
     
     sendMessage(data) {
-        this.http.post(`${urlPrivate}/send-message`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+        this.http.post(`${urlPrivate}/send-message`, data, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(() => {
             $(`#sendMessageModal`).modal('hide');
         })
     }

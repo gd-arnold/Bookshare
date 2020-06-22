@@ -7,6 +7,7 @@ import { BookService } from './book.service';
 import { environment } from 'src/environments/environment';
 import { IUser } from 'src/app/components/shared/interfaces/user';
 import { Subject, Subscription } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 const url = "https://bookshare-rest-api.herokuapp.com";
 const urlPrivate = "https://bookshare-rest-api.herokuapp.com/private";
@@ -28,11 +29,12 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private cookieService: CookieService
   ) { }
 
   get isAuth() {
-    return localStorage.getItem("token") ? true : false;
+    return this.cookieService.get("access_token") ? true : false;
   }
 
   getHttpOptions(token) {
@@ -53,7 +55,8 @@ export class AuthService {
       loginUser.client_secret = "4";
   
       this.http.post<LoginUserData>(`${url}/oauth/v2/token`, userData).subscribe((credentials) => {
-        localStorage.setItem("token", credentials['access_token']);
+        this.cookieService.set("access_token", credentials["access_token"]);
+        this.cookieService.set("refresh_token", credentials["refresh_token"]);
         this.router.navigate(['book/register/add']);
       }, err => console.log(err));
 
@@ -66,25 +69,27 @@ export class AuthService {
     userData.client_secret = "4";
 
     this.http.post<LoginUserData>(`${url}/oauth/v2/token`, userData).subscribe((credentials) => {
-      localStorage.setItem("token", credentials['access_token']);
+      this.cookieService.set("access_token", credentials["access_token"]);
+      this.cookieService.set("refresh_token", credentials["refresh_token"]);
       this.router.navigate(['/']);
     }, err => alert("Невалидни данни!"));
   };
 
   logoutUser() {
-    localStorage.clear();
+    this.cookieService.delete("access_token");
+    this.cookieService.delete("refresh_token");
     this.router.navigate(['/'])
   }
 
   getCurrentUserBasicData() {
-    this.http.get<IUser>(`${urlPrivate}/current-user-basic-data`, this.getHttpOptions(localStorage.getItem('token'))).subscribe((user) => {
+    this.http.get<IUser>(`${urlPrivate}/current-user-basic-data`, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe((user) => {
       this._currentUserData = user;
       this.currentUserChanged.next(this._currentUserData);
     });
   }
 
   getUserBasicData(id: string) {
-    this.http.get<IUser>(`${urlPrivate}/user-basic-data/${id}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe((user) => {
+    this.http.get<IUser>(`${urlPrivate}/user-basic-data/${id}`, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe((user) => {
       this._userData = user;
       this.userChanged.next(this._userData);
     });

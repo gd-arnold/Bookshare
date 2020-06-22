@@ -8,6 +8,7 @@ import { UserService } from './user.service';
 import { IBookSuggestion } from 'src/app/components/shared/interfaces/suggestion';
 import { ICategory } from 'src/app/components/shared/interfaces/category';
 import { ISubcategory } from 'src/app/components/shared/interfaces/subcategory';
+import { CookieService } from 'ngx-cookie-service';
 declare var $: any;
 
 const url = "https://bookshare-rest-api.herokuapp.com";
@@ -39,7 +40,7 @@ export class BookService {
     private http: HttpClient,
     private authService: AuthService,
     private userService: UserService,
-    private router: Router,
+    private cookieService: CookieService
   ) { }
 
   getHttpOptions(token) {
@@ -57,14 +58,14 @@ export class BookService {
   }
 
   addBook(book: IBook) {
-    this.http.post<IBook>(`${urlPrivate}/add-book`, book, this.getHttpOptions(localStorage.getItem('token')))
+    this.http.post<IBook>(`${urlPrivate}/add-book`, book, this.getHttpOptions(this.cookieService.get("access_token")))
       .subscribe(() => {
         this.fetchAllUserBooks();
       })
   }
 
   removeBook(book: IBook) {
-    this.http.post<IBook>(`${urlPrivate}/remove-book`, book, this.getHttpOptions(localStorage.getItem('token')))
+    this.http.post<IBook>(`${urlPrivate}/remove-book`, book, this.getHttpOptions(this.cookieService.get("access_token")))
       .subscribe(() => {
         this.fetchAllUserBooks();
       })
@@ -76,7 +77,7 @@ export class BookService {
       addressId: addressId
     }
 
-    this.http.post<IBook>(`${urlPrivate}/book-request`, data, this.getHttpOptions(localStorage.getItem('token')))
+    this.http.post<IBook>(`${urlPrivate}/book-request`, data, this.getHttpOptions(this.cookieService.get("access_token")))
       .subscribe(() => {
         this.authService.getCurrentUserBasicData();
         this.isSuccesfullyRequestedId = bookId;
@@ -84,14 +85,14 @@ export class BookService {
   }
 
   fetchAllUserBooks() {
-    this._bookSubscriptions.push(this.http.get<IBook[]>(`${urlPrivate}/user-books`, this.getHttpOptions(localStorage.getItem('token'))).subscribe(books => {
+    this._bookSubscriptions.push(this.http.get<IBook[]>(`${urlPrivate}/user-books`, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(books => {
       this._booksForUser = books;
       this.booksChanged.next([...this._booksForUser]);
     }));
   }
 
   fetchBookById(id: string) {
-    this.http.get<IBook>(`${this.authService.isAuth ? urlPrivate : url}/book/${id}`, this.getHttpOptions(localStorage.getItem('token'))).subscribe(book => {
+    this.http.get<IBook>(`${this.authService.isAuth ? urlPrivate : url}/book/${id}`, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(book => {
       this.book = book;
     });
   }
@@ -103,7 +104,7 @@ export class BookService {
       addressId: addressId
     };
 
-    this.http.post(`${urlPrivate}/accept-book`, data, this.getHttpOptions(localStorage.getItem("token")))
+    this.http.post(`${urlPrivate}/accept-book`, data, this.getHttpOptions(this.cookieService.get("access_token")))
       .subscribe(() => {
         this.userService.fetchRequestInfoById(requestId, true);
        });
@@ -125,32 +126,32 @@ export class BookService {
       userId: userId
     };
     
-    this.http.post(`${urlPrivate}/cancel-request`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+    this.http.post(`${urlPrivate}/cancel-request`, data, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(() => {
       this.authService.getUserBasicData(userId);
       $(`#cancelModal${requestId}`).modal('hide');
     })
   }
 
   fetchAllSuggestions() {
-    this.http.get<IBookSuggestion[]>(`${urlPrivate}/suggestions`, this.getHttpOptions(localStorage.getItem("token"))).subscribe( suggestions => {
+    this.http.get<IBookSuggestion[]>(`${urlPrivate}/suggestions`, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe( suggestions => {
       this.bookSuggestions = suggestions;
     })
   }
 
   fetchAllCategories() {
-    this.http.get<ICategory[]>(`${urlPrivate}/all-categories`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(categories => {
+    this.http.get<ICategory[]>(`${urlPrivate}/all-categories`, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(categories => {
       this.categories = categories;
     })
   }
 
   fetchSubcategoriesByCategory(categoryId: string) {
-    this.http.get<ISubcategory[]>(`${urlPrivate}/subcategories-by-category/${categoryId}`, this.getHttpOptions(localStorage.getItem("token"))).subscribe(subcategories => {
+    this.http.get<ISubcategory[]>(`${urlPrivate}/subcategories-by-category/${categoryId}`, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(subcategories => {
       this.subcategories = subcategories;
     });
   }
 
   createBook(data) {
-    this.http.post(`${urlPrivate}/create-book`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+    this.http.post(`${urlPrivate}/create-book`, data, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(() => {
       $(`#addBookModal${data["suggestionId"]}`).modal('hide');
       this.fetchAllSuggestions();
       this.createdBook = data;
@@ -160,13 +161,13 @@ export class BookService {
   }
 
   cancelSuggestion(suggestionId: string) {
-    this.http.post(`${urlPrivate}/cancel-suggestion`, {suggestionId: suggestionId}, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+    this.http.post(`${urlPrivate}/cancel-suggestion`, {suggestionId: suggestionId}, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(() => {
       this.fetchAllSuggestions();  
     })
   }
 
   suggestBook(data) {
-    this.http.post(`${urlPrivate}/suggest-book`, data, this.getHttpOptions(localStorage.getItem("token"))).subscribe(() => {
+    this.http.post(`${urlPrivate}/suggest-book`, data, this.getHttpOptions(this.cookieService.get("access_token"))).subscribe(() => {
       $(`#suggestBookModal`).modal('hide');
       this.suggestedBookTitle = data["title"];
     })
