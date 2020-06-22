@@ -5,6 +5,10 @@ img {
     border-radius: 2%;
 }
 
+.book-info {
+    margin-bottom: 100px;
+}
+
 .book {
     margin-top: 35px;
 }

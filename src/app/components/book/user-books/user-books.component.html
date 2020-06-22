@@ -1,6 +1,6 @@
 <div class="container-fluid padding books" *ngIf="userBooks">
     <h2 class="library-title">Моята Библиотека</h2>
-    <div *ngIf="userBooks" class="row text-center d-flex justify-content-center">
+    <div *ngIf="userBooks" class="row text-center d-flex justify-content-center book-div">
         <div *ngFor="let book of userBooks" class="col-xs-12 col-sm-4 col-md-2 book">
             <div routerLink="../{{book.id}}">
                 <img class="book-img" [src]="book.imageURL">
