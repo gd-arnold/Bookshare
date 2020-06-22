@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { DeliveryInfoModalComponent } from './delivery-info-modal/delivery-info-modal.component';
 import { AdminRequestInfoComponent } from './admin-request-info/admin-request-info.component';
 import { SuggestBookModalComponent } from './suggest-book-modal/suggest-book-modal.component';
+import { FormatRequestTitle } from 'src/app/core/pipes/format-request-title';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { SuggestBookModalComponent } from './suggest-book-modal/suggest-book-mod
     UserBooksRegComponent,
     DeliveryInfoModalComponent,
     AdminRequestInfoComponent,
-    SuggestBookModalComponent
+    SuggestBookModalComponent,
+    FormatRequestTitle
   ],
   imports: [
     CommonModule,

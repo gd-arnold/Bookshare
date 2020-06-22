@@ -16,16 +16,16 @@
     </div>
     <div class="col-xl-4 col-md-12 my-lg-0 my-3 row">
         <div class="col-md-6 col-sm-12 my-md-0 my-3">
-            <div class="border rounded book-container text-center justify-content-center align-self-center">
+            <div class="border rounded book-container text-center justify-content-center align-self-center" routerLink="../../../{{request.requestedBook.id}}">
                 <img class="p-2 img-responsive fit-image book" [src]="request.requestedBook.imageURL">
-                <h4 class="pl-2 book-title">{{request.requestedBook.title}}</h4>
+                <h4 class="pl-2 book-title">{{request.requestedBook.title | formatRequestTitle}}</h4>
                 <p class="pl-2 text-muted font-italic">Автор: {{request.requestedBook.author}}</p>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
-            <div class="border rounded book-container text-center justify-content-center align-self-center">
+            <div class="border rounded book-container text-center justify-content-center align-self-center" routerLink="../../../{{request.chosenBook.id}}">
                 <img class="p-2 img-responsive fit-image book" [src]="request.chosenBook.imageURL">
-                <h4 class="pl-2 book-title">{{request.chosenBook.title}}</h4>
+                <h4 class="pl-2 book-title">{{request.chosenBook.title | formatRequestTitle}}</h4>
                 <p class="pl-2 text-muted font-italic">Автор: {{request.chosenBook.author}}</p>
             </div>
         </div>
