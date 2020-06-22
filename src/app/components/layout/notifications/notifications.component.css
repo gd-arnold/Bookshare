@@ -6,7 +6,6 @@
 .count {
     position: absolute;
     top: 21px;
-    right: 142px;
     padding: 2px 6px;
     border-radius: 50%;
     font-weight: 700;
@@ -41,4 +40,10 @@
 
 .nav-item {
     cursor: pointer;
+}
+
+@media( max-width: 990px) {
+    .count {
+        top: 45px;
+    }
 }
