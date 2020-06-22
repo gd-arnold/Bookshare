@@ -3,33 +3,29 @@
 }
 
 .book {
-    height: 480px;
-    width: 280px;
+    height: 440px;
+    width: auto;
 }
 
-
-
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
     .info{
         margin-top: calc(50vh - 225px);
         margin-bottom: calc(50vh - 225px);
     }
 
-    .book{
-        margin-top: calc(50vh - 315px);
-        margin-bottom: calc(50vh - 315px);
+    .book-container{
+        height: 340px;
+        margin-top: calc(50vh - 255px);
+        margin-bottom: calc(50vh - 255px);
+    }
+
+    .book {
+        height: 240px;
+        width: auto;
     }
 }
 
 @media only screen and (max-width: 575px){
-    .book{
-        height: unset;
-    }
-
-    .fit-image {
-        height: 25rem;
-    }
-
     .lastdiv {
         margin-bottom: calc(80px + 1rem);
     }

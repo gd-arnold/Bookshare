@@ -4,18 +4,16 @@
             Поздравления! Вие разменихте "{{request.requestedBook.title}}" за "{{request.chosenBook.title}}"!
         </h2>
         <div class="row m-0 pt-5">
-            <div class="col-1"></div>
-            <div class="col-md-5 col-xs-12 my-3 col-lg-3 col-sm-5">
+            <div class="col-md-6 col-xs-12 my-3 col-lg-4 col-sm-6 d-flex justify-content-center">
                 <img _ngcontent-heq-c5="" class="img-responsive fit-image shadow book"
                     [src]="request.requestedBook.imageURL">
             </div>
-            <div class="col-md-5 col-xs-12 my-3 col-lg-3 col-sm-5">
+            <div class="col-md-6 col-xs-12 my-3 col-lg-4 col-sm-6 d-flex justify-content-center">
                 <img _ngcontent-heq-c5="" class="img-responsive fit-image shadow book"
                     [src]="request.chosenBook.imageURL">
             </div>
-            <div class="col-1"></div>
 
-            <div class="col-12 col-lg-4">
+            <div class="col-12 col-lg-4 d-flex align-items-center">
                 <div class="text-center text-dark p-4 request lastdiv">
                     <h4>Информация за изпращане</h4>
                     <p><b>Куриерска фирма:</b> {{request.requesterAddress.courierService.courierServiceName}}</p>
