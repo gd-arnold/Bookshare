@@ -16,7 +16,7 @@
             <div class="col-1"></div>
 
             <div class="col-12 col-lg-4">
-                <div class=" text-center text-dark p-4 request lastdiv">
+                <div class="text-center text-dark p-4 request lastdiv">
                     <h4>Информация за изпращане</h4>
                     <p><b>Куриерска фирма:</b> {{request.requesterAddress.courierService.courierServiceName}}</p>
                     <p><b>Име:</b> {{request.requester.firstName}} {{request.requester.lastName}}</p>
@@ -34,21 +34,23 @@
         </h2>
         <div class="row m-0 pt-5">
             <div class="col-1"></div>
-            <div class="col-md-5 col-sm-12 my-3">
-                <img class="img-responsive fit-image shadow" [src]="request.chosenBook.imageURL">
+            <div class="col-md-5 col-xs-12 my-3 col-lg-3 col-sm-5">
+                <img class="img-responsive fit-image shadow book" [src]="request.chosenBook.imageURL">
             </div>
-            <div class="col-md-5 col-sm-12 my-3">
-                <img class="img-responsive fit-image shadow" [src]="request.requestedBook.imageURL">
+            <div class="col-md-5 col-xs-12 my-3 col-lg-3 col-sm-5">
+                <img class="img-responsive fit-image shadow book" [src]="request.requestedBook.imageURL">
             </div>
             <div class="col-1"></div>
 
-            <div class="col-12 text-center text-dark pt-4 request lastdiv">
-                <h4>Информация за изпращане</h4>
-                <p><b>Куриерска фирма:</b> {{request.receiverAddress.courierService.courierServiceName}}</p>
-                <p><b>Име:</b> {{request.receiver.firstName}} {{request.receiver.lastName}}</p>
-                <p><b>Tел. номер:</b> {{request.receiver.phoneNumber}}</p>
-                <p><b>Град:</b> {{request.receiverAddress.city.cityName}}</p>
-                <p><b>Адрес на офис:</b> {{request.receiverAddress.address}}</p>
+            <div class="col-12 col-lg-4">
+                <div class="text-center text-dark p-4 request lastdiv">
+                    <h4>Информация за изпращане</h4>
+                    <p><b>Куриерска фирма:</b> {{request.receiverAddress.courierService.courierServiceName}}</p>
+                    <p><b>Име:</b> {{request.receiver.firstName}} {{request.receiver.lastName}}</p>
+                    <p><b>Tел. номер:</b> {{request.receiver.phoneNumber}}</p>
+                    <p><b>Град:</b> {{request.receiverAddress.city.cityName}}</p>
+                    <p><b>Адрес на офис:</b> {{request.receiverAddress.address}}</p>
+                </div>
             </div>
         </div>
     </div>
