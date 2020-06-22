@@ -7,6 +7,8 @@
     width: 280px;
 }
 
+
+
 @media (min-width: 992px) {
     .info{
         margin-top: calc(50vh - 225px);
@@ -20,7 +22,15 @@
 }
 
 @media only screen and (max-width: 575px){
+    .book{
+        height: unset;
+    }
+
     .fit-image {
         height: 25rem;
+    }
+
+    .lastdiv {
+        margin-bottom: calc(80px + 1rem);
     }
 }

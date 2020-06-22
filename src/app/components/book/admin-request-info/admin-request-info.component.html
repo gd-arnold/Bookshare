@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-4 col-mg-12 my-lg-0 my-md-3">
+    <div class="col-xl-4 col-md-12 my-lg-0 my-3">
         <div class="info p-3 border-rounded">
             <h4>Информация за {{request.requester.firstName}}</h4>
             <p><strong>Куриерска фирма:</strong> {{request.requesterAddress.courierService.courierServiceName}}</p>
@@ -14,8 +14,8 @@
             </p>
         </div>
     </div>
-    <div class="col-lg-4 col-mg-12 my-lg-0 my-md-3 row">
-        <div class="col-md-6 col-sm-12 my-md-0 my-sm-3 d-flex justify-content-center">
+    <div class="col-xl-4 col-md-12 my-lg-0 my-3 row">
+        <div class="col-md-6 col-sm-12 my-md-0 my-3 d-flex justify-content-center">
             <div class="border rounded book">
                 <img class="p-2 img-responsive fit-image" [src]="request.requestedBook.imageURL">
                 <h4 class="pl-2 book-title">{{request.requestedBook.title}}</h4>
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4 col-mg-12 my-lg-0 my-md-3">
+    <div class="col-xl-4 col-md-12 my-lg-0 my-md-3 lastdiv">
         <div class="info p-3 border-rounded align-self-center">
             <h4>Информация за {{request.receiver.firstName}}</h4>
             <p><strong>Куриерска фирма:</strong> {{request.receiverAddress.courierService.courierServiceName}}</p>
