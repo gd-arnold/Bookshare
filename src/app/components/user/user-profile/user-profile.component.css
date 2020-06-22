@@ -175,6 +175,11 @@
     font-weight: 100;
 }
 
+.book {
+    height: 18rem;
+    width: auto;
+}
+
 .bar:hover, .book:hover, .request:hover {
     cursor: pointer;
 }
