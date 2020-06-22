@@ -24,6 +24,7 @@
     display: inline-block;
     position: absolute;
     margin-top: 20%;
+    left: calc(50% - 75px);
     text-align: center;
     font-size: 18px;
     color: rgb(206, 112, 5);

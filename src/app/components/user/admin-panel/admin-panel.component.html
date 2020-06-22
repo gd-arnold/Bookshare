@@ -2,7 +2,7 @@
     Вие успешно добавихте "{{createdBook.title}}"!
 </div>
 <div class="row">
-    <div class="user-list col-lg-4 col-md-5 border-right border-bottom">
+    <div class="user-list col-lg-4 col-md-12 border-right border-bottom">
         <ul>
             <li class="border-bottom list-header text-center">
                 <h5 class="pt-2">Потребители</h5>
@@ -31,7 +31,7 @@
             </div>
         </ul>
     </div>
-    <div class="message-list col-lg-4 col-md-7 border-right border-bottom">
+    <div class="message-list col-lg-4 col-md-12 border-right border-bottom">
         <ul>
             <li class="border-bottom list-header text-center">
                 <h5 class="pt-2">Предложения за книги</h5>
@@ -47,14 +47,15 @@
                             <span class="pl-3">Предложена от: {{suggestion.proposer.firstName}}
                                 {{suggestion.proposer.lastName}}</span>
                         </div>
-                        <div class="col-1"></div>
-                        <div class="col-3">
-                            <a data-toggle="modal" (click)="cancelSuggestion(suggestion.id)"
-                                class="btn btn-view my-2">Откажи</a>
-                        </div>
-                        <div class="col-3">
-                            <a data-toggle="modal" [attr.data-target]="'#addBookModal' + suggestion.id"
-                                class="btn btn-view my-2">Добави</a>
+                        <div class="col-12 row">
+                            <div class="col-6">
+                                <a data-toggle="modal" (click)="cancelSuggestion(suggestion.id)"
+                                    class="btn btn-view m-2">Откажи</a>
+                            </div>
+                            <div class="col-6">
+                                <a data-toggle="modal" [attr.data-target]="'#addBookModal' + suggestion.id"
+                                    class="btn btn-view m-2 float-right">Добави</a>
+                            </div>
                         </div>
                         <div class="modal fade" id="addBookModal{{suggestion.id}}" tabindex="-1" role="dialog"
                             aria-hidden="true">
@@ -126,7 +127,7 @@
             </div>
         </ul>
     </div>
-    <div class="message-list col-lg-4 col-md-7 border-right border-bottom" id="panel">
+    <div class="message-list col-lg-4 col-md-12 border-right border-bottom" id="panel">
         <ul>
             <li class="border-bottom list-header text-center">
                 <h5 class="pt-2">Съобщения</h5>
